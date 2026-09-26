@@ -504,3 +504,141 @@
   color: #0a58ca;
 }
 /* ========================================================= */
+/* --- 5. KHỐI ĐỊNH DẠNG ARRAY 2 & UPLOAD PROCESS --- */
+/* ========================================================= */
+.upload-form {
+  max-width: 520px;
+  margin: 15px auto 25px auto;
+  padding: 22px 28px;
+  background-color: #fafafa;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.upload-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.upload-item {
+  display: flex;
+  align-items: center;
+}
+
+.upload-item label {
+  width: 80px;
+  min-width: 80px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+}
+
+.upload-item input[type="file"] {
+  flex: 1;
+  font-size: 13px;
+  padding: 4px 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+}
+
+.upload-form .form-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.upload-form button {
+  padding: 8px 24px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.upload-form .btn-submit {
+  background-color: #007bff;
+  color: #fff;
+  border: 1px solid #007bff;
+}
+
+.upload-form .btn-submit:hover {
+  background-color: #0056b3;
+  box-shadow: 0 2px 4px rgba(0, 123, 255, 0.3);
+}
+
+.upload-form .btn-reset {
+  background-color: #e9ecef;
+  color: #495057;
+  border: 1px solid #ced4da;
+}
+
+.upload-form .btn-reset:hover {
+  background-color: #dde2e6;
+}
+
+/* Khối hiển thị kết quả upload */
+.upload-result-container {
+  max-width: 520px;
+  margin: 20px auto;
+  padding: 22px 28px;
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.upload-result-container h4 {
+  margin-bottom: 15px;
+  color: #0056b3;
+  text-align: center;
+}
+
+.upload-result-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0 0 20px 0;
+}
+
+.upload-result-list li {
+  padding: 8px 12px;
+  border-bottom: 1px dashed #eee;
+  font-size: 14px;
+}
+
+.upload-result-list li a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.upload-result-list li a:hover {
+  text-decoration: underline;
+  color: #0056b3;
+}
+
+.btn-back-upload {
+  display: inline-block;
+  padding: 9px 24px;
+  background-color: #007bff;
+  color: #fff !important;
+  text-decoration: none !important;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 5px;
+  border: 1px solid #007bff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 123, 255, 0.2);
+}
+
+.btn-back-upload:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+  box-shadow: 0 4px 8px rgba(0, 123, 255, 0.35);
+  transform: translateY(-1px);
+}

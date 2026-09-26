@@ -42,7 +42,9 @@
   border-radius: 4px;
   outline: none;
   font-family: Arial, sans-serif;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
 }
 
 .form-group input[type="text"]:focus,
@@ -149,7 +151,9 @@
   border-radius: 4px;
   outline: none;
   font-family: Arial, sans-serif;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
 }
 
 .form-row input[type="number"]:focus {

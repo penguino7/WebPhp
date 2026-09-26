@@ -43,7 +43,9 @@
   border-radius: 4px;
   outline: none;
   font-family: Arial, sans-serif;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
 }
 
 .draw-table-form .form-group input[type="number"]:focus {

@@ -4,7 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bài tập sử dụng Template PHP</title>
+    <!-- 1. CSS khung giao diện chung toàn website -->
+    <link rel="stylesheet" href="/src/css/common.css?v=<?php echo time(); ?>">
+    <!-- 2. CSS riêng của Bài 2 -->
     <link rel="stylesheet" href="style.css?v=<?php echo time(); ?>">
 </head>
 

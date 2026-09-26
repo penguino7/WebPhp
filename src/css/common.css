@@ -1,0 +1,185 @@
+/* ==========================================================================
+   CSS KHUNG GIAO DIỆN CHUNG TOÀN WEBSITE (COMMON / LAYOUT CSS)
+   ========================================================================== */
+
+/* 1. Reset mặc định */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+}
+
+/* 2. Khung bao ngoài cùng */
+.wrapper {
+  width: 960px;
+  margin: 30px auto;
+  background: #fff;
+  border: 1px solid #000;
+}
+
+/* 3. PHẦN ĐẦU TRANG (HEADER BANNER) */
+header {
+  display: flex;
+  height: 110px;
+  max-height: 110px;
+  border-bottom: 1px solid #000;
+  overflow: hidden;
+}
+
+.student-info {
+  width: 250px;
+  padding: 15px;
+  border-right: 1px solid #000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: #fff;
+}
+
+.student-info p {
+  font-size: 20px;
+  font-weight: bold;
+  color: #111;
+  text-align: center;
+  line-height: 1.4;
+}
+
+.banner {
+  flex: 1;
+  height: 100%;
+  background-color: #ffe4e1;
+  overflow: hidden;
+}
+
+.banner img {
+  width: 100%;
+  height: 100%;
+  max-height: 110px;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* 4. PHẦN THÂN TRANG (CONTAINER CHIA 2 CỘT) */
+.container {
+  display: flex;
+  min-height: 400px;
+}
+
+/* Cột menu 16 bài bên trái */
+aside.left-menu,
+aside.sidebar {
+  width: 250px;
+  background-color: #fff;
+  border-right: 1px solid #000;
+  padding: 10px;
+}
+
+aside.left-menu ul,
+aside.sidebar ul {
+  list-style: none;
+}
+
+aside.left-menu li,
+aside.sidebar li {
+  margin-bottom: 5px;
+}
+
+aside.left-menu a,
+aside.sidebar a {
+  text-decoration: none;
+  color: #000;
+  display: block;
+  padding: 4px 0;
+}
+
+aside.left-menu a:hover,
+aside.sidebar a:hover {
+  color: #0066cc;
+  text-decoration: underline;
+}
+
+aside.left-menu a.active-menu,
+aside.sidebar a.active-menu {
+  color: #0066cc;
+  font-weight: bold;
+}
+
+/* Cột nội dung bên phải */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+}
+
+/* Menu thanh tab ngang */
+.menu-nav {
+  background-color: #333;
+  display: flex;
+  width: 100%;
+}
+
+.menu-nav a {
+  flex: 1;
+  display: block;
+  color: #fff;
+  text-align: center;
+  padding: 12px 0;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: bold;
+  transition: background-color 0.2s;
+  border-right: 1px solid #444;
+}
+
+.menu-nav a:last-child {
+  border-right: none;
+}
+
+.menu-nav a:hover {
+  background-color: #555;
+  color: #fff;
+}
+
+.menu-nav a.active {
+  background-color: #66afe9;
+  color: #fff;
+}
+
+/* Khung hiển thị nội dung chính */
+.content {
+  flex: 1;
+  padding: 20px;
+  min-height: 300px;
+}
+
+/* 5. PHẦN CHÂN TRANG (FOOTER BANNER) */
+footer {
+  border-top: 1px solid #000;
+  width: 100%;
+  height: 100px;
+  overflow: hidden;
+  clear: both;
+}
+
+.footer-banner {
+  width: 100%;
+  height: 100%;
+}
+
+.footer-banner img {
+  width: 100%;
+  height: 100%;
+  max-height: 100px;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}

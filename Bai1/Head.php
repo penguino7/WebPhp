@@ -4,6 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Bài Tập Thực Hành Công Nghệ Web An Toàn</title>
+    <!-- 1. CSS khung giao diện chung của toàn website -->
+    <link rel="stylesheet" href="/src/css/common.css?v=<?php echo time(); ?>">
+    <!-- 2. CSS riêng của bài đang mở -->
     <link rel="stylesheet" href="style.css?v=<?php echo time(); ?>">
 </head>
 

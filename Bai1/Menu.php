@@ -3,7 +3,7 @@
         <li><a href="/Bai1/index.php">1. Tạo template</a></li>
         <li><a href="/Bai2/Register.php">2. Sử dụng template</a></li>
         <li><a href="/Bai3/index.php">3. Lấy dữ liệu và gửi dữ liệu</a></li>
-        <li><a href="#">4. GetForm</a></li>
+        <li><a href="/Bai4/index.php">4. GetForm</a></li>
         <li><a href="#">5. Phiên</a></li>
         <li><a href="#">6. Cookie</a></li>
         <li><a href="#">7. Function</a></li>

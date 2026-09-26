@@ -1,0 +1,154 @@
+/* ==========================================================================
+   CSS RIÊNG CHO BÀI 4 (GETFORM)
+   (Kế thừa khung layout chung từ /src/css/common.css)
+   ========================================================================== */
+
+/* Khung form chung cho Bài 4 */
+.getform-container {
+  max-width: 560px;
+  margin: 15px auto 25px auto;
+  padding: 22px 28px;
+  background-color: #fafafa;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.getform-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.getform-table td {
+  padding: 8px 6px;
+  vertical-align: top;
+  font-size: 14px;
+}
+
+.getform-table td:first-child {
+  width: 140px;
+  font-weight: bold;
+  color: #333;
+}
+
+.getform-table input[type="text"],
+.getform-table input[type="password"],
+.getform-table select,
+.getform-table textarea {
+  width: 100%;
+  max-width: 320px;
+  padding: 7px 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+  font-family: Arial, sans-serif;
+  box-sizing: border-box;
+}
+
+.getform-table input[type="text"]:focus,
+.getform-table input[type="password"]:focus,
+.getform-table select:focus,
+.getform-table textarea:focus {
+  border-color: #66afe9;
+  box-shadow: 0 0 6px rgba(102, 175, 233, 0.5);
+  background-color: #fff;
+}
+
+/* Các nhóm radio / checkbox */
+.inline-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 15px;
+}
+
+.inline-group label,
+.block-group label {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #333;
+}
+
+.block-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* Nút bấm */
+.form-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.form-buttons button,
+.form-buttons input[type="submit"],
+.form-buttons input[type="reset"],
+.form-buttons input[type="button"] {
+  padding: 8px 24px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-submit {
+  background-color: #007bff;
+  color: #fff;
+  border: 1px solid #007bff;
+}
+
+.btn-submit:hover {
+  background-color: #0056b3;
+  box-shadow: 0 2px 4px rgba(0, 123, 255, 0.3);
+}
+
+.btn-reset {
+  background-color: #e9ecef;
+  color: #495057;
+  border: 1px solid #ced4da;
+}
+
+.btn-reset:hover {
+  background-color: #dde2e6;
+}
+
+/* Bảng hiển thị kết quả */
+.result-table-box {
+  max-width: 560px;
+  margin: 20px auto;
+  padding: 22px 28px;
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.result-table-box table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.result-table-box td {
+  padding: 8px 10px;
+  font-size: 14px;
+  border-bottom: 1px dashed #eee;
+}
+
+.result-table-box td:first-child {
+  width: 150px;
+  font-weight: bold;
+  color: #333;
+}
+
+.result-table-box td:last-child {
+  color: #0a58ca;
+  font-weight: 500;
+}

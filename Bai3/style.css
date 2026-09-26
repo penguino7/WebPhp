@@ -157,6 +157,138 @@ aside.sidebar a.active-menu {
   min-height: 300px;
 }
 
+/* ========================================================= */
+/* --- KHỐI ĐỊNH DẠNG DRAW TABLE (VẼ BẢNG) --- */
+/* ========================================================= */
+.draw-table-form {
+  max-width: 420px;
+  margin: 15px auto 25px auto;
+  padding: 20px 25px;
+  background-color: #fafafa;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.draw-table-form .form-title {
+  margin-bottom: 15px;
+  font-size: 15px;
+  color: #222;
+}
+
+.draw-table-form .form-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.draw-table-form .form-group label {
+  width: 90px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+}
+
+.draw-table-form .form-group input[type="number"] {
+  flex: 1;
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+  font-family: Arial, sans-serif;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+.draw-table-form .form-group input[type="number"]:focus {
+  border-color: #66afe9;
+  box-shadow: 0 0 6px rgba(102, 175, 233, 0.5);
+  background-color: #fff;
+}
+
+.draw-table-form .form-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.draw-table-form button {
+  padding: 8px 22px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.draw-table-form .btn-submit {
+  background-color: #007bff;
+  color: #fff;
+  border: 1px solid #007bff;
+}
+
+.draw-table-form .btn-submit:hover {
+  background-color: #0056b3;
+  box-shadow: 0 2px 4px rgba(0, 123, 255, 0.3);
+}
+
+.draw-table-form .btn-reset {
+  background-color: #e9ecef;
+  color: #495057;
+  border: 1px solid #ced4da;
+}
+
+.draw-table-form .btn-reset:hover {
+  background-color: #dde2e6;
+}
+
+.draw-table-form .form-note {
+  text-align: center;
+  font-size: 12px;
+  color: #777;
+  margin-top: 12px;
+}
+
+/* Khối hiển thị Bảng kết quả */
+.table-result-wrapper {
+  margin: 20px auto;
+  text-align: center;
+}
+
+.table-result-wrapper h4 {
+  margin-bottom: 12px;
+  color: #333;
+}
+
+.custom-table {
+  margin: 0 auto;
+  border-collapse: collapse;
+  border: 1px solid #aaa;
+  background-color: #fff;
+}
+
+.custom-table td {
+  min-width: 40px;
+  height: 35px;
+  border: 1px solid #999;
+  text-align: center;
+  font-weight: bold;
+  font-size: 14px;
+  color: #222;
+  padding: 4px 8px;
+}
+
+.error-msg {
+  text-align: center;
+  color: #dc3545;
+  font-weight: bold;
+  margin-top: 15px;
+}
+/* ========================================================= */
+
 /* --- PHẦN FOOTER (BANNER ẢNH) --- */
 footer {
   border-top: 1px solid #000;

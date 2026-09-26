@@ -5,51 +5,80 @@
 
 /* Khung form chung cho Bài 4 */
 .getform-container {
-  max-width: 560px;
+  max-width: 580px;
   margin: 15px auto 25px auto;
-  padding: 22px 28px;
+  padding: 24px 30px;
   background-color: #fafafa;
   border: 1px solid #e0e0e0;
   border-radius: 8px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
-.getform-table {
-  width: 100%;
-  border-collapse: collapse;
+.form-header-title {
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  color: #0056b3;
+  margin-bottom: 20px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #eaeaea;
 }
 
-.getform-table td {
-  padding: 8px 6px;
-  vertical-align: top;
+/* Bố cục từng hàng bằng div.form-group */
+.form-group {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 15px;
+}
+
+.form-label {
+  width: 170px;
+  min-width: 170px;
   font-size: 14px;
-}
-
-.getform-table td:first-child {
-  width: 140px;
   font-weight: bold;
   color: #333;
+  padding-top: 7px;
 }
 
-.getform-table input[type="text"],
-.getform-table input[type="password"],
-.getform-table select,
-.getform-table textarea {
+.form-control-wrap {
+  flex: 1;
+}
+
+.form-control-wrap input[type="text"],
+.form-control-wrap input[type="password"],
+.form-control-wrap textarea {
   width: 100%;
-  max-width: 320px;
-  padding: 7px 10px;
+  padding: 8px 12px;
   font-size: 14px;
   border: 1px solid #ccc;
   border-radius: 4px;
   outline: none;
   font-family: Arial, sans-serif;
   box-sizing: border-box;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
 }
 
-.getform-table input[type="text"]:focus,
-.getform-table input[type="password"]:focus,
-.getform-table select:focus,
-.getform-table textarea:focus {
+.form-control-wrap select {
+  width: 100%;
+  max-width: 220px;
+  padding: 6px 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+  font-family: Arial, sans-serif;
+}
+
+.form-control-wrap textarea {
+  resize: vertical;
+}
+
+.form-control-wrap input[type="text"]:focus,
+.form-control-wrap input[type="password"]:focus,
+.form-control-wrap select:focus,
+.form-control-wrap textarea:focus {
   border-color: #66afe9;
   box-shadow: 0 0 6px rgba(102, 175, 233, 0.5);
   background-color: #fff;
@@ -60,23 +89,35 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 15px;
+  gap: 18px;
+  padding-top: 6px;
 }
 
 .inline-group label,
 .block-group label {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
   cursor: pointer;
   font-size: 14px;
   color: #333;
+  user-select: none;
 }
 
 .block-group {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 7px;
+  padding-top: 6px;
+}
+
+.form-control-wrap input[type="radio"],
+.form-control-wrap input[type="checkbox"] {
+  cursor: pointer;
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  accent-color: #007bff;
 }
 
 /* Nút bấm */
@@ -84,14 +125,16 @@
   display: flex;
   justify-content: center;
   gap: 15px;
-  margin-top: 15px;
+  margin-top: 22px;
+  padding-top: 14px;
+  border-top: 1px solid #eaeaea;
 }
 
 .form-buttons button,
 .form-buttons input[type="submit"],
 .form-buttons input[type="reset"],
 .form-buttons input[type="button"] {
-  padding: 8px 24px;
+  padding: 8px 26px;
   font-size: 14px;
   font-weight: bold;
   border-radius: 4px;
@@ -120,35 +163,39 @@
   background-color: #dde2e6;
 }
 
-/* Bảng hiển thị kết quả */
-.result-table-box {
-  max-width: 560px;
+/* Bảng / khối hiển thị kết quả (RegisterProcess & Contact1Page) */
+.result-display-container {
+  max-width: 580px;
   margin: 20px auto;
-  padding: 22px 28px;
+  padding: 24px 30px;
   background-color: #fff;
   border: 1px solid #e0e0e0;
   border-radius: 8px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
-.result-table-box table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.result-table-box td {
-  padding: 8px 10px;
-  font-size: 14px;
+.result-row {
+  display: flex;
+  align-items: flex-start;
+  padding: 10px 0;
   border-bottom: 1px dashed #eee;
+  font-size: 14px;
 }
 
-.result-table-box td:first-child {
-  width: 150px;
+.result-row:last-child {
+  border-bottom: none;
+}
+
+.result-label {
+  width: 180px;
+  min-width: 180px;
   font-weight: bold;
   color: #333;
 }
 
-.result-table-box td:last-child {
+.result-value {
+  flex: 1;
   color: #0a58ca;
   font-weight: 500;
+  word-break: break-word;
 }

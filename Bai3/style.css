@@ -133,3 +133,125 @@
   font-weight: bold;
   margin-top: 15px;
 }
+
+/* ========================================================= */
+/* --- 2. KHỐI ĐỊNH DẠNG CALCULATE 1 (MÁY TÍNH 4 PHÉP TÍNH) --- */
+/* ========================================================= */
+.calc1-form {
+  max-width: 420px;
+  margin: 15px auto 20px auto;
+  padding: 20px 25px;
+  background-color: #fafafa;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.calc1-form .form-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+/* Nhãn tiêu đề ô nhập (Số a, Số b, Phép tính) */
+.calc1-form .form-group > label {
+  width: 95px;
+  min-width: 95px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+}
+
+.calc1-form .form-group input[type="number"] {
+  flex: 1;
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+  font-family: Arial, sans-serif;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+.calc1-form .form-group input[type="number"]:focus {
+  border-color: #66afe9;
+  box-shadow: 0 0 6px rgba(102, 175, 233, 0.5);
+  background-color: #fff;
+}
+
+/* Khối các nút radio chọn phép tính */
+.radio-group {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 20px;
+}
+
+.radio-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  color: #222;
+  user-select: none;
+  width: auto;
+  margin: 0;
+}
+
+.radio-label input[type="radio"] {
+  cursor: pointer;
+  width: 17px;
+  height: 17px;
+  margin: 0;
+  accent-color: #007bff;
+}
+
+.calc1-form .form-buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 18px;
+}
+
+.calc1-form .btn-submit {
+  padding: 8px 30px;
+  font-size: 14px;
+  font-weight: bold;
+  background-color: #007bff;
+  color: #fff;
+  border: 1px solid #007bff;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.calc1-form .btn-submit:hover {
+  background-color: #0056b3;
+  box-shadow: 0 2px 4px rgba(0, 123, 255, 0.3);
+}
+
+.calc1-form .btn-submit:active {
+  transform: scale(0.97);
+}
+
+/* Khối hiển thị kết quả tính toán */
+.calc-result-box {
+  max-width: 420px;
+  margin: 15px auto 25px auto;
+  padding: 12px 20px;
+  background-color: #e8f4fd;
+  border: 1px solid #b8daff;
+  border-radius: 6px;
+  text-align: center;
+  font-size: 16px;
+  color: #004085;
+}
+
+.calc-result-box strong {
+  color: #002752;
+}
+/* ========================================================= */

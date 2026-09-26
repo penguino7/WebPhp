@@ -348,3 +348,159 @@
 }
 /* ========================================================= */
 
+/* ========================================================= */
+/* --- 4. KHỐI ĐỊNH DẠNG ARRAY 1 (MA TRẬN 3X3) --- */
+/* ========================================================= */
+.matrix-form {
+  max-width: 650px;
+  margin: 15px auto 25px auto;
+  padding: 25px 30px;
+  background-color: #fafafa;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.matrix-container {
+  display: flex;
+  justify-content: space-around;
+  gap: 30px;
+  margin-bottom: 20px;
+}
+
+.matrix-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.matrix-box h4 {
+  margin-bottom: 12px;
+  color: #333;
+  font-size: 15px;
+}
+
+.matrix-table {
+  border-collapse: collapse;
+  margin: 0 auto;
+}
+
+.matrix-table td {
+  padding: 4px;
+}
+
+.matrix-table input[type="number"] {
+  width: 55px;
+  height: 40px;
+  text-align: center;
+  font-size: 15px;
+  font-weight: bold;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+  -moz-appearance: textfield;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+.matrix-table input[type="number"]::-webkit-outer-spin-button,
+.matrix-table input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.matrix-table input[type="number"]:focus {
+  border-color: #66afe9;
+  box-shadow: 0 0 6px rgba(102, 175, 233, 0.5);
+  background-color: #fff;
+}
+
+.matrix-form .form-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.matrix-form button {
+  padding: 8px 24px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.matrix-form .btn-submit {
+  background-color: #007bff;
+  color: #fff;
+  border: 1px solid #007bff;
+}
+
+.matrix-form .btn-submit:hover {
+  background-color: #0056b3;
+  box-shadow: 0 2px 4px rgba(0, 123, 255, 0.3);
+}
+
+.matrix-form .btn-reset {
+  background-color: #e9ecef;
+  color: #495057;
+  border: 1px solid #ced4da;
+}
+
+.matrix-form .btn-reset:hover {
+  background-color: #dde2e6;
+}
+
+/* Khối hiển thị 3 Ma trận kết quả (Tổng, Hiệu, Tích) */
+.matrix-results {
+  max-width: 650px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+}
+
+.matrix-results h4 {
+  margin-bottom: 15px;
+  color: #0056b3;
+  text-align: center;
+}
+
+.results-grid {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.result-item {
+  flex: 1;
+  min-width: 170px;
+  text-align: center;
+}
+
+.result-item h5 {
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.result-matrix-table {
+  margin: 0 auto;
+  border-collapse: collapse;
+  background: #fff;
+  border: 1px solid #ccc;
+}
+
+.result-matrix-table td {
+  width: 45px;
+  height: 35px;
+  border: 1px solid #ccc;
+  text-align: center;
+  font-weight: bold;
+  font-size: 14px;
+  color: #0a58ca;
+}
+/* ========================================================= */

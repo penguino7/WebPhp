@@ -281,6 +281,7 @@
   border: 1px solid #ccc;
   border-radius: 4px;
   outline: none;
+  appearance: textfield;
   -moz-appearance: textfield;
   transition:
     border-color 0.2s,

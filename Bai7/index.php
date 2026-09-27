@@ -3,8 +3,8 @@
 $page = $_GET['page'] ?? 'home';
 
 // 2. Nhúng Đầu trang & Menu bài tập bên trái (Dùng chung từ Bài 1)
-include '../Bai1/Head.php';
-include '../Bai1/Menu.php';
+include_once __DIR__ . '/../Bai1/Head.php';
+include_once __DIR__ . '/../Bai1/Menu.php';
 ?>
 
 <!-- 3. Cột nội dung chính bên phải của Bài 7 -->
@@ -22,20 +22,20 @@ include '../Bai1/Menu.php';
         <?php
         switch ($page) {
             case 'ar1Chieu':
-                include 'pages/ar1Chieu.php';
+                include __DIR__ . '/pages/ar1Chieu.php';
                 break;
 
             case 'matrix':
-                include 'pages/matrix.php';
+                include __DIR__ . '/pages/matrix.php';
                 break;
 
             case 'associateArr':
-                include 'pages/associateArr.php';
+                include __DIR__ . '/pages/associateArr.php';
                 break;
 
             case 'home':
             default:
-                include 'pages/home.php';
+                include __DIR__ . '/pages/home.php';
                 break;
         }
         ?>
@@ -44,5 +44,5 @@ include '../Bai1/Menu.php';
 
 <?php
 // 4. Nhúng Chân trang (Dùng chung từ Bài 1)
-include '../Bai1/Footer.php';
+include_once __DIR__ . '/../Bai1/Footer.php';
 ?>

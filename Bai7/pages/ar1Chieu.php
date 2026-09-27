@@ -48,12 +48,12 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
 <div class="array-form-container">
     <div class="form-header-title">THAO TÁC TRÊN MẢNG 1 CHIỀU</div>
 
-    <p style="text-align: center; font-size: 13px; color: #666; margin-bottom: 20px;">
+    <p class="page-subtitle">
         Nhập các số nguyên hoặc số thực, phân cách nhau bằng dấu phẩy <em>(Ví dụ: 3, 5, 1, 8, 2, 9, 4)</em>
     </p>
 
     <?php if (!empty($error)): ?>
-        <div style="background-color: #f8d7da; color: #721c24; padding: 10px 14px; border-radius: 4px; margin-bottom: 18px; font-size: 14px; border: 1px solid #f5c6cb;">
+        <div class="alert-error">
             <?= htmlspecialchars($error) ?>
         </div>
     <?php endif; ?>
@@ -81,11 +81,11 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
 
 <?php if ($results !== null): ?>
     <div class="result-display-container">
-        <div class="form-header-title" style="color: #28a745; border-color: #d4edda;">KẾT QUẢ TÍNH TOÁN & XỬ LÝ MẢNG</div>
+        <div class="form-header-title title-success">KẾT QUẢ TÍNH TOÁN & XỬ LÝ MẢNG</div>
 
         <div class="result-row">
             <div class="result-label">Dãy số ban đầu:</div>
-            <div class="result-value" style="color: #333;"><?= htmlspecialchars($results['goc']) ?></div>
+            <div class="result-value val-default"><?= htmlspecialchars($results['goc']) ?></div>
         </div>
 
         <div class="result-row">
@@ -100,12 +100,12 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
 
         <div class="result-row">
             <div class="result-label">Số nhỏ nhất (MIN):</div>
-            <div class="result-value" style="color: #dc3545;"><?= $results['min'] ?></div>
+            <div class="result-value val-min"><?= $results['min'] ?></div>
         </div>
 
         <div class="result-row">
             <div class="result-label">Số lớn nhất (MAX):</div>
-            <div class="result-value" style="color: #198754;"><?= $results['max'] ?></div>
+            <div class="result-value val-max"><?= $results['max'] ?></div>
         </div>
 
         <div class="result-row">

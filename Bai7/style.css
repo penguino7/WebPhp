@@ -14,6 +14,11 @@
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
+.matrix-form-container,
+.assoc-form-container {
+  max-width: 740px;
+}
+
 .form-header-title {
   text-align: center;
   font-size: 16px;
@@ -22,6 +27,55 @@
   margin-bottom: 20px;
   padding-bottom: 8px;
   border-bottom: 1px solid #eaeaea;
+}
+
+.title-success {
+  color: #28a745;
+  border-color: #d4edda;
+}
+
+.title-sub {
+  font-size: 14px;
+  margin-top: 20px;
+  color: #333;
+}
+
+.page-subtitle {
+  text-align: center;
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+/* Thông báo */
+.alert-error {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 10px 14px;
+  border-radius: 4px;
+  margin-bottom: 18px;
+  font-size: 14px;
+  border: 1px solid #f5c6cb;
+}
+
+.alert-success {
+  background-color: #d1e7dd;
+  color: #0f5132;
+  padding: 10px 14px;
+  border-radius: 4px;
+  margin-bottom: 18px;
+  font-size: 14px;
+  border: 1px solid #badbcc;
+}
+
+.alert-info {
+  background-color: #cff4fc;
+  color: #055160;
+  padding: 10px 14px;
+  border-radius: 4px;
+  margin-bottom: 18px;
+  font-size: 14px;
+  border: 1px solid #b6effb;
 }
 
 /* Hàng form */
@@ -104,6 +158,38 @@
   background-color: #dde2e6;
 }
 
+.btn-sm {
+  font-size: 13px;
+  padding: 6px 14px;
+}
+
+.btn-info {
+  background-color: #17a2b8;
+  border-color: #17a2b8;
+}
+
+.btn-info:hover {
+  background-color: #138496;
+}
+
+.btn-purple {
+  background-color: #6f42c1;
+  border-color: #6f42c1;
+}
+
+.btn-purple:hover {
+  background-color: #59359a;
+}
+
+.btn-orange {
+  background-color: #fd7e14;
+  border-color: #fd7e14;
+}
+
+.btn-orange:hover {
+  background-color: #e06b0b;
+}
+
 /* Bảng hiển thị kết quả */
 .result-display-container {
   max-width: 650px;
@@ -113,6 +199,11 @@
   border: 1px solid #e0e0e0;
   border-radius: 8px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.matrix-result-container,
+.assoc-result-container {
+  max-width: 740px;
 }
 
 .result-row {
@@ -138,6 +229,18 @@
   flex: 1;
   color: #0a58ca;
   font-weight: bold;
+}
+
+.val-default {
+  color: #333;
+}
+
+.val-min {
+  color: #dc3545;
+}
+
+.val-max {
+  color: #198754;
 }
 
 /* Bảng ma trận */
@@ -229,4 +332,121 @@
   font-weight: bold;
   font-size: 14px;
   color: #0a58ca;
+}
+
+/* ==========================================================================
+   CSS CHO MẢNG KẾT HỢP (ASSOCIATIVE ARRAY)
+   ========================================================================== */
+.assoc-card {
+  background: #fff;
+  padding: 15px 20px;
+  border-radius: 6px;
+  border: 1px solid #e9ecef;
+  margin-bottom: 20px;
+}
+
+.assoc-card-title {
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  color: #0056b3;
+}
+
+.assoc-inline-form {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.assoc-input {
+  flex: 1;
+  min-width: 160px;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.assoc-input:focus {
+  border-color: #66afe9;
+  box-shadow: 0 0 6px rgba(102, 175, 233, 0.5);
+}
+
+.assoc-select {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: #fff;
+  font-size: 14px;
+  outline: none;
+}
+
+.assoc-btn-group {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.assoc-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.assoc-table th {
+  background-color: #f1f3f5;
+  border-bottom: 2px solid #dee2e6;
+  padding: 10px;
+}
+
+.assoc-table td {
+  padding: 8px 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.assoc-table td.col-stt {
+  text-align: center;
+  color: #666;
+  width: 60px;
+}
+
+.assoc-table td.col-key {
+  font-weight: bold;
+  color: #0d6efd;
+}
+
+.assoc-table td.col-val {
+  text-align: right;
+  font-weight: bold;
+  color: #333;
+  width: 120px;
+}
+
+/* ==========================================================================
+   CSS CHO TRANG HOME (HOME.PHP)
+   ========================================================================== */
+.home-intro-box {
+  max-width: 580px;
+  margin: 20px auto;
+  padding: 20px 25px;
+  background: #fafafa;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  line-height: 1.8;
+  font-size: 14px;
+  color: #333;
+}
+
+.home-title {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.home-callout {
+  text-align: center;
+  margin-top: 15px;
 }

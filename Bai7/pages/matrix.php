@@ -91,10 +91,10 @@ function renderMatrixTable(array $matrix)
 }
 ?>
 
-<div class="array-form-container" style="max-width: 720px;">
+<div class="array-form-container matrix-form-container">
     <div class="form-header-title">THAO TÁC TRÊN MA TRẬN 2 CHIỀU (3x3)</div>
 
-    <p style="text-align: center; font-size: 13px; color: #666; margin-bottom: 20px;">
+    <p class="page-subtitle">
         Nhập các phần tử cho <strong>Ma trận A</strong> và <strong>Ma trận B</strong> để thực hiện các phép toán đại số ma trận.
     </p>
 
@@ -121,8 +121,8 @@ function renderMatrixTable(array $matrix)
 </div>
 
 <?php if ($results !== null): ?>
-    <div class="result-display-container" style="max-width: 720px;">
-        <div class="form-header-title" style="color: #28a745; border-color: #d4edda;">KẾT QUẢ TÍNH TOÁN MA TRẬN</div>
+    <div class="result-display-container matrix-result-container">
+        <div class="form-header-title title-success">KẾT QUẢ TÍNH TOÁN MA TRẬN</div>
 
         <!-- 1. Hiển thị các ma trận kết quả: Tổng, Hiệu, Tích -->
         <div class="results-grid" style="margin-bottom: 25px;">
@@ -142,7 +142,7 @@ function renderMatrixTable(array $matrix)
             </div>
         </div>
 
-        <div class="form-header-title" style="font-size: 14px; margin-top: 20px; color: #333;">CÁC THÔNG SỐ ĐẶC TRƯNG</div>
+        <div class="form-header-title title-sub">CÁC THÔNG SỐ ĐẶC TRƯNG</div>
 
         <!-- 2. Thống kê chéo chính, chéo phụ, Max, Min của từng ma trận -->
         <div class="result-row">
@@ -163,7 +163,7 @@ function renderMatrixTable(array $matrix)
 
         <div class="result-row">
             <div class="result-label">Phần tử lớn nhất (MAX):</div>
-            <div class="result-value" style="color: #198754;">
+            <div class="result-value val-max">
                 Ma trận A = <strong><?= $results['maxA'] ?></strong> |
                 Ma trận B = <strong><?= $results['maxB'] ?></strong>
             </div>
@@ -171,7 +171,7 @@ function renderMatrixTable(array $matrix)
 
         <div class="result-row">
             <div class="result-label">Phần tử nhỏ nhất (MIN):</div>
-            <div class="result-value" style="color: #dc3545;">
+            <div class="result-value val-min">
                 Ma trận A = <strong><?= $results['minA'] ?></strong> |
                 Ma trận B = <strong><?= $results['minB'] ?></strong>
             </div>

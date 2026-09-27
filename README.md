@@ -1,25 +1,25 @@
-# 🐘 WebPhp: Cẩm Nang & Bộ Thực Hành Lập Trình PHP Toàn Diện
+# WebPhp: Hệ Thống Bài Thực Hành & Tài Liệu Lập Trình PHP Toàn Diện
 
-> **Kho lưu trữ thực hành mã nguồn mở (Hands-on Labs & Master Handbook)** được xây dựng từ cơ bản đến nâng cao, kết hợp giữa các bài toán thực hành thực tế và bộ tài liệu phân tích chuyên sâu nhằm giúp người học hiểu rõ bản chất cơ chế hoạt động của ngôn ngữ PHP và lập trình Web hiện đại.
+> **Kho lưu trữ thực hành mã nguồn mở (Hands-on Labs & Technical Documentation)** được xây dựng từ cơ bản đến nâng cao, kết hợp giữa các bài toán thực hành thực tế và bộ tài liệu phân tích chuyên sâu nhằm giúp người học hiểu rõ bản chất cơ chế hoạt động của ngôn ngữ PHP và lập trình Web hiện đại.
 
 ---
 
-## 🎯 1. Mục Tiêu Của Dự Án
+## 1. Mục Tiêu Của Dự Án
 
 - **Hiểu sâu bản chất:** Không chỉ dừng lại ở việc viết code chạy được, dự án tập trung làm rõ cách PHP Engine tương tác với HTTP Request/Response, cách quản lý bộ nhớ RAM, Session/Cookie và luồng File Stream trên hệ điều hành.
 - **Kiến trúc sạch & Chuẩn mực:** Áp dụng tư duy phân tách giao diện (Modular Template), điều hướng tập trung (Single Entry Point Router), bảo mật dữ liệu (XSS, LFI, Session Fixation), và xử lý mảng/ma trận hiệu năng cao.
 - **Hệ thống hóa 2 trong 1:**
   1. **Source Code Thực Hành (`Bai1` $\rightarrow$ `Bai16`):** Mỗi bài là một đồ án mini hoặc chức năng hoàn chỉnh.
-  2. **Tài Liệu Chuyên Sâu (`docs/`):** Cẩm nang phân tích chi tiết từng hàm, tham số, cơ chế nội bộ và biểu đồ tuần tự (Sequence Diagram).
+  2. **Tài Liệu Chuyên Sâu (`docs/`):** Phân tích chi tiết từng hàm, tham số, cơ chế nội bộ và biểu đồ tuần tự (Sequence Diagram).
 
 ---
 
-## 📂 2. Cấu Trúc Tổng Thể Thư Mục
+## 2. Cấu Trúc Tổng Thể Thư Mục
 
 ```text
 c:\xampp\htdocs\
 │
-├── docs/                       # 📚 BỘ CẨM NANG KIẾN THỨC CHUYÊN SÂU
+├── docs/                       # BỘ TÀI LIỆU KIẾN THỨC CHUYÊN SÂU
 │   ├── README.md               # Mục lục tổng quan (Table of Contents)
 │   ├── 01_Template_va_Layout.md# Kiến trúc Modular, include/require, __DIR__, Router & LFI
 │   ├── 02_Data_Transfer_va_Form.md # Xử lý Form, GET/POST, Radio/Checkbox/Select, XSS, Upload
@@ -27,21 +27,21 @@ c:\xampp\htdocs\
 │   ├── 04_Ham_va_Mang.md       # Type Hinting, Tham chiếu &, Ma trận 2D, 4 hàm sắp xếp ksort/asort
 │   └── 05_Doc_Ghi_File.md      # Luồng File Stream, PHP_EOL, file(), file_put_contents, Locking
 │
-├── Bai1/                       # 📐 Giao diện chuẩn Modular Template (Head, Menu, Footer)
-├── Bai2/                       # 📝 Sử dụng Template: Đăng ký thành viên, Tính lương
-├── Bai3/                       # 🔀 Single Entry Point Router, Vẽ bảng động, Xử lý mảng & Upload
-├── Bai4/                       # 📥 Truyền nhận Form bằng GET/POST & Phản hồi dữ liệu
-├── Bai5/                       # 🔐 Xác thực người dùng bằng Session (Login/Logout, Auth Guard)
-├── Bai6/                       # 🍪 Quản lý trạng thái bằng Cookie (Ghi nhớ Login, CRUD JSON)
-├── Bai7/                       # 🧮 Thư viện hàm & Đại số ma trận (Mảng 1D, 2D Matrix, Associative Array)
-├── Bai8/                       # 💾 Thao tác File văn bản (Đọc & Ghi nối tiếp bản ghi sinh viên)
+├── Bai1/                       # Giao diện chuẩn Modular Template (Head, Menu, Footer)
+├── Bai2/                       # Áp dụng Template: Đăng ký thành viên, Tính lương
+├── Bai3/                       # Single Entry Point Router, Vẽ bảng động, Xử lý mảng & Upload
+├── Bai4/                       # Truyền nhận Form bằng GET/POST & Phản hồi dữ liệu
+├── Bai5/                       # Xác thực người dùng bằng Session (Login/Logout, Auth Guard)
+├── Bai6/                       # Quản lý trạng thái bằng Cookie (Ghi nhớ Login, CRUD JSON)
+├── Bai7/                       # Thư viện hàm & Đại số ma trận (Mảng 1D, 2D Matrix, Associative Array)
+├── Bai8/                       # Thao tác File văn bản (Đọc & Ghi nối tiếp bản ghi sinh viên)
 │
 └── ... (Các bài thực hành tiếp theo từ Bai9 đến Bai16)
 ```
 
 ---
 
-## 🗺️ 3. Lộ Trình Thực Hành (Practical Curriculum)
+## 3. Lộ Trình Thực Hành (Practical Curriculum)
 
 | Bài | Tên Chủ Đề | Nội Dung Kỹ Thuật Chính |
 | :---: | :--- | :--- |
@@ -57,9 +57,9 @@ c:\xampp\htdocs\
 
 ---
 
-## 📖 4. Cẩm Nang Lý Thuyết & Tra Cứu Chuyên Sâu (`docs/`)
+## 4. Tài Liệu Phân Tích & Tra Cứu Chuyên Sâu (`docs/`)
 
-Mỗi tài liệu trong thư mục [`docs/`](docs/) được thiết kế như một cẩm nang chuyên sâu, kèm theo **Sequence Diagram (Biểu đồ tuần tự Mermaid)** mô tả rõ ràng dòng dữ liệu:
+Mỗi tài liệu trong thư mục [`docs/`](docs/) được thiết kế chi tiết, kèm theo **Sequence Diagram (Biểu đồ tuần tự Mermaid)** mô tả rõ ràng dòng dữ liệu:
 
 1. **[01. Kiến Trúc Modular, Layout & Router](docs/01_Template_va_Layout.md)**
    - So sánh bản chất `include`, `include_once`, `require`, `require_once`.
@@ -90,13 +90,15 @@ Mỗi tài liệu trong thư mục [`docs/`](docs/) được thiết kế như m
 
 ---
 
-## 🚀 5. Hướng Dẫn Cài Đặt & Chạy Trên Môi Trường Local
+## 5. Hướng Dẫn Cài Đặt & Chạy Trên Môi Trường Local
 
 ### Yêu Cầu Hệ Thống:
+
 - Máy tính đã cài đặt **[XAMPP](https://www.apachefriends.org/)** (hoặc Laragon, WampServer).
 - Phiên bản PHP khuyến nghị: **PHP 7.4** hoặc **PHP 8.x**.
 
 ### Các Bước Cài Đặt:
+
 1. **Clone mã nguồn vào thư mục `htdocs` của XAMPP:**
    ```bash
    cd C:\xampp\htdocs
@@ -115,7 +117,7 @@ Mỗi tài liệu trong thư mục [`docs/`](docs/) được thiết kế như m
 
 ---
 
-## 👨‍💻 Tác Giả & Đóng Góp
+## 6. Thông Tin & Đóng Góp
 
 - **Repository:** [https://github.com/penguino7/WebPhp](https://github.com/penguino7/WebPhp)
 - **Mục đích:** Nghiên cứu, học tập, và phát triển kỹ năng lập trình web backend với PHP thuần (Vanilla PHP).

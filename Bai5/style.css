@@ -24,6 +24,21 @@
   border-bottom: 1px solid #eaeaea;
 }
 
+/* Thông báo lỗi đăng nhập */
+.alert-error,
+.error-message {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+  padding: 10px 14px;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 15px;
+  margin-bottom: 5px;
+}
+
 /* Hàng form */
 .form-group {
   display: flex;
@@ -74,7 +89,7 @@
 }
 
 .btn-submit {
-  padding: 8px 24px;
+  padding: 8px 26px;
   font-size: 14px;
   font-weight: bold;
   background-color: #007bff;
@@ -91,7 +106,7 @@
 }
 
 .btn-reset {
-  padding: 8px 24px;
+  padding: 8px 26px;
   font-size: 14px;
   font-weight: bold;
   background-color: #e9ecef;

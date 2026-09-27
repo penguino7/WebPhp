@@ -1,0 +1,232 @@
+/* ==========================================================================
+   CSS RIÊNG CHO BÀI 7 (FUNCTION)
+   (Kế thừa khung layout chung từ /src/css/common.css)
+   ========================================================================== */
+
+/* Khung form mảng & ma trận */
+.array-form-container {
+  max-width: 650px;
+  margin: 15px auto 25px auto;
+  padding: 24px 30px;
+  background-color: #fafafa;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.form-header-title {
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  color: #0056b3;
+  margin-bottom: 20px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #eaeaea;
+}
+
+/* Hàng form */
+.form-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.form-label {
+  width: 140px;
+  min-width: 140px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+}
+
+.form-control-wrap {
+  flex: 1;
+}
+
+.form-control-wrap input[type="text"] {
+  width: 100%;
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+  font-family: Arial, sans-serif;
+  box-sizing: border-box;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+.form-control-wrap input[type="text"]:focus {
+  border-color: #66afe9;
+  box-shadow: 0 0 6px rgba(102, 175, 233, 0.5);
+  background-color: #fff;
+}
+
+/* Nút bấm */
+.form-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.btn-submit {
+  padding: 8px 26px;
+  font-size: 14px;
+  font-weight: bold;
+  background-color: #007bff;
+  color: #fff;
+  border: 1px solid #007bff;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-submit:hover {
+  background-color: #0056b3;
+  box-shadow: 0 2px 4px rgba(0, 123, 255, 0.3);
+}
+
+.btn-reset {
+  padding: 8px 26px;
+  font-size: 14px;
+  font-weight: bold;
+  background-color: #e9ecef;
+  color: #495057;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-reset:hover {
+  background-color: #dde2e6;
+}
+
+/* Bảng hiển thị kết quả */
+.result-display-container {
+  max-width: 650px;
+  margin: 20px auto;
+  padding: 24px 30px;
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.result-row {
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px dashed #eee;
+  font-size: 14px;
+}
+
+.result-row:last-child {
+  border-bottom: none;
+}
+
+.result-label {
+  width: 180px;
+  min-width: 180px;
+  font-weight: bold;
+  color: #333;
+}
+
+.result-value {
+  flex: 1;
+  color: #0a58ca;
+  font-weight: bold;
+}
+
+/* Bảng ma trận */
+.matrix-container {
+  display: flex;
+  justify-content: space-around;
+  gap: 30px;
+  margin-bottom: 20px;
+}
+
+.matrix-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.matrix-box h4 {
+  margin-bottom: 12px;
+  color: #333;
+  font-size: 15px;
+}
+
+.matrix-table {
+  border-collapse: collapse;
+  margin: 0 auto;
+}
+
+.matrix-table td {
+  padding: 4px;
+}
+
+.matrix-table input[type="number"] {
+  width: 55px;
+  height: 40px;
+  text-align: center;
+  font-size: 15px;
+  font-weight: bold;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+  -moz-appearance: textfield;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+.matrix-table input[type="number"]::-webkit-outer-spin-button,
+.matrix-table input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.matrix-table input[type="number"]:focus {
+  border-color: #66afe9;
+  box-shadow: 0 0 6px rgba(102, 175, 233, 0.5);
+  background-color: #fff;
+}
+
+.results-grid {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.result-item {
+  flex: 1;
+  min-width: 170px;
+  text-align: center;
+}
+
+.result-item h5 {
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.result-matrix-table {
+  margin: 0 auto;
+  border-collapse: collapse;
+  background: #fff;
+  border: 1px solid #ccc;
+}
+
+.result-matrix-table td {
+  width: 45px;
+  height: 35px;
+  border: 1px solid #ccc;
+  text-align: center;
+  font-weight: bold;
+  font-size: 14px;
+  color: #0a58ca;
+}

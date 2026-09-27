@@ -1,36 +1,15 @@
-# 📚 TỔNG HỢP KIẾN THỨC THỰC HÀNH PHP (BÀI 1 ĐẾN BÀI 8)
+# 📚 Cẩm Nang Kiến Thức Lập Trình PHP Toàn Tập
 
-Tài liệu được chia thành 5 chuyên đề chuyên sâu giúp bạn ôn tập, tra cứu nhanh lý thuyết và các mẫu code cốt lõi:
+Bộ tài liệu tổng hợp, phân tích chuyên sâu các kiến thức cốt lõi và các hàm xử lý quan trọng trong PHP, được phân chia theo từng mảng kiến thức độc lập để bạn dễ dàng tra cứu, học tập và ôn luyện:
 
 ---
 
-### 📂 Danh mục các chuyên đề:
+## 📑 Table of Contents (Mục Lục)
 
-1. **[Chuyên đề 1: Template, Layout và Điều hướng Router](01_Template_va_Layout.md)** *(Bài 1 & Bài 2)*
-   * Cấu trúc website dạng Modular (Head, Menu, Footer).
-   * Phân biệt `include`, `include_once`, `require`, `require_once` và hằng số `__DIR__`.
-   * Xây dựng Single Entry Point Router qua `index.php?page=...`.
-
-2. **[Chuyên đề 2: Truyền nhận dữ liệu & Xử lý Form](02_Data_Transfer_va_Form.md)** *(Bài 3 & Bài 4)*
-   * So sánh toàn diện `GET` vs `POST`.
-   * Chuẩn hóa và bảo mật dữ liệu với `trim()`, `htmlspecialchars()`, `intval()`, `floatval()`.
-   * Kỹ thuật Sticky Form giữ lại dữ liệu.
-   * Upload file đơn và đa file với mảng `$_FILES` và hàm `move_uploaded_file()`.
-
-3. **[Chuyên đề 3: Quản lý Phiên (Session) & Cookie](03_Session_va_Cookie.md)** *(Bài 5 & Bài 6)*
-   * So sánh Session (Server-side) vs Cookie (Client-side).
-   * Cơ chế xác thực và bảo vệ trang quản trị Admin Guard (`auth.php`).
-   * 7 tham số của hàm `setcookie()`, cơ chế tự động hủy cookie.
-   * Lưu trữ danh sách yêu thích JSON Cookie CRUD (`json_encode`, `json_decode`).
-
-4. **[Chuyên đề 4: Hàm (Function) & Mảng (Array)](04_Ham_va_Mang.md)** *(Bài 7)*
-   * Tổ chức thư viện hàm trong thư mục `libs/`.
-   * Thao tác trên Mảng 1 chiều (`min`, `max`, `array_sum`, `sort`, `array_reverse`).
-   * Thao tác trên Ma trận 2 chiều (Chéo chính, Chéo phụ, Tích ma trận, `array_map`).
-   * Thao tác trên Mảng kết hợp (`array_key_exists`, `array_search`, `ksort`, `krsort`, `asort`, `arsort`).
-
-5. **[Chuyên đề 5: Thao tác Đọc và Ghi File trong PHP](05_Doc_Ghi_File.md)** *(Bài 8)*
-   * Bản chất lưu trữ File Text (`.txt`) và chuẩn định dạng 3 dòng/sinh viên.
-   * Đọc file theo dòng bằng hàm `file()` với các cờ `FILE_IGNORE_NEW_LINES`, `FILE_SKIP_EMPTY_LINES`.
-   * Ghi nối tiếp vào file bằng hàm `file_put_contents()` với cờ `FILE_APPEND`, `LOCK_EX`.
-   * Bảng các chế độ mở file (`r`, `w`, `a`, `r+`, `w+`, `a+`).
+|   #    | Chủ Đề Tài Liệu                                                         | Nội Dung Cốt Lõi                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| :----: | :---------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **01** | **[01. Kiến Trúc Modular, Layout & Router](01_Template_va_Layout.md)**  | • Cấu trúc giao diện Modular (Head, Menu, Footer).<br>• Phân tích bản chất `include`, `include_once`, `require`, `require_once`.<br>• Tầm quan trọng của hằng số `__DIR__`.<br>• Cơ chế điều hướng Single Entry Point Router (`index.php?page=...`).                                                                                                                                                                                                                 |
+| **02** | **[02. Truyền Nhận Dữ Liệu & Xử Lý Form](02_Data_Transfer_va_Form.md)** | • So sánh toàn diện phương thức `GET` vs `POST`.<br>• Các biến siêu toàn cục: `$_GET`, `$_POST`, `$_SERVER`, `$_FILES`.<br>• Chuẩn hóa & bảo mật: `trim()`, `htmlspecialchars()` chống XSS, ép kiểu `intval()`, `floatval()`.<br>• Kỹ thuật Sticky Form.<br>• Quy trình Upload File an toàn với `$_FILES` và `move_uploaded_file()`.                                                                                                                                 |
+| **03** | **[03. Quản Lý Trạng Thái: Session & Cookie](03_Session_va_Cookie.md)** | • Vấn đề Stateless của HTTP và giải pháp quản lý trạng thái.<br>• So sánh sâu giữa Session (Server-side) và Cookie (Client-side).<br>• Cơ chế xác thực và bảo vệ trang quản trị Admin Guard Middleware.<br>• Phân tích chi tiết 7 tham số của hàm `setcookie()` và cờ `httponly`.<br>• Lưu trữ danh sách đối tượng mảng phức tạp vào Cookie qua JSON (`json_encode`, `json_decode`).                                                                                 |
+| **04** | **[04. Thư Viện Hàm & Cấu Trúc Dữ Liệu Mảng](04_Ham_va_Mang.md)**       | • Định nghĩa hàm, Type Hinting, Return Type, Pass-by-reference (`&`).<br>• Mảng 1 chiều: `min()`, `max()`, `array_sum()`, `count()`, `explode()`, `implode()`, `array_map()`, `sort()`, `rsort()`, `array_reverse()`.<br>• Mảng 2 chiều & Ma trận: Đường chéo chính ($i = j$), Đường chéo phụ ($j = n - 1 - i$), Phép nhân ma trận.<br>• Mảng kết hợp: `array_key_exists()`, `array_search()`, 4 hàm sắp xếp cốt lõi (`ksort()`, `krsort()`, `asort()`, `arsort()`). |
+| **05** | **[05. Thao Tác Đọc & Ghi File Văn Bản](05_Doc_Ghi_File.md)**           | • Bản chất luồng dữ liệu File Stream và ký tự xuống dòng `PHP_EOL`.<br>• Nhóm hàm kiểm tra: `file_exists()`, `is_file()`, `is_readable()`, `is_writable()`.<br>• Đọc file theo dòng bằng `file()` với cờ `FILE_IGNORE_NEW_LINES` và `FILE_SKIP_EMPTY_LINES`.<br>• Ghi nối tiếp vào file bằng `file_put_contents()` với cờ `FILE_APPEND` và `LOCK_EX`.<br>• Bảng tra cứu toàn bộ các chế độ mở file (`fopen` modes: `r`, `w`, `a`, `x`, `r+`, `w+`, `a+`).            |

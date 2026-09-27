@@ -7,7 +7,7 @@
         <li><a href="/Bai5/index.php">5. Phiên</a></li>
         <li><a href="/Bai6/index.php">6. Cookie</a></li>
         <li><a href="/Bai7/index.php">7. Function</a></li>
-        <li><a href="#">8. Đọc, ghi file</a></li>
+        <li><a href="/Bai8/index.php">8. Đọc, ghi file</a></li>
         <li><a href="#">9. Thao tác file và data flow</a></li>
         <li><a href="#">10. Website đa ngôn ngữ</a></li>
         <li><a href="#">11. Kết nối và truy vấn CSDL cơ bản</a></li>

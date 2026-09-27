@@ -19,24 +19,24 @@
 ```text
 c:\xampp\htdocs\
 │
-├── docs/                       # BỘ TÀI LIỆU KIẾN THỨC CHUYÊN SÂU
-│   ├── README.md               # Mục lục tổng quan (Table of Contents)
-│   ├── 01_Template_va_Layout.md# Kiến trúc Modular, include/require, __DIR__, Router & LFI
-│   ├── 02_Data_Transfer_va_Form.md # Xử lý Form, GET/POST, Radio/Checkbox/Select, XSS, Upload
-│   ├── 03_Session_va_Cookie.md # Quản lý trạng thái, Session Fixation, Cookie 7 params, JSON CRUD
-│   ├── 04_Ham_va_Mang.md       # Type Hinting, Tham chiếu &, Ma trận 2D, 4 hàm sắp xếp ksort/asort
-│   └── 05_Doc_Ghi_File.md      # Luồng File Stream, PHP_EOL, file(), file_put_contents, Locking
+├── docs/
+│   ├── README.md
+│   ├── 01_Template_va_Layout.md
+│   ├── 02_Data_Transfer_va_Form.md
+│   ├── 03_Session_va_Cookie.md
+│   ├── 04_Ham_va_Mang.md
+│   └── 05_Doc_Ghi_File.md
 │
-├── Bai1/                       # Giao diện chuẩn Modular Template (Head, Menu, Footer)
-├── Bai2/                       # Áp dụng Template: Đăng ký thành viên, Tính lương
-├── Bai3/                       # Single Entry Point Router, Vẽ bảng động, Xử lý mảng & Upload
-├── Bai4/                       # Truyền nhận Form bằng GET/POST & Phản hồi dữ liệu
-├── Bai5/                       # Xác thực người dùng bằng Session (Login/Logout, Auth Guard)
-├── Bai6/                       # Quản lý trạng thái bằng Cookie (Ghi nhớ Login, CRUD JSON)
-├── Bai7/                       # Thư viện hàm & Đại số ma trận (Mảng 1D, 2D Matrix, Associative Array)
-├── Bai8/                       # Thao tác File văn bản (Đọc & Ghi nối tiếp bản ghi sinh viên)
+├── Bai1/
+├── Bai2/
+├── Bai3/
+├── Bai4/
+├── Bai5/
+├── Bai6/
+├── Bai7/
+├── Bai8/
 │
-└── ... (Các bài thực hành tiếp theo từ Bai9 đến Bai16)
+└── ... (Bai9 -> Bai16)
 ```
 
 ---

@@ -90,7 +90,7 @@
 
         <!-- 9. Form Buttons -->
         <div class="form-buttons">
-            <button type="reset" class="btn-reset">Reset</button>
+            <button type="button" class="btn-reset" onclick="window.location.href='index.php?page=register'">Reset</button>
             <button type="submit" name="btnRegister" class="btn-submit">Register</button>
         </div>
     </form>

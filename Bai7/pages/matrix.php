@@ -115,7 +115,7 @@ function renderMatrixTable(array $matrix)
 
         <div class="form-buttons">
             <button type="submit" class="btn-submit">Thực hiện tính toán</button>
-            <a href="index.php?page=matrix" class="btn-reset" style="text-decoration: none; display: inline-block; text-align: center; line-height: 20px;">Đặt lại mặc định</a>
+            <button type="button" class="btn-reset" onclick="window.location.href='index.php?page=matrix'">Đặt lại mặc định</button>
         </div>
     </form>
 </div>

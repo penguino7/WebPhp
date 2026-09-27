@@ -74,7 +74,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
 
         <div class="form-buttons">
             <button type="submit" class="btn-submit">Thực hiện tính toán</button>
-            <a href="index.php?page=ar1Chieu" class="btn-reset" style="text-decoration: none; display: inline-block; text-align: center; line-height: 20px;">Làm mới</a>
+            <button type="button" class="btn-reset" onclick="window.location.href='index.php?page=ar1Chieu'">Làm mới</button>
         </div>
     </form>
 </div>

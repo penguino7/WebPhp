@@ -30,6 +30,7 @@ function tinhDiemTrungBinh(array $danhSachDiem, int $heSo = 1): float
 ```
 
 #### Các Kiểu Dữ Liệu Được Hỗ Trợ (Type Hints):
+
 - **Nguyên thủy (Scalar Types):** `int`, `float`, `string`, `bool`.
 - **Cấu trúc dữ liệu:** `array`, `object`, `callable`, `iterable`.
 - **Kiểu đặc biệt:**
@@ -124,19 +125,20 @@ $numbers = [10, 25, 3, 89, 42];
 
 ### 2.1. Bảng Tra Cứu Các Hàm Thống Kê & Toán Học
 
-| Tên Hàm | Cú Pháp | Mô Tả & Giá Trị Trả Về | Ví Dụ |
-| :--- | :--- | :--- | :--- |
-| **`count()`** | `count(array $arr): int` | Đếm tổng số lượng phần tử có trong mảng. | `count([1, 2, 3])` $\rightarrow$ `3` |
-| **`min()`** | `min(array $arr): mixed` | Trả về phần tử có giá trị **nhỏ nhất** trong mảng. | `min([10, 5, 20])` $\rightarrow$ `5` |
-| **`max()`** | `max(array $arr): mixed` | Trả về phần tử có giá trị **lớn nhất** trong mảng. | `max([10, 5, 20])` $\rightarrow$ `20` |
-| **`array_sum()`** | `array_sum(array $arr): float\|int` | Tính tổng toàn bộ các phần tử số trong mảng. | `array_sum([1, 2, 3])` $\rightarrow$ `6` |
-| **`array_product()`** | `array_product(array $arr): float\|int` | Tính tích của tất cả các phần tử trong mảng. | `array_product([2, 3, 4])` $\rightarrow$ `24` |
+| Tên Hàm               | Cú Pháp                                 | Mô Tả & Giá Trị Trả Về                             | Ví Dụ                                         |
+| :-------------------- | :-------------------------------------- | :------------------------------------------------- | :-------------------------------------------- |
+| **`count()`**         | `count(array $arr): int`                | Đếm tổng số lượng phần tử có trong mảng.           | `count([1, 2, 3])` $\rightarrow$ `3`          |
+| **`min()`**           | `min(array $arr): mixed`                | Trả về phần tử có giá trị **nhỏ nhất** trong mảng. | `min([10, 5, 20])` $\rightarrow$ `5`          |
+| **`max()`**           | `max(array $arr): mixed`                | Trả về phần tử có giá trị **lớn nhất** trong mảng. | `max([10, 5, 20])` $\rightarrow$ `20`         |
+| **`array_sum()`**     | `array_sum(array $arr): float\|int`     | Tính tổng toàn bộ các phần tử số trong mảng.       | `array_sum([1, 2, 3])` $\rightarrow$ `6`      |
+| **`array_product()`** | `array_product(array $arr): float\|int` | Tính tích của tất cả các phần tử trong mảng.       | `array_product([2, 3, 4])` $\rightarrow$ `24` |
 
 ---
 
 ### 2.2. Nhóm Hàm Biến Đổi & Xử Lý Chuỗi $\leftrightarrow$ Mảng
 
 #### A. Hàm `explode(string $separator, string $string, int $limit = PHP_INT_MAX): array`
+
 - **Mục đích:** Cắt một chuỗi văn bản thành mảng các chuỗi con dựa trên ký tự phân tách `$separator`.
 - **Ví dụ:**
   ```php
@@ -145,6 +147,7 @@ $numbers = [10, 25, 3, 89, 42];
   ```
 
 #### B. Hàm `implode(string $glue, array $pieces): string` (hoặc bí danh `join()`)
+
 - **Mục đích:** Nối các phần tử của một mảng thành một chuỗi duy nhất, ngăn cách bởi ký tự `$glue`.
 - **Ví dụ:**
   ```php
@@ -153,6 +156,7 @@ $numbers = [10, 25, 3, 89, 42];
   ```
 
 #### C. Hàm `array_map(callable|null $callback, array $array, array ...$arrays): array`
+
 - **Mục đích:** Áp dụng một hàm xử lý (callback) lên **từng phần tử** của mảng và trả về mảng kết quả mới.
 - **Kỹ thuật chuẩn hóa mảng chuỗi số từ người dùng nhập:**
   ```php
@@ -165,6 +169,7 @@ $numbers = [10, 25, 3, 89, 42];
   ```
 
 #### D. Hàm `array_filter(array $array, ?callable $callback = null, int $mode = 0): array`
+
 - **Mục đích:** Lọc các phần tử của mảng dựa trên điều kiện của hàm callback. Nếu callback trả về `true`, phần tử được giữ lại; nếu `false`, phần tử bị loại bỏ.
 - **Ví dụ lọc số chẵn:**
   ```php
@@ -179,25 +184,25 @@ $numbers = [10, 25, 3, 89, 42];
 
 ### 2.3. Nhóm Hàm Thêm, Xóa, Ghép & Đảo Mảng 1 Chiều
 
-| Hàm | Cú Pháp | Cơ Chế Hoạt Động |
-| :--- | :--- | :--- |
-| **`array_push()`** | `array_push(array &$arr, mixed ...$values)` | Thêm một hoặc nhiều phần tử vào **cuối mảng** (hoặc dùng `$arr[] = $val;`). |
-| **`array_pop()`** | `array_pop(array &$arr): mixed` | Lấy ra và xóa phần tử ở **cuối mảng**. |
-| **`array_unshift()`** | `array_unshift(array &$arr, mixed ...$values)` | Thêm một hoặc nhiều phần tử vào **đầu mảng**. |
-| **`array_shift()`** | `array_shift(array &$arr): mixed` | Lấy ra và xóa phần tử ở **đầu mảng**. |
-| **`array_merge()`** | `array_merge(array ...$arrays): array` | Gộp 2 hay nhiều mảng lại thành một mảng duy nhất. |
-| **`array_unique()`** | `array_unique(array $arr): array` | Loại bỏ tất cả các giá trị trùng lặp trong mảng. |
-| **`array_reverse()`** | `array_reverse(array $arr): array` | Đảo ngược thứ tự các phần tử của mảng. |
+| Hàm                   | Cú Pháp                                        | Cơ Chế Hoạt Động                                                            |
+| :-------------------- | :--------------------------------------------- | :-------------------------------------------------------------------------- |
+| **`array_push()`**    | `array_push(array &$arr, mixed ...$values)`    | Thêm một hoặc nhiều phần tử vào **cuối mảng** (hoặc dùng `$arr[] = $val;`). |
+| **`array_pop()`**     | `array_pop(array &$arr): mixed`                | Lấy ra và xóa phần tử ở **cuối mảng**.                                      |
+| **`array_unshift()`** | `array_unshift(array &$arr, mixed ...$values)` | Thêm một hoặc nhiều phần tử vào **đầu mảng**.                               |
+| **`array_shift()`**   | `array_shift(array &$arr): mixed`              | Lấy ra và xóa phần tử ở **đầu mảng**.                                       |
+| **`array_merge()`**   | `array_merge(array ...$arrays): array`         | Gộp 2 hay nhiều mảng lại thành một mảng duy nhất.                           |
+| **`array_unique()`**  | `array_unique(array $arr): array`              | Loại bỏ tất cả các giá trị trùng lặp trong mảng.                            |
+| **`array_reverse()`** | `array_reverse(array $arr): array`             | Đảo ngược thứ tự các phần tử của mảng.                                      |
 
 ---
 
 ### 2.4. Nhóm Hàm Sắp Xếp Mảng 1 Chiều
 
-| Hàm | Hướng Sắp Xếp | Đánh Lại Chỉ Số (Re-index)? |
-| :--- | :--- | :--- |
-| **`sort(array &$arr)`** | Sắp xếp **Tăng dần** (A $\rightarrow$ Z, 0 $\rightarrow$ 9) | **Có** (đánh lại key thành `0, 1, 2...`) |
-| **`rsort(array &$arr)`** | Sắp xếp **Giảm dần** (Z $\rightarrow$ A, 9 $\rightarrow$ 0) | **Có** (đánh lại key thành `0, 1, 2...`) |
-| **`shuffle(array &$arr)`** | Xáo trộn ngẫu nhiên các phần tử | **Có** |
+| Hàm                        | Hướng Sắp Xếp                                               | Đánh Lại Chỉ Số (Re-index)?              |
+| :------------------------- | :---------------------------------------------------------- | :--------------------------------------- |
+| **`sort(array &$arr)`**    | Sắp xếp **Tăng dần** (A $\rightarrow$ Z, 0 $\rightarrow$ 9) | **Có** (đánh lại key thành `0, 1, 2...`) |
+| **`rsort(array &$arr)`**   | Sắp xếp **Giảm dần** (Z $\rightarrow$ A, 9 $\rightarrow$ 0) | **Có** (đánh lại key thành `0, 1, 2...`) |
+| **`shuffle(array &$arr)`** | Xáo trộn ngẫu nhiên các phần tử                             | **Có**                                   |
 
 ---
 
@@ -247,6 +252,7 @@ function minMatran(array $matran): float
 ### 3.3. Thuật Toán Đường Chéo (Ma Trận Vuông $n \times n$)
 
 #### A. Đường Chéo Chính (Main Diagonal):
+
 - Chạy từ góc **Trên-Trái** xuống **Dưới-Phải**.
 - Đặc điểm: Chỉ số **Hàng bằng chỉ số Cột ($i = j$)**: $(0,0), (1,1), (2,2), \dots$
 
@@ -263,6 +269,7 @@ function tongCheoChinh(array $matrix): float
 ```
 
 #### B. Đường Chéo Phụ (Anti-Diagonal):
+
 - Chạy từ góc **Trên-Phải** xuống **Dưới-Trái**.
 - Đặc điểm: Tổng chỉ số hàng và cột luôn bằng **$n - 1$** ($i + j = n - 1 \implies j = n - 1 - i$): $(0, 2), (1, 1), (2, 0)$.
 
@@ -365,6 +372,7 @@ $studentScores = [
 ### 4.1. Nhóm Hàm Kiểm Tra & Tìm Kiếm
 
 #### A. Hàm `array_key_exists(string|int $key, array $array): bool`
+
 - **Chức năng:** Kiểm tra xem một **Key** có tồn tại trong mảng hay không.
 - **So sánh với `isset($array[$key])`:**
   - Nếu phần tử có tồn tại nhưng giá trị là `null` (`['Toan' => null]`):
@@ -372,6 +380,7 @@ $studentScores = [
     - `array_key_exists('Toan', $arr)` $\rightarrow$ trả về **`true`** (vì Key thực sự tồn tại).
 
 #### B. Hàm `array_search(mixed $needle, array $haystack): string|int|false`
+
 - **Chức năng:** Tìm kiếm một **Giá trị (Value)** trong mảng và **trả về Khóa (Key)** tương ứng đầu tiên tìm thấy. Nếu không tìm thấy trả về `false`.
 - **Ví dụ:**
   ```php
@@ -379,6 +388,7 @@ $studentScores = [
   ```
 
 #### C. Hàm `in_array(mixed $needle, array $haystack, bool $strict = false): bool`
+
 - **Chức năng:** Chỉ kiểm tra xem Giá trị (Value) có tồn tại trong mảng hay không $\rightarrow$ trả về `true`/`false`.
 - **Khuyến nghị:** Luôn truyền tham số thứ 3 `$strict = true` để so sánh cả kiểu dữ liệu (`===`).
 
@@ -408,11 +418,11 @@ sequenceDiagram
     end
 ```
 
-| Tên Hàm | Tiêu Chí Sắp Xếp | Thứ Tự | Giải Thích Tên Viết Tắt |
-| :--- | :--- | :--- | :--- |
-| **`ksort()`** | Sắp xếp theo **Khóa (Key)** | Tăng dần (A $\rightarrow$ Z, 0 $\rightarrow$ 9) | **K**ey **Sort** |
-| **`krsort()`** | Sắp xếp theo **Khóa (Key)** | Giảm dần (Z $\rightarrow$ A, 9 $\rightarrow$ 0) | **K**ey **R**everse **Sort** |
-| **`asort()`** | Sắp xếp theo **Giá trị (Value)** | Tăng dần (Giữ nguyên liên kết Key $\leftrightarrow$ Value) | **A**ssociative **Sort** |
+| Tên Hàm        | Tiêu Chí Sắp Xếp                 | Thứ Tự                                                     | Giải Thích Tên Viết Tắt              |
+| :------------- | :------------------------------- | :--------------------------------------------------------- | :----------------------------------- |
+| **`ksort()`**  | Sắp xếp theo **Khóa (Key)**      | Tăng dần (A $\rightarrow$ Z, 0 $\rightarrow$ 9)            | **K**ey **Sort**                     |
+| **`krsort()`** | Sắp xếp theo **Khóa (Key)**      | Giảm dần (Z $\rightarrow$ A, 9 $\rightarrow$ 0)            | **K**ey **R**everse **Sort**         |
+| **`asort()`**  | Sắp xếp theo **Giá trị (Value)** | Tăng dần (Giữ nguyên liên kết Key $\leftrightarrow$ Value) | **A**ssociative **Sort**             |
 | **`arsort()`** | Sắp xếp theo **Giá trị (Value)** | Giảm dần (Giữ nguyên liên kết Key $\leftrightarrow$ Value) | **A**ssociative **R**everse **Sort** |
 
 ---

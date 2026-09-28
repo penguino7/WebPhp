@@ -15,6 +15,6 @@
         <li><a href="/Bai13/index.php">13. Web bán laptop (End user)</a></li>
         <li><a href="/Bai14/index.php">14. Web bán laptop (Administration)</a></li>
         <li><a href="#">15. Giỏ hàng Web bán laptop</a></li>
-        <li><a href="#">16. Tích hợp richtext box</a></li>
+        <li><a href="/Bai16/index.php">16. Tích hợp richtext box</a></li>
     </ul>
 </aside>

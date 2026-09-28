@@ -118,7 +118,7 @@ function renderProductsListPage($conn)
                             <tr>
                                 <td><strong>#<?= $pId ?></strong></td>
                                 <td>
-                                    <img src="<?= $imgSrc ?>" alt="<?= htmlspecialchars($p['product_name']) ?>" class="table-img-thumb" onerror="this.src='../Bai13/images/laptop_default.png';">
+                                    <img src="<?= $imgSrc ?>" alt="<?= htmlspecialchars($p['product_name']) ?>" class="table-img-thumb" onerror="this.onerror=null; this.src='../Bai13/images/laptop_default.png';">
                                 </td>
                                 <td>
                                     <strong style="color:var(--px-title-color); font-size:14.5px;"><?= htmlspecialchars($p['product_name']) ?></strong>

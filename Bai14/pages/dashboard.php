@@ -106,7 +106,7 @@ function renderDashboardPage($conn)
                             <tr>
                                 <td><strong>#<?= $pId ?></strong></td>
                                 <td>
-                                    <img src="<?= $imgSrc ?>" alt="<?= htmlspecialchars($p['product_name']) ?>" class="table-img-thumb" onerror="this.src='../Bai13/images/laptop_default.png';">
+                                    <img src="<?= $imgSrc ?>" alt="<?= htmlspecialchars($p['product_name']) ?>" class="table-img-thumb" onerror="this.onerror=null; this.src='../Bai13/images/laptop_default.png';">
                                 </td>
                                 <td>
                                     <strong><?= htmlspecialchars($p['product_name']) ?></strong>

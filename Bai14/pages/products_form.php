@@ -162,7 +162,7 @@ function renderProductFormPage($conn)
                     <?php if ($isEdit && !empty($imageVal)): ?>
                         <div style="margin-top:8px; display:flex; align-items:center; gap:10px;">
                             <span style="font-size:12px; color:var(--px-text-muted);">Ảnh hiện tại:</span>
-                            <img src="../Bai13/images/<?= htmlspecialchars($imageVal) ?>" alt="Ảnh hiện tại" style="width:50px; height:40px; object-fit:contain; border:2px solid var(--px-border); background:var(--px-input-bg);" onerror="this.src='../Bai13/images/laptop_default.png';">
+                            <img src="../Bai13/images/<?= htmlspecialchars($imageVal) ?>" alt="Ảnh hiện tại" style="width:50px; height:40px; object-fit:contain; border:2px solid var(--px-border); background:var(--px-input-bg);" onerror="this.onerror=null; this.src='../Bai13/images/laptop_default.png';">
                             <code style="font-size:12px; color:var(--px-green);"><?= htmlspecialchars($imageVal) ?></code>
                         </div>
                     <?php endif; ?>

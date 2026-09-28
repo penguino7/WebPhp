@@ -1,6 +1,64 @@
 <?php
 // 1. Nhúng file kết nối CSDL
 require_once __DIR__ . '/../libs/connectDB.php';
+
+// ==========================================================================
+// 2. CÁC HÀM RENDER DANH SÁCH LỚP THEO 3 PHƯƠNG THỨC FETCH
+// ==========================================================================
+
+/**
+ * Cách 1: Sử dụng mysqli_fetch_row() (Mảng chỉ số số nguyên 0, 1)
+ */
+function renderClassesFetchRow($conn)
+{
+    $sql = "SELECT ID, ClassName FROM classes ORDER BY ID ASC";
+    $result = mysqli_query($conn, $sql);
+
+    if ($result && mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_row($result)) {
+            $maLop = htmlspecialchars($row[0]);
+            echo "<li class='class-link-item'><a href='index.php?page=listStudentsInClass&classID={$maLop}'>{$maLop}</a></li>";
+        }
+    } else {
+        echo "<li>Chưa có dữ liệu lớp học!</li>";
+    }
+}
+
+/**
+ * Cách 2: Sử dụng mysqli_fetch_array() (Mảng nhân đôi cả số và chữ)
+ */
+function renderClassesFetchArray($conn)
+{
+    $sql = "SELECT ID, ClassName FROM classes ORDER BY ID ASC";
+    $result = mysqli_query($conn, $sql);
+
+    if ($result && mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_array($result)) {
+            $maLop = htmlspecialchars($row['ID']);
+            echo "<li class='class-link-item'><a href='index.php?page=listStudentsInClass&classID={$maLop}'>{$maLop}</a></li>";
+        }
+    } else {
+        echo "<li>Chưa có dữ liệu lớp học!</li>";
+    }
+}
+
+/**
+ * Cách 3: Sử dụng mysqli_fetch_assoc() (Mảng kết hợp Key = Tên cột - Chuẩn tối ưu)
+ */
+function renderClassesFetchAssoc($conn)
+{
+    $sql = "SELECT ID, ClassName FROM classes ORDER BY ID ASC";
+    $result = mysqli_query($conn, $sql);
+
+    if ($result && mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            $maLop = htmlspecialchars($row['ID']);
+            echo "<li class='class-link-item'><a href='index.php?page=listStudentsInClass&classID={$maLop}'>{$maLop}</a></li>";
+        }
+    } else {
+        echo "<li>Chưa có dữ liệu lớp học!</li>";
+    }
+}
 ?>
 
 <!-- GIAO DIỆN: TRANG CHỦ DANH SÁCH LỚP HỌC (pages/home.php) -->
@@ -9,63 +67,27 @@ require_once __DIR__ . '/../libs/connectDB.php';
 </div>
 
 <div class="fetch-demo-container">
-    <!-- CÁCH 1: Dùng mysqli_fetch_row() (Mảng chỉ số số nguyên 0, 1) -->
+    <!-- CÁCH 1: Dùng mysqli_fetch_row() -->
     <div class="fetch-card">
         <div class="fetch-title">Danh Sách Các Lớp (Cách 1: Sử Dụng <code>mysqli_fetch_row()</code>)</div>
         <ul class="class-link-list">
-            <?php
-            $sql1 = "SELECT ID, ClassName FROM classes ORDER BY ID ASC";
-            $res1 = mysqli_query($conn, $sql1);
-            if ($res1 && mysqli_num_rows($res1) > 0) {
-                while ($row1 = mysqli_fetch_row($res1)) {
-                    // Truy cập bằng chỉ số số nguyên: $row1[0] là ID, $row1[1] là ClassName
-                    $maLop = htmlspecialchars($row1[0]);
-                    echo "<li class='class-link-item'><a href='index.php?page=listStudentsInClass&classID={$maLop}'>{$maLop}</a></li>";
-                }
-            } else {
-                echo "<li>Chưa có dữ liệu lớp học!</li>";
-            }
-            ?>
+            <?php renderClassesFetchRow($conn); ?>
         </ul>
     </div>
 
-    <!-- CÁCH 2: Dùng mysqli_fetch_array() (Mảng nhân đôi cả số và tên cột) -->
+    <!-- CÁCH 2: Dùng mysqli_fetch_array() -->
     <div class="fetch-card">
         <div class="fetch-title">Danh Sách Các Lớp (Cách 2: Sử Dụng <code>mysqli_fetch_array()</code>)</div>
         <ul class="class-link-list">
-            <?php
-            $sql2 = "SELECT ID, ClassName FROM classes ORDER BY ID ASC";
-            $res2 = mysqli_query($conn, $sql2);
-            if ($res2 && mysqli_num_rows($res2) > 0) {
-                while ($row2 = mysqli_fetch_array($res2)) {
-                    // Truy cập bằng cả key chữ hoặc key số đều được: $row2['ID'] hoặc $row2[0]
-                    $maLop = htmlspecialchars($row2['ID']);
-                    echo "<li class='class-link-item'><a href='index.php?page=listStudentsInClass&classID={$maLop}'>{$maLop}</a></li>";
-                }
-            } else {
-                echo "<li>Chưa có dữ liệu lớp học!</li>";
-            }
-            ?>
+            <?php renderClassesFetchArray($conn); ?>
         </ul>
     </div>
 
-    <!-- CÁCH 3: Dùng mysqli_fetch_assoc() (Mảng kết hợp Key = Tên cột - Chuẩn mực tối ưu) -->
+    <!-- CÁCH 3: Dùng mysqli_fetch_assoc() -->
     <div class="fetch-card">
         <div class="fetch-title">Danh Sách Các Lớp (Cách 3: Sử Dụng <code>mysqli_fetch_assoc()</code>)</div>
         <ul class="class-link-list">
-            <?php
-            $sql3 = "SELECT ID, ClassName FROM classes ORDER BY ID ASC";
-            $res3 = mysqli_query($conn, $sql3);
-            if ($res3 && mysqli_num_rows($res3) > 0) {
-                while ($row3 = mysqli_fetch_assoc($res3)) {
-                    // Truy cập bằng chính xác tên cột trong CSDL: $row3['ID'], $row3['ClassName']
-                    $maLop = htmlspecialchars($row3['ID']);
-                    echo "<li class='class-link-item'><a href='index.php?page=listStudentsInClass&classID={$maLop}'>{$maLop}</a></li>";
-                }
-            } else {
-                echo "<li>Chưa có dữ liệu lớp học!</li>";
-            }
-            ?>
+            <?php renderClassesFetchAssoc($conn); ?>
         </ul>
     </div>
 </div>

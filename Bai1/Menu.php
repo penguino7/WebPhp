@@ -11,7 +11,7 @@
         <li><a href="/Bai9/index.php">9. Thao tác file và data flow</a></li>
         <li><a href="/Bai10/index.php">10. Website đa ngôn ngữ</a></li>
         <li><a href="/Bai11/index.php">11. Kết nối và truy vấn CSDL cơ bản</a></li>
-        <li><a href="#">12. Truy vấn dữ liệu</a></li>
+        <li><a href="/Bai12/index.php">12. Truy vấn dữ liệu</a></li>
         <li><a href="#">13. Web bán laptop (End user)</a></li>
         <li><a href="#">14. Web bán laptop (Administration)</a></li>
         <li><a href="#">15. Giỏ hàng Web bán laptop</a></li>

@@ -17,17 +17,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 
 <div class="b10-content-wrap">
-    <div class="b10-form-box" style="max-width: 400px;">
+    <div class="b10-form-box b10-login-box">
         <div class="b10-form-header"><?= LOGIN_FORM_TITLE ?></div>
 
         <?php if (!empty($message)): ?>
-            <div style="background-color: #d1e7dd; color: #0f5132; border: 1px solid #badbcc; padding: 10px 14px; border-radius: 4px; margin-bottom: 15px; font-size: 13px;">
+            <div class="b10-alert-success">
                 ✓ <?= $message ?>
             </div>
         <?php endif; ?>
 
         <?php if (!empty($error)): ?>
-            <div style="background-color: #f8d7da; color: #842029; border: 1px solid #f5c2c7; padding: 10px 14px; border-radius: 4px; margin-bottom: 15px; font-size: 13px;">
+            <div class="b10-alert-error">
                 ⚠ <?= $error ?>
             </div>
         <?php endif; ?>

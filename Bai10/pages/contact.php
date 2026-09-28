@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="b10-form-header"><?= CONTACT_FORM_TITLE ?></div>
 
         <?php if ($isSubmitted): ?>
-            <div style="background-color: #d1e7dd; color: #0f5132; border: 1px solid #badbcc; padding: 10px 14px; border-radius: 4px; margin-bottom: 15px; font-size: 13px;">
+            <div class="b10-alert-success">
                 ✓ <?= MSG_CONTACT_SUCCESS ?>
             </div>
         <?php endif; ?>
@@ -68,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
 
             <div class="b10-form-group">
-                <label class="b10-label" style="align-self: flex-start; padding-top: 6px;"><?= LABEL_COMMENT ?></label>
+                <label class="b10-label b10-label-top"><?= LABEL_COMMENT ?></label>
                 <div class="b10-input-wrap">
                     <textarea name="comment" class="b10-textarea" rows="4"><?= htmlspecialchars($comment) ?></textarea>
                 </div>

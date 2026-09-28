@@ -20,7 +20,7 @@ if (isset($_POST['btnVietnamese']) || (isset($_GET['lang']) && $_GET['lang'] ===
     exit;
 }
 
-// 4. Xác định ngôn ngữ hiện tại (mặc định là 'english' như giáo trình)
+// 4. Xác định ngôn ngữ hiện tại (mặc định là 'english')
 $lang = $_SESSION['lang'] ?? 'english';
 
 // 5. Nạp gói ngôn ngữ tương ứng
@@ -42,7 +42,7 @@ include_once __DIR__ . '/../Bai1/Menu.php';
     <div class="b10-nav-container">
         <!-- Khối chọn ngôn ngữ -->
         <div class="b10-lang-switcher">
-            <form method="POST" action="index.php?page=<?= htmlspecialchars($page) ?>" style="margin: 0; display: inline-flex; gap: 4px;">
+            <form method="POST" action="index.php?page=<?= htmlspecialchars($page) ?>" class="b10-lang-form">
                 <input type="hidden" name="page" value="<?= htmlspecialchars($page) ?>">
                 <input type="submit" name="btnVietnamese" value="Vietnamese" class="b10-lang-btn <?= ($lang === 'vietnamese') ? 'active' : '' ?>">
                 <input type="submit" name="btnEnglish" value="English" class="b10-lang-btn <?= ($lang === 'english') ? 'active' : '' ?>">

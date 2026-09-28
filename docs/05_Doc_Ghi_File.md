@@ -19,9 +19,11 @@ Tập tin văn bản (`.txt`, `.csv`, `.log`) trên hệ điều hành thực ch
 Khi chưa tích hợp hệ quản trị cơ sở dữ liệu (MySQL/PostgreSQL), ta tổ chức dữ liệu vào file text theo 2 mô hình phổ biến:
 
 #### Mô Hình A: Khối Nhiều Dòng Liên Tiếp (Multi-line Record)
+
 Mỗi đối tượng (sinh viên) chiếm $N$ dòng liên tiếp nhau trên file:
 
 _Ví dụ: Cấu trúc 5 dòng / bản ghi (Bài 9):_
+
 ```text
 Pham Minh           <-- Dòng 0: Họ tên (Full name)
 2012-08-12          <-- Dòng 1: Ngày sinh (Birthday)
@@ -36,6 +38,7 @@ class1              <-- Dòng 9: Lớp học
 ```
 
 #### Mô Hình B: Dòng Phân Cách (Delimited / CSV Format)
+
 Mỗi đối tượng nằm trọn vẹn trên 1 dòng duy nhất, các trường cách nhau bởi ký tự phân tách (ví dụ dấu `|` hoặc `,`):
 
 ```text
@@ -104,15 +107,15 @@ if (file_exists($filePath)) {
 }
 ```
 
-| Tên Hàm | Cú Pháp | Mô Tả & Giá Trị Trả Về |
-| :--- | :--- | :--- |
-| **`file_exists()`** | `file_exists(string $path): bool` | Kiểm tra xem file hoặc thư mục có tồn tại trên đĩa không. |
-| **`is_file()`** | `is_file(string $path): bool` | Kiểm tra đường dẫn có thực sự là một file thông thường hay không. |
-| **`is_dir()`** | `is_dir(string $path): bool` | Kiểm tra đường dẫn có phải là một thư mục (directory) hay không. |
-| **`is_readable()`** | `is_readable(string $path): bool` | Kiểm tra xem PHP có quyền đọc file/thư mục này không. |
-| **`is_writable()`** | `is_writable(string $path): bool` | Kiểm tra xem PHP có quyền ghi đè / ghi tiếp vào file/thư mục không. |
-| **`filesize()`** | `filesize(string $path): int\|false` | Lấy kích thước file tính theo đơn vị **Byte**. |
-| **`unlink()`** | `unlink(string $path): bool` | **Xóa hoàn toàn một file** khỏi ổ cứng (thường dùng để dọn dẹp ảnh đại diện cũ khi sửa/xóa). |
+| Tên Hàm             | Cú Pháp                              | Mô Tả & Giá Trị Trả Về                                                                       |
+| :------------------ | :----------------------------------- | :------------------------------------------------------------------------------------------- |
+| **`file_exists()`** | `file_exists(string $path): bool`    | Kiểm tra xem file hoặc thư mục có tồn tại trên đĩa không.                                    |
+| **`is_file()`**     | `is_file(string $path): bool`        | Kiểm tra đường dẫn có thực sự là một file thông thường hay không.                            |
+| **`is_dir()`**      | `is_dir(string $path): bool`         | Kiểm tra đường dẫn có phải là một thư mục (directory) hay không.                             |
+| **`is_readable()`** | `is_readable(string $path): bool`    | Kiểm tra xem PHP có quyền đọc file/thư mục này không.                                        |
+| **`is_writable()`** | `is_writable(string $path): bool`    | Kiểm tra xem PHP có quyền ghi đè / ghi tiếp vào file/thư mục không.                          |
+| **`filesize()`**    | `filesize(string $path): int\|false` | Lấy kích thước file tính theo đơn vị **Byte**.                                               |
+| **`unlink()`**      | `unlink(string $path): bool`         | **Xóa hoàn toàn một file** khỏi ổ cứng (thường dùng để dọn dẹp ảnh đại diện cũ khi sửa/xóa). |
 
 ---
 
@@ -127,6 +130,7 @@ array file(string $filename, int $flags = 0, ?resource $context = null)
 ```
 
 #### Phân Tích Các Cờ (Flags) Cốt Lõi:
+
 1. **`FILE_IGNORE_NEW_LINES`**: Loại bỏ ký tự xuống dòng (`\r`, `\n`) ở cuối mỗi phần tử mảng. Nếu thiếu cờ này, `$lines[0]` sẽ chứa chuỗi `"Pham Minh\r\n"`, dẫn đến việc so sánh chuỗi hoặc hiển thị bị lỗi định dạng.
 2. **`FILE_SKIP_EMPTY_LINES`**: Tự động bỏ qua các dòng trống (dòng rỗng không có ký tự).
 
@@ -210,6 +214,7 @@ int|false file_put_contents(string $filename, mixed $data, int $flags = 0, ?reso
 ```
 
 #### Phân Tích Các Cờ (Flags) Quan Trọng:
+
 1. **`FILE_APPEND`**: **Ghi nối tiếp vào cuối file**. Nếu không có cờ này, hàm sẽ **xóa sạch toàn bộ nội dung cũ** và ghi đè nội dung mới từ đầu.
 2. **`LOCK_EX`**: **Khóa độc quyền (Exclusive Lock)**. Đảm bảo trong khoảnh khắc file đang được ghi, không có tiến trình/người dùng nào khác được phép ghi cùng lúc, ngăn ngừa tuyệt đối lỗi hỏng dữ liệu (Data Corruption).
 
@@ -219,10 +224,10 @@ int|false file_put_contents(string $filename, mixed $data, int $flags = 0, ?reso
 $filePath = __DIR__ . '/../student.txt';
 
 // 1. Chuẩn bị nội dung 5 dòng kết thúc bằng ký tự ngắt dòng chuẩn
-$content = $name . PHP_EOL 
-         . $birthday . PHP_EOL 
-         . $address . PHP_EOL 
-         . $image . PHP_EOL 
+$content = $name . PHP_EOL
+         . $birthday . PHP_EOL
+         . $address . PHP_EOL
+         . $image . PHP_EOL
          . $class . PHP_EOL;
 
 // 2. Thực hiện ghi nối tiếp vào cuối file kèm khóa an toàn
@@ -258,16 +263,16 @@ if ($handle) {
 
 ## 5. Bảng Tra Cứu Toàn Bộ Các Chế Độ Mở File (`fopen` Modes)
 
-| Mode | Mục Đích | Vị Trí Con Trỏ Ban Đầu | Nếu File **ĐÃ TỒN TẠI** | Nếu File **CHƯA TỒN TẠI** |
-| :--- | :--- | :--- | :--- | :--- |
-| **`'r'`** | **Chỉ Đọc** (Read) | Đầu file | Giữ nguyên nội dung | **Phát cảnh báo lỗi `Warning`** |
-| **`'r+'`** | **Đọc và Ghi** | Đầu file | Giữ nguyên nội dung, ghi đè từ đầu | **Phát cảnh báo lỗi `Warning`** |
-| **`'w'`** | **Chỉ Ghi** (Write) | Đầu file | **XÓA SẠCH TOÀN BỘ NỘI DUNG VỀ 0 BYTE** | Tự động tạo file mới |
-| **`'w+'`** | **Đọc và Ghi đè** | Đầu file | **XÓA SẠCH TOÀN BỘ NỘI DUNG VỀ 0 BYTE** | Tự động tạo file mới |
-| **`'a'`** | **Ghi tiếp** (Append) | **Cuối file** | Giữ nguyên nội dung cũ, ghi nối tiếp | Tự động tạo file mới |
-| **`'a+'`** | **Đọc và Ghi tiếp** | Cuối file khi ghi | Giữ nguyên nội dung cũ | Tự động tạo file mới |
-| **`'x'`** | **Tạo mới và Ghi** | Đầu file | **Phát lỗi `Warning` (Chỉ tạo file mới)** | Tự động tạo file mới |
-| **`'x+'`** | **Tạo mới, Đọc và Ghi** | Đầu file | **Phát lỗi `Warning`** | Tự động tạo file mới |
+| Mode       | Mục Đích                | Vị Trí Con Trỏ Ban Đầu | Nếu File **ĐÃ TỒN TẠI**                   | Nếu File **CHƯA TỒN TẠI**       |
+| :--------- | :---------------------- | :--------------------- | :---------------------------------------- | :------------------------------ |
+| **`'r'`**  | **Chỉ Đọc** (Read)      | Đầu file               | Giữ nguyên nội dung                       | **Phát cảnh báo lỗi `Warning`** |
+| **`'r+'`** | **Đọc và Ghi**          | Đầu file               | Giữ nguyên nội dung, ghi đè từ đầu        | **Phát cảnh báo lỗi `Warning`** |
+| **`'w'`**  | **Chỉ Ghi** (Write)     | Đầu file               | **XÓA SẠCH TOÀN BỘ NỘI DUNG VỀ 0 BYTE**   | Tự động tạo file mới            |
+| **`'w+'`** | **Đọc và Ghi đè**       | Đầu file               | **XÓA SẠCH TOÀN BỘ NỘI DUNG VỀ 0 BYTE**   | Tự động tạo file mới            |
+| **`'a'`**  | **Ghi tiếp** (Append)   | **Cuối file**          | Giữ nguyên nội dung cũ, ghi nối tiếp      | Tự động tạo file mới            |
+| **`'a+'`** | **Đọc và Ghi tiếp**     | Cuối file khi ghi      | Giữ nguyên nội dung cũ                    | Tự động tạo file mới            |
+| **`'x'`**  | **Tạo mới và Ghi**      | Đầu file               | **Phát lỗi `Warning` (Chỉ tạo file mới)** | Tự động tạo file mới            |
+| **`'x+'`** | **Tạo mới, Đọc và Ghi** | Đầu file               | **Phát lỗi `Warning`**                    | Tự động tạo file mới            |
 
 ---
 

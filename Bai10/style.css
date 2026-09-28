@@ -1,0 +1,173 @@
+/* ==========================================================================
+   CSS CHO BÀI 10: WEBSITE ĐA NGÔN NGỮ (MULTI-LANGUAGE WEBSITE)
+   ========================================================================== */
+
+/* Thanh điều hướng kết hợp chọn ngôn ngữ & menu */
+.b10-nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333333;
+    padding: 0 10px;
+    height: 38px;
+    border-bottom: 1px solid #222;
+}
+
+/* Khối nút chọn ngôn ngữ bên trái */
+.b10-lang-switcher {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.b10-lang-btn {
+    padding: 3px 10px;
+    font-size: 12px;
+    background-color: #e0e0e0;
+    color: #333;
+    border: 1px solid #bbb;
+    border-radius: 3px;
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+    transition: all 0.2s;
+}
+
+.b10-lang-btn:hover {
+    background-color: #ffffff;
+}
+
+.b10-lang-btn.active {
+    background-color: #3b82f6;
+    color: #ffffff;
+    border-color: #2563eb;
+    font-weight: bold;
+}
+
+/* Khối menu điều hướng bên phải */
+.b10-menu-links {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.b10-menu-links a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 6px 8px;
+    transition: color 0.2s;
+}
+
+.b10-menu-links a:hover,
+.b10-menu-links a.active {
+    color: #60a5fa;
+}
+
+/* Nội dung trang */
+.b10-content-wrap {
+    padding: 30px 20px;
+    font-family: Arial, sans-serif;
+}
+
+/* Khung chào mừng trang Home */
+.b10-welcome-box {
+    text-align: center;
+    margin: 40px auto;
+}
+
+.b10-welcome-text {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333333;
+}
+
+/* Khung Form (Contact / Login / Intro) */
+.b10-form-box {
+    max-width: 460px;
+    margin: 10px auto;
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    padding: 18px 24px;
+    border-radius: 4px;
+}
+
+.b10-form-header {
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    color: #222222;
+    margin-bottom: 18px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.b10-form-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.b10-form-table td {
+    padding: 6px 0;
+    vertical-align: middle;
+}
+
+.b10-label {
+    width: 110px;
+    font-size: 13px;
+    color: #333333;
+}
+
+.b10-input {
+    width: 100%;
+    padding: 6px 8px;
+    font-size: 13px;
+    border: 1px solid #aaaaaa;
+    border-radius: 2px;
+    box-sizing: border-box;
+    font-family: inherit;
+}
+
+.b10-textarea {
+    width: 100%;
+    padding: 6px 8px;
+    font-size: 13px;
+    border: 1px solid #aaaaaa;
+    border-radius: 2px;
+    box-sizing: border-box;
+    font-family: inherit;
+    resize: vertical;
+}
+
+.b10-input:focus,
+.b10-textarea:focus {
+    outline: none;
+    border-color: #0066cc;
+    background-color: #f9fbfd;
+}
+
+/* Nút bấm Form */
+.b10-btn {
+    padding: 5px 16px;
+    font-size: 13px;
+    cursor: pointer;
+    border: 1px solid #888888;
+    background: #f0f0f0;
+    border-radius: 3px;
+    margin-right: 6px;
+}
+
+.b10-btn:hover {
+    background: #e0e0e0;
+}
+
+.b10-btn-submit {
+    background-color: #007bff;
+    color: #ffffff;
+    border-color: #0069d9;
+}
+
+.b10-btn-submit:hover {
+    background-color: #0069d9;
+}

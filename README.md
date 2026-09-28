@@ -36,8 +36,9 @@ c:\xampp\htdocs\
 ├── Bai7/
 ├── Bai8/
 ├── Bai9/
+├── Bai10/
 │
-└── ... (Bai10 -> Bai16)
+└── ... (Bai11 -> Bai16)
 ```
 
 ---
@@ -55,7 +56,8 @@ c:\xampp\htdocs\
 | **[Bai7](Bai7/)** | **Thư Viện Hàm & Đại Số Ma Trận**      | Đóng gói `libs/xuLyMangSo.php`, `libs/xuLyMatran.php`, tính toán đường chéo chính/phụ, nhân 2 ma trận $3 \times 3$, sắp xếp mảng kết hợp.              |
 | **[Bai8](Bai8/)** | **Lưu Trữ Dữ Liệu Bằng File Text**     | Đọc gom nhóm 3 dòng/bản ghi bằng `file(..., FILE_IGNORE_NEW_LINES)`, ghi nối tiếp sinh viên mới bằng `file_put_contents(..., FILE_APPEND \| LOCK_EX)`. |
 | **[Bai9](Bai9/)** | **Thao Tác File & Data Flow (CRUD)**   | Quản lý sinh viên toàn diện: List, Add, Edit, Detail, Delete, Upload ảnh đại diện và lưu trữ 5 dòng/bản ghi trong `student.txt`.                       |
-|    **Bai10+**     | **Nâng Cao & Tích Hợp Đầy Đủ**         | Website đa ngôn ngữ (Session/Language files), Kết nối & Truy vấn CSDL MySQL, Giỏ hàng, Richtext box.                                                   |
+| **[Bai10](Bai10/)** | **Website Đa Ngôn Ngữ (Multi-Lang)** | Hệ thống đa ngôn ngữ qua Session và gói từ điển Hằng số (`lang/vietnamese.php`, `lang/english.php`).                                                  |
+|    **Bai11+**     | **Nâng Cao & Tích Hợp Đầy Đủ**         | Kết nối & Truy vấn CSDL MySQL, Giỏ hàng Web bán laptop, Tích hợp Richtext box.                                                                        |
 
 ---
 

@@ -1,4 +1,41 @@
-<!-- GIAO DIỆN: DANH SÁCH LỚP HỌC (pages/lop_list.php) -->
+<?php
+// 1. Nhúng file kết nối CSDL
+require_once __DIR__ . '/../connect.php';
+
+// 2. Hàm truy vấn và kết xuất bảng dữ liệu lớp học
+function renderLopTable($conn)
+{
+    $sql = "SELECT * FROM LOP ORDER BY MALOP ASC";
+    $result = mysqli_query($conn, $sql);
+
+    if ($result && mysqli_num_rows($result) > 0) {
+        $stt = 1;
+        while ($row = mysqli_fetch_assoc($result)) {
+            $maLop   = htmlspecialchars($row['MALOP']);
+            $tenLop  = htmlspecialchars($row['TENLOP']);
+            $khoaHoc = htmlspecialchars($row['KHOAHOC']);
+            $gvcn    = htmlspecialchars($row['GVCN']);
+
+            echo "
+            <tr>
+                <td class='text-center'>" . ($stt++) . "</td>
+                <td><strong>{$maLop}</strong></td>
+                <td>{$tenLop}</td>
+                <td class='text-center'>{$khoaHoc}</td>
+                <td>{$gvcn}</td>
+                <td class='text-center'>
+                    <div class='action-buttons'>
+                        <a href='index.php?page=lop_form&id={$maLop}' class='btn btn-sm btn-warning'>Sửa</a>
+                        <a href='index.php?page=lop_delete&id={$maLop}' class='btn btn-sm btn-danger' onclick=\"return confirm('Bạn có chắc chắn muốn xóa lớp {$maLop}?');\">Xóa</a>
+                    </div>
+                </td>
+            </tr>";
+        }
+    } else {
+        echo "<tr><td colspan='6' class='text-center'>Chưa có dữ liệu lớp học nào!</td></tr>";
+    }
+}
+?>
 
 <div class="page-header">
     <h2 class="page-title">DANH SÁCH LỚP HỌC</h2>
@@ -21,33 +58,8 @@
             </tr>
         </thead>
         <tbody>
-            <!-- Giao diện mẫu (Chưa nhúng SQL) -->
-            <tr>
-                <td class="text-center">1</td>
-                <td><strong>CNTT1</strong></td>
-                <td>Công nghệ thông tin 1</td>
-                <td class="text-center">15</td>
-                <td>Thầy A</td>
-                <td class="text-center">
-                    <div class="action-buttons">
-                        <a href="index.php?page=lop_form&id=CNTT1" class="btn btn-sm btn-warning">Sửa</a>
-                        <a href="index.php?page=lop_list&action=delete&id=CNTT1" class="btn btn-sm btn-danger" onclick="return confirm('Bạn chắc chắn muốn xóa?');">Xóa</a>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td class="text-center">2</td>
-                <td><strong>KT1</strong></td>
-                <td>Kế toán 1</td>
-                <td class="text-center">15</td>
-                <td>Cô B</td>
-                <td class="text-center">
-                    <div class="action-buttons">
-                        <a href="index.php?page=lop_form&id=KT1" class="btn btn-sm btn-warning">Sửa</a>
-                        <a href="index.php?page=lop_list&action=delete&id=KT1" class="btn btn-sm btn-danger" onclick="return confirm('Bạn chắc chắn muốn xóa?');">Xóa</a>
-                    </div>
-                </td>
-            </tr>
+            <!-- Gọi hàm render dữ liệu từ MySQL -->
+            <?php renderLopTable($conn); ?>
         </tbody>
     </table>
 </div>

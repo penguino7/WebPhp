@@ -35,35 +35,39 @@ sequenceDiagram
 
 ## 2. Chi Tiết Cách PHP Nhận Dữ Liệu Từ Từng Loại Thẻ Form HTML
 
-### 2.1. Thẻ Nhập Văn Bản Đơn Lẻ (`text`, `password`, `hidden`, `textarea`, `number`)
+### 2.1. Thẻ Nhập Văn Bản Đơn Lẻ (`text`, `password`, `hidden`, `textarea`, `number`, `date`)
 
 #### HTML:
 
 ```html
 <form method="POST" action="process.php">
-  <!-- Nhập chữ -->
-  <input type="text" name="username" placeholder="Tên đăng nhập" />
-
-  <!-- Mật khẩu -->
-  <input type="password" name="password" />
-
-  <!-- Thẻ ẩn chứa cờ đánh dấu -->
-  <input type="hidden" name="action" value="register" />
-
-  <!-- Khung nhập nhiều dòng -->
-  <textarea name="ghi_chu"></textarea>
-
-  <button type="submit">Gửi</button>
+    <!-- Nhập chữ -->
+    <input type="text" name="username" placeholder="Tên đăng nhập">
+    
+    <!-- Mật khẩu -->
+    <input type="password" name="password">
+    
+    <!-- Chọn ngày sinh -->
+    <input type="date" name="birthday">
+    
+    <!-- Thẻ ẩn chứa cờ đánh dấu -->
+    <input type="hidden" name="action" value="register">
+    
+    <!-- Khung nhập nhiều dòng -->
+    <textarea name="ghi_chu"></textarea>
+    
+    <button type="submit">Gửi</button>
 </form>
 ```
 
 #### PHP Nhận Dữ Liệu (`process.php`):
 
 ```php
-$user   = trim($_POST['username'] ?? '');
-$pass   = trim($_POST['password'] ?? '');
-$action = $_POST['action'] ?? '';
-$note   = trim($_POST['ghi_chu'] ?? '');
+$user     = trim($_POST['username'] ?? '');
+$pass     = trim($_POST['password'] ?? '');
+$birthday = trim($_POST['birthday'] ?? '');
+$action   = $_POST['action'] ?? '';
+$note     = trim($_POST['ghi_chu'] ?? '');
 ```
 
 ---
@@ -184,28 +188,26 @@ if (!empty($_POST['skills'])) {
 ?>
 ```
 
-#### C. Kỹ Thuật Đỉnh Cao: Dùng Vòng Lặp `foreach` Sinh Dropdown Select Tự Động
+#### C. Kỹ Thuật Sinh Dropdown Select Tự Động Bằng Vòng Lặp `foreach`
 
 Trong thực tế dự án, ta không gõ tay từng thẻ `<option>` mà lưu dữ liệu trong mảng cấu hình và duyệt vòng lặp để sinh HTML cực kỳ sạch sẽ:
 
 ```php
 <?php
-// Mảng danh mục các quốc gia
-$countries = [
-    'VN' => 'Việt Nam',
-    'US' => 'Hoa Kỳ (United States)',
-    'JP' => 'Nhật Bản (Japan)',
-    'KR' => 'Hàn Quốc (Korea)',
-    'FR' => 'Pháp (France)'
+// Mảng danh mục các lớp học
+$classes = [
+    'class1' => 'Lớp Công Nghệ Thông Tin 1',
+    'class2' => 'Lớp Khoa Học Máy Tính 2',
+    'class3' => 'Lớp An Toàn Thông Tin 3'
 ];
 
-$selectedCountry = $_POST['quoc_gia'] ?? 'VN';
+$selectedClass = $student['class'] ?? 'class1';
 ?>
 
-<select name="quoc_gia">
-    <?php foreach ($countries as $code => $name): ?>
-        <option value="<?= $code ?>" <?= ($selectedCountry === $code) ? 'selected' : '' ?>>
-            <?= htmlspecialchars($name) ?>
+<select name="class" class="form-control">
+    <?php foreach ($classes as $code => $title): ?>
+        <option value="<?= $code ?>" <?= ($selectedClass === $code) ? 'selected' : '' ?>>
+            <?= htmlspecialchars($title) ?>
         </option>
     <?php endforeach; ?>
 </select>
@@ -220,10 +222,10 @@ Khi cần nhập dữ liệu dạng bảng lưới (như Ma trận $3 \times 3$)
 #### HTML:
 
 ```html
-<input type="number" name="matrix[0][0]" value="1" />
-<input type="number" name="matrix[0][1]" value="2" />
-<input type="number" name="matrix[1][0]" value="3" />
-<input type="number" name="matrix[1][1]" value="4" />
+<input type="number" name="matrix[0][0]" value="1">
+<input type="number" name="matrix[0][1]" value="2">
+<input type="number" name="matrix[1][0]" value="3">
+<input type="number" name="matrix[1][1]" value="4">
 ```
 
 #### PHP Nhận Dữ Liệu:
@@ -242,83 +244,187 @@ echo $matrix[1][1]; // 4
 
 ## 3. Bản Chất Các Phương Thức Truyền Dữ Liệu: GET vs POST
 
-| Tiêu chí                          | Phương thức GET (`$_GET`)                                                                      | Phương thức POST (`$_POST`)                                                                      |
-| :-------------------------------- | :--------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------- |
-| **Vị trí mang dữ liệu**           | Gắn trực tiếp lên thanh URL sau dấu hỏi chấm (`?key1=val1&key2=val2`).                         | Đóng gói ngầm trong phần thân (**HTTP Request Body**).                                           |
-| **Tính riêng tư / Bảo mật**       | **Thấp**: Dữ liệu hiển thị rõ trên URL, bị lưu vào lịch sử duyệt web (History) và Server Logs. | **Cao hơn**: Không lộ dữ liệu trên URL.                                                          |
-| **Giới hạn dung lượng**           | Bị giới hạn bởi độ dài tối đa của URL (khoảng 2.048 ký tự tùy trình duyệt).                    | Không giới hạn về mặt lý thuyết (giới hạn thực tế cấu hình trong `php.ini` qua `post_max_size`). |
-| **Gửi dữ liệu nhị phân (Binary)** | **KHÔNG THỂ**: Không gửi được file ảnh, file nén, tài liệu...                                  | **BẮT BUỘC DÙNG POST** để upload file.                                                           |
-| **Khả năng Bookmark & Cache**     | Có thể lưu Bookmark, Cache kết quả và chia sẻ link trực tiếp.                                  | Không thể Bookmark kết quả submit; khi F5 sẽ hiện cảnh báo gửi lại form.                         |
-| **Trường hợp áp dụng chuẩn**      | Tìm kiếm, lọc dữ liệu, phân trang danh sách, chuyển tab menu.                                  | Đăng ký, Đăng nhập, Thanh toán, Thêm/Sửa/Xóa dữ liệu, Upload file.                               |
+| Tiêu chí | Phương thức GET (`$_GET`) | Phương thức POST (`$_POST`) |
+| :--- | :--- | :--- |
+| **Vị trí mang dữ liệu** | Gắn trực tiếp lên thanh URL sau dấu hỏi chấm (`?key1=val1&key2=val2`). | Đóng gói ngầm trong phần thân (**HTTP Request Body**). |
+| **Tính riêng tư / Bảo mật** | **Thấp**: Dữ liệu hiển thị rõ trên URL, bị lưu vào lịch sử duyệt web (History) và Server Logs. | **Cao hơn**: Không lộ dữ liệu trên URL. |
+| **Giới hạn dung lượng** | Bị giới hạn bởi độ dài tối đa của URL (khoảng 2.048 ký tự tùy trình duyệt). | Không giới hạn về mặt lý thuyết (giới hạn thực tế cấu hình trong `php.ini` qua `post_max_size`). |
+| **Gửi dữ liệu nhị phân (Binary)** | **KHÔNG THỂ**: Không gửi được file ảnh, file nén, tài liệu... | **BẮT BUỘC DÙNG POST** để upload file. |
+| **Khả năng Bookmark & Cache** | Có thể lưu Bookmark, Cache kết quả và chia sẻ link trực tiếp. | Không thể Bookmark kết quả submit; khi F5 sẽ hiện cảnh báo gửi lại form. |
+| **Trường hợp áp dụng chuẩn** | Tìm kiếm, lọc dữ liệu, phân trang danh sách, chuyển tab menu, truyền ID xem chi tiết/sửa/xóa (`?page=detail&id=1`). | Đăng ký, Đăng nhập, Thanh toán, Thêm/Sửa dữ liệu Form lớn, Upload file. |
 
 ---
 
-## 4. Các Hàm Chuẩn Hóa & Bảo Mật Dữ Liệu Form
+## 4. Truyền Tham Số Hành Động Qua URL (Action Links & Data Flow)
 
-### 4.1. Hàm `trim()` - Cắt Khoảng Trắng Thừa
+Trong ứng dụng quản lý (CRUD), ta thường dùng các thẻ liên kết `<a>` kèm phương thức GET để điều hướng người dùng tới các tác vụ con:
+
+```html
+<!-- Xem chi tiết sinh viên index 0 -->
+<a href="index.php?page=detail&id=0">Detail</a>
+
+<!-- Mở form chỉnh sửa sinh viên index 0 -->
+<a href="index.php?page=edit&id=0">Edit</a>
+
+<!-- Xóa sinh viên index 0 kèm hộp thoại xác nhận JavaScript -->
+<a href="index.php?page=delete&id=0" onclick="return confirm('Bạn có chắc muốn xóa bản ghi này?');">Delete</a>
+```
+
+### Tiếp Nhận Và Ép Kiểu An Toàn Trong PHP:
+
+```php
+// Luôn ép kiểu intval() để ngăn chặn mã độc SQL Injection hoặc Path Traversal
+$id = isset($_GET['id']) ? intval($_GET['id']) : -1;
+
+if ($id >= 0) {
+    // Thực hiện thao tác tương ứng
+}
+```
+
+---
+
+## 5. Các Hàm Chuẩn Hóa & Bảo Mật Dữ Liệu Form
+
+### 5.1. Hàm `trim()` - Cắt Khoảng Trắng Thừa
 
 ```php
 $username = trim($_POST['username'] ?? ''); // "  admin  " -> "admin"
 ```
 
-### 4.2. Hàm `htmlspecialchars()` - Ngăn Chặn XSS
+### 5.2. Hàm `htmlspecialchars()` - Phòng Chống XSS (Cross-Site Scripting)
 
-Chuyển các ký tự HTML (`<`, `>`, `&`, `"`, `'`) thành HTML Entities để trình duyệt không thực thi mã độc JavaScript:
+Chuyển các ký tự nguy hiểm của HTML (`<`, `>`, `&`, `"`, `'`) thành các thực thể an toàn (HTML Entities):
 
 ```php
-echo htmlspecialchars($rawUserInput);
+echo htmlspecialchars($rawUserInput, ENT_QUOTES, 'UTF-8');
 ```
 
-### 4.3. Kỹ Thuật Sticky Form (Giữ Lại Dữ Liệu Đã Nhập)
+### 5.3. Kỹ Thuật Sticky Form (Giữ Lại Dữ Liệu Đã Nhập)
 
-Nhúng giá trị cũ đã được lọc an toàn vào thuộc tính `value` của thẻ `<input>`:
+Nhúng giá trị cũ đã được lọc an toàn vào thuộc tính `value` của thẻ `<input>` để khi người dùng nhập sai 1 trường, các trường khác không bị mất dữ liệu:
 
 ```html
-<input
-  type="text"
-  name="hoten"
-  value="<?= htmlspecialchars($_POST['hoten'] ?? '') ?>"
-/>
+<input type="text" name="fullname" value="<?= htmlspecialchars($fullName ?? '') ?>" required>
 ```
 
 ---
 
-## 5. Cơ Chế Xử Lý Upload File Trong PHP (`$_FILES`)
+## 6. Cơ Chế Xử Lý Upload File Chuyên Sâu Trong PHP (`$_FILES`)
 
-### 5.1. Điều Kiện Bắt Buộc Của Form Upload
+### 6.1. Hai Điều Kiện Bắt Buộc Của Form Upload
 
-1. `method="POST"`
-2. `enctype="multipart/form-data"`
+1. Thuộc tính **`method="POST"`**.
+2. Thuộc tính **`enctype="multipart/form-data"`**.
 
 ```html
 <form method="POST" action="uploadProcess.php" enctype="multipart/form-data">
-  <input type="file" name="avatar" required />
-  <button type="submit">Tải Lên</button>
+    <input type="file" name="avatar" accept="image/*" required>
+    <button type="submit">Tải Lên</button>
 </form>
 ```
 
-### 5.2. Cấu Trúc Chi Tiết Mảng `$_FILES['avatar']`
+---
 
-- `name`: Tên gốc của file (vd: `hinh_anh.jpg`).
-- `type`: Định dạng MIME (vd: `image/jpeg`).
-- `tmp_name`: Đường dẫn file tạm trên Server do PHP lưu tạm.
-- `error`: Mã trạng thái lỗi (`0 = UPLOAD_ERR_OK`).
-- `size`: Dung lượng file tính bằng Byte.
+### 6.2. Cấu Trúc Chi Tiết Mảng `$_FILES['avatar']`
 
-### 5.3. Hàm `move_uploaded_file()` & Code Mẫu Chuẩn:
+Khi người dùng upload 1 file, PHP tạo ra một mảng kết hợp với 5 phần tử:
+
+| Khóa (Key) | Kiểu Dữ Liệu | Ý Nghĩa Chi Tiết |
+| :--- | :--- | :--- |
+| **`name`** | `string` | Tên gốc của file trên máy tính người dùng (ví dụ: `my_avatar.jpg`). |
+| **`type`** | `string` | Định dạng MIME do trình duyệt gửi lên (ví dụ: `image/jpeg`, `image/png`). |
+| **`tmp_name`** | `string` | Đường dẫn file tạm được máy chủ PHP lưu trữ trong thư mục tạm của hệ điều hành (ví dụ: `C:\xampp\tmp\phpA1B2.tmp`). File này sẽ **tự động bị xóa** ngay khi script kết thúc nếu không được di chuyển. |
+| **`error`** | `int` | Mã số phản ánh trạng thái upload (xem bảng mã lỗi bên dưới). |
+| **`size`** | `int` | Kích thước file tính bằng **Byte**. |
+
+---
+
+### 6.3. Bảng Tra Cứu Toàn Bộ Mã Lỗi Trong `$_FILES['key']['error']`
+
+| Mã Lỗi | Tên Hằng Số PHP | Ý Nghĩa & Nguyên Nhân |
+| :---: | :--- | :--- |
+| **`0`** | **`UPLOAD_ERR_OK`** | **Upload thành công hoàn toàn**, không có lỗi nào. |
+| **`1`** | **`UPLOAD_ERR_INI_SIZE`** | File vượt quá dung lượng tối đa cho phép cấu hình trong `php.ini` (`upload_max_filesize`). |
+| **`2`** | **`UPLOAD_ERR_FORM_SIZE`** | File vượt quá dung lượng quy định trong thẻ ẩn `MAX_FILE_SIZE` của HTML form. |
+| **`3`** | **`UPLOAD_ERR_PARTIAL`** | File chỉ mới được tải lên **một phần** (do đứt kết nối mạng giữa chừng). |
+| **`4`** | **`UPLOAD_ERR_NO_FILE`** | Người dùng **không chọn file** nào nhưng vẫn bấm Submit. |
+| **`6`** | **`UPLOAD_ERR_NO_TMP_DIR`** | Máy chủ thiếu thư mục tạm (`upload_tmp_dir` trong `php.ini`). |
+| **`7`** | **`UPLOAD_ERR_CANT_WRITE`** | Không thể ghi file vào ổ cứng máy chủ (lỗi phân quyền thư mục Disk Permissions). |
+| **`8`** | **`UPLOAD_ERR_EXTENSION`** | Một PHP Extension đã chặn quá trình tải file. |
+
+---
+
+### 6.4. Quy Trình Upload & Đổi Tên File An Toàn Tuyệt Đối
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor Client as Trình Duyệt
+    participant Server as PHP Engine
+    participant Uploads as Thư Mục uploads/
+
+    Client->>Server: Gửi Form kèm File (multipart/form-data)
+    Server->>Server: Lưu tạm vào tmp/phpXXXX.tmp
+    Server->>Server: Kiểm tra if ($_FILES['avatar']['error'] === UPLOAD_ERR_OK)
+    Server->>Server: Kiểm tra đuôi file hợp lệ (jpg, png, gif)
+    Server->>Server: Sinh tên ngẫu nhiên: time() . '_' . uniqid() . '.jpg'
+    Server->>Uploads: Di chuyển file: move_uploaded_file(tmp, uploads/new_name.jpg)
+    Uploads-->>Server: Di chuyển thành công
+    Server-->>Client: Phản hồi kết quả tải lên thành công!
+```
+
+#### Code Mẫu Chuẩn Cho Tác Vụ Thêm & Sửa Ảnh:
 
 ```php
-if (isset($_FILES['avatar']) && $_FILES['avatar']['error'] === UPLOAD_ERR_OK) {
-    $fileTmpPath   = $_FILES['avatar']['tmp_name'];
-    $fileName      = $_FILES['avatar']['name'];
-    $fileExtension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
-
-    // Đổi tên ngẫu nhiên tránh trùng lặp
-    $newFileName = uniqid('img_', true) . '.' . $fileExtension;
-    $destination = __DIR__ . '/../uploads/' . $newFileName;
-
-    if (move_uploaded_file($fileTmpPath, $destination)) {
-        echo "Upload thành công: " . htmlspecialchars($newFileName);
+function uploadAvatar(array $fileInput, string $targetDir = '../uploads/'): ?string
+{
+    // 1. Kiểm tra trạng thái upload
+    if (!isset($fileInput['error']) || $fileInput['error'] !== UPLOAD_ERR_OK) {
+        return null;
     }
+
+    // 2. Kiểm tra phần mở rộng (Extension) an toàn
+    $fileName = basename($fileInput['name']);
+    $fileExt  = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+    $allowedExts = ['jpg', 'jpeg', 'png', 'gif'];
+
+    if (!in_array($fileExt, $allowedExts, true)) {
+        return null; // Đuôi file không hợp lệ
+    }
+
+    // 3. Đảm bảo thư mục lưu trữ tồn tại
+    if (!is_dir($targetDir)) {
+        mkdir($targetDir, 0777, true);
+    }
+
+    // 4. Đổi tên file ngẫu nhiên chống trùng lặp và chống ghi đè
+    $newFileName = time() . '_' . uniqid() . '.' . $fileExt;
+    $targetPath  = rtrim($targetDir, '/') . '/' . $newFileName;
+
+    // 5. Di chuyển file từ thư mục tạm sang thư mục đích
+    if (move_uploaded_file($fileInput['tmp_name'], $targetPath)) {
+        return $newFileName;
+    }
+
+    return null;
+}
+```
+
+---
+
+## 7. Mẫu Thiết Kế PRG (Post/Redirect/Get Pattern)
+
+Khi người dùng gửi dữ liệu qua `POST` (như Thêm, Sửa hoặc Xóa), nếu trang kết thúc mà không chuyển hướng, người dùng nhấn **F5 (Refresh)** sẽ khiến trình duyệt gửi lại Form lần thứ hai, gây trùng lặp dữ liệu.
+
+👉 **Giải pháp PRG:** Sau khi xử lý POST thành công, gọi lệnh chuyển hướng `header()` và kết thúc bằng `exit;`:
+
+```php
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // 1. Xử lý thêm sinh viên vào file
+    addStudent($newStudent);
+
+    // 2. Chuyển hướng sang trang danh sách (GET Request)
+    header('Location: index.php?page=list');
+    exit;
 }
 ```

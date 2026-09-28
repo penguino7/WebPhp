@@ -25,7 +25,8 @@ c:\xampp\htdocs\
 │   ├── 02_Data_Transfer_va_Form.md
 │   ├── 03_Session_va_Cookie.md
 │   ├── 04_Ham_va_Mang.md
-│   └── 05_Doc_Ghi_File.md
+│   ├── 05_Doc_Ghi_File.md
+│   └── 06_Ket_Noi_va_Truy_Van_CSDL_MySQL.md
 │
 ├── Bai1/
 ├── Bai2/
@@ -91,6 +92,12 @@ Mỗi tài liệu trong thư mục [`docs/`](docs/) được thiết kế chi ti
    - Đọc từng dòng bằng `file()` với cờ `FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES`.
    - Ghi nối tiếp an toàn bằng `file_put_contents()` với cờ `FILE_APPEND | LOCK_EX`.
    - Bảng tra cứu các Mode mở file (`r`, `w`, `a`, `x`, `r+`, `w+`, `a+`) và quy trình CRUD (Update/Delete) bản ghi trong file text.
+
+6. **[06. Kết Nối & Thao Tác CSDL MySQL](docs/06_Ket_Noi_va_Truy_Van_CSDL_MySQL.md)**
+   - Giới thiệu MySQL & phpMyAdmin trong XAMPP (Port 3306, tài khoản `root`).
+   - Kiểu dữ liệu MySQL (`CHAR`, `VARCHAR`, `INT`, `FLOAT`, `DECIMAL`, `DATE`, `PRIMARY KEY`, `FOREIGN KEY`).
+   - Extension `mysqli`: `mysqli_connect()`, `mysqli_query()`, `mysqli_fetch_assoc()`.
+   - Thuật toán Phân trang dữ liệu (`LIMIT $start, $limit`) và kỹ thuật phòng chống tấn công SQL Injection.
 
 ---
 

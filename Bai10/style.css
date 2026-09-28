@@ -83,13 +83,13 @@
     color: #333333;
 }
 
-/* Khung Form (Contact / Login / Intro) */
+/* Khung Form (Contact / Login / Intro) xếp bằng DIV Flexbox */
 .b10-form-box {
-    max-width: 460px;
+    max-width: 480px;
     margin: 10px auto;
     background-color: #ffffff;
     border: 1px solid #cccccc;
-    padding: 18px 24px;
+    padding: 20px 24px;
     border-radius: 4px;
 }
 
@@ -98,25 +98,27 @@
     font-size: 16px;
     font-weight: bold;
     color: #222222;
-    margin-bottom: 18px;
+    margin-bottom: 20px;
     padding-bottom: 8px;
     border-bottom: 1px solid #eeeeee;
 }
 
-.b10-form-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.b10-form-table td {
-    padding: 6px 0;
-    vertical-align: middle;
+/* Mỗi hàng form là 1 khối div flexbox */
+.b10-form-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
 }
 
 .b10-label {
     width: 110px;
+    min-width: 110px;
     font-size: 13px;
     color: #333333;
+}
+
+.b10-input-wrap {
+    flex: 1;
 }
 
 .b10-input {
@@ -147,7 +149,15 @@
     background-color: #f9fbfd;
 }
 
-/* Nút bấm Form */
+/* Khối nút bấm phía dưới form */
+.b10-btn-group {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 16px;
+    padding-top: 12px;
+}
+
 .b10-btn {
     padding: 5px 16px;
     font-size: 13px;
@@ -155,7 +165,6 @@
     border: 1px solid #888888;
     background: #f0f0f0;
     border-radius: 3px;
-    margin-right: 6px;
 }
 
 .b10-btn:hover {

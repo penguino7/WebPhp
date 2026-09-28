@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Trang Tổng Quan Quản Trị (Admin Dashboard) - Bài 14
  */
@@ -99,7 +100,7 @@ function renderDashboardPage($conn)
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($recentProducts as $p): 
+                        <?php foreach ($recentProducts as $p):
                             $imgSrc = "../Bai13/images/" . htmlspecialchars($p['image']);
                             $pId = (int)$p['product_id'];
                         ?>

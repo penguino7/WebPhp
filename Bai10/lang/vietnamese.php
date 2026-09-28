@@ -37,3 +37,5 @@ define("INTRO_CONTENT", "Đây là trang giới thiệu của hệ thống websi
 define("LOGIN_FORM_TITLE", "Form đăng nhập");
 define("LABEL_PASSWORD", "Mật khẩu:");
 define("BTN_LOGIN", "Đăng nhập");
+define("LOGIN_SUCCESS", "Đăng nhập thành công! Xin chào, ");
+define("LOGIN_FAIL", "Sai tên đăng nhập hoặc mật khẩu!");

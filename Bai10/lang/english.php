@@ -37,3 +37,5 @@ define("INTRO_CONTENT", "This is the introduction page of our multi-language web
 define("LOGIN_FORM_TITLE", "Login Form");
 define("LABEL_PASSWORD", "Password:");
 define("BTN_LOGIN", "Login");
+define("LOGIN_SUCCESS", "Login successful! Welcome, ");
+define("LOGIN_FAIL", "Invalid username or password!");

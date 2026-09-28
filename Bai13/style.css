@@ -3,8 +3,6 @@
    RETRO 8-BIT / 16-BIT PIXEL ART THEME (DARK & LIGHT MODE)
    ========================================================= */
 
-@import url("https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&family=Press+Start+2P&family=VT323&display=swap");
-
 /* =========================================================
    THEME VARIABLES
    ========================================================= */
@@ -245,17 +243,6 @@ body {
   font-size: 38px;
   line-height: 1;
   filter: drop-shadow(3px 3px 0 #000);
-  animation: pixel-bounce 2s infinite ease-in-out;
-}
-
-@keyframes pixel-bounce {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-4px);
-  }
 }
 
 .brand-name {
@@ -544,7 +531,6 @@ body {
   background: var(--px-card-sub);
   color: var(--px-yellow);
   border-left-color: var(--px-yellow);
-  padding-left: 18px;
 }
 
 .category-menu-list li.active a {
@@ -818,8 +804,6 @@ body {
 .product-card:hover {
   background: var(--px-product-hover);
   border-color: var(--px-cyan);
-  transform: translate(-3px, -3px);
-  box-shadow: 6px 6px 0px #000;
 }
 
 .badge-discount {

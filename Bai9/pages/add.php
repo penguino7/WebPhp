@@ -3,20 +3,16 @@ require_once __DIR__ . '/../libs/studentHelper.php';
 
 $message = '';
 $error = '';
-$fullName = '';
-$birthday = '';
-$address  = '';
-$class    = 'class1';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $fullName = trim($_POST['fullname'] ?? '');
     $birthday = trim($_POST['birthday'] ?? '');
     $address  = trim($_POST['address'] ?? '');
     $class    = trim($_POST['class'] ?? 'class1');
-    $imageName = 'default.png';
+    $imageName = '1.jpg';
 
     if (empty($fullName) || empty($birthday) || empty($address) || empty($class)) {
-        $error = 'Vui lòng điền đầy đủ tất cả các trường thông tin!';
+        $error = 'Vui lòng nhập đầy đủ các trường thông tin!';
     } else {
         // Xử lý upload ảnh nếu có
         if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
@@ -49,74 +45,60 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if (addStudent($newStudent)) {
             $message = 'Thêm sinh viên mới thành công!';
-            // Reset form sau khi thêm thành công
-            $fullName = '';
-            $birthday = '';
-            $address  = '';
-            $class    = 'class1';
         } else {
             $error = 'Có lỗi xảy ra khi lưu vào file student.txt!';
         }
     }
 }
 ?>
-<div class="student-container">
-    <div class="page-title">
-        <span>Thêm Sinh Viên Mới</span>
-        <a href="index.php?page=list" class="btn btn-secondary btn-sm">Danh sách</a>
-    </div>
-    <div class="page-subtitle">Trang add.php: Thêm sinh viên mới, lưu nối tiếp vào file student.txt</div>
+<div class="b9-content-wrap">
+    <div class="b9-title">Trang add.php: add sinh viên mới, lưu vào file sinh viên hiện tại</div>
 
     <?php if (!empty($message)): ?>
-        <div class="alert-success">✓ <?= htmlspecialchars($message) ?></div>
+        <div class="b9-alert-success"><?= htmlspecialchars($message) ?></div>
     <?php endif; ?>
     <?php if (!empty($error)): ?>
-        <div class="alert-error">⚠ <?= htmlspecialchars($error) ?></div>
+        <div class="b9-alert-error"><?= htmlspecialchars($error) ?></div>
     <?php endif; ?>
 
-    <form method="POST" enctype="multipart/form-data" class="student-form">
-        <div class="form-group">
-            <label for="fullname" class="form-label">Full name: <span class="required">*</span></label>
-            <div class="form-control-wrap">
-                <input type="text" id="fullname" name="fullname" class="form-control" value="<?= htmlspecialchars($fullName) ?>" placeholder="Nhập họ và tên..." required>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="birthday" class="form-label">Birthday: <span class="required">*</span></label>
-            <div class="form-control-wrap">
-                <input type="date" id="birthday" name="birthday" class="form-control" value="<?= htmlspecialchars($birthday) ?>" required>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="address" class="form-label">Address: <span class="required">*</span></label>
-            <div class="form-control-wrap">
-                <input type="text" id="address" name="address" class="form-control" value="<?= htmlspecialchars($address) ?>" placeholder="Nhập địa chỉ..." required>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="image" class="form-label">Image:</label>
-            <div class="form-control-wrap">
-                <input type="file" id="image" name="image" class="form-control form-control-file" accept="image/*">
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="class" class="form-label">Class: <span class="required">*</span></label>
-            <div class="form-control-wrap">
-                <select id="class" name="class" class="form-control">
-                    <option value="class1" <?= ($class === 'class1') ? 'selected' : '' ?>>class1</option>
-                    <option value="class2" <?= ($class === 'class2') ? 'selected' : '' ?>>class2</option>
-                    <option value="class3" <?= ($class === 'class3') ? 'selected' : '' ?>>class3</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="form-buttons">
-            <button type="reset" class="btn btn-secondary">Nhập lại</button>
-            <button type="submit" class="btn btn-primary">Lưu</button>
-        </div>
-    </form>
+    <div class="b9-form-box">
+        <div style="font-weight: bold; margin-bottom: 12px; font-size: 14px;">Them sinh vien moi</div>
+        <form method="POST" enctype="multipart/form-data">
+            <table class="b9-form-table">
+                <tr>
+                    <td class="b9-form-label">Full name:</td>
+                    <td><input type="text" name="fullname" class="b9-input-text" required></td>
+                </tr>
+                <tr>
+                    <td class="b9-form-label">Birthday:</td>
+                    <td><input type="text" name="birthday" class="b9-input-text" placeholder="2012-08-12" required></td>
+                </tr>
+                <tr>
+                    <td class="b9-form-label">Address:</td>
+                    <td><input type="text" name="address" class="b9-input-text" required></td>
+                </tr>
+                <tr>
+                    <td class="b9-form-label">Image:</td>
+                    <td><input type="file" name="image" accept="image/*"></td>
+                </tr>
+                <tr>
+                    <td class="b9-form-label">Class:</td>
+                    <td>
+                        <select name="class" class="b9-select">
+                            <option value="class1">class1</option>
+                            <option value="class2">class2</option>
+                            <option value="class3">class3</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td style="padding-top: 10px;">
+                        <button type="reset" class="b9-btn">Nhap lai</button>
+                        <button type="submit" class="b9-btn b9-btn-submit">Luu</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
 </div>

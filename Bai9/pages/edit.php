@@ -8,7 +8,7 @@ $message = '';
 $error = '';
 
 if ($student === null) {
-    echo '<div class="student-container"><div class="alert-error">⚠ Không tìm thấy sinh viên để chỉnh sửa! <a href="index.php?page=list">Quay lại danh sách</a></div></div>';
+    echo '<div class="b9-content-wrap"><div class="b9-alert-error">Không tìm thấy sinh viên để chỉnh sửa! <a href="index.php?page=list">Quay lại</a></div></div>';
     return;
 }
 
@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $imageName = $student['image']; // Mặc định giữ tên ảnh cũ
 
     if (empty($fullName) || empty($birthday) || empty($address) || empty($class)) {
-        $error = 'Vui lòng điền đầy đủ tất cả các trường thông tin!';
+        $error = 'Vui lòng nhập đầy đủ các trường thông tin!';
     } else {
         // Nếu người dùng upload ảnh mới
         if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
@@ -38,7 +38,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $targetPath  = $targetDir . $newFileName;
 
                 if (move_uploaded_file($fileTmp, $targetPath)) {
-                    // Xóa file ảnh cũ nếu có và không phải default
                     if (!empty($student['image']) && $student['image'] !== 'default.png') {
                         $oldPath = $targetDir . $student['image'];
                         if (file_exists($oldPath) && is_file($oldPath)) {
@@ -60,76 +59,67 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if (updateStudent($id, $updatedData)) {
             $message = 'Cập nhật thông tin sinh viên thành công!';
-            $student = $updatedData; // Cập nhật lại dữ liệu hiển thị
+            $student = $updatedData;
         } else {
-            $error = 'Không thể cập nhật dữ liệu vào file student.txt!';
+            $error = 'Không thể lưu vào file student.txt!';
         }
     }
 }
 ?>
-<div class="student-container">
-    <div class="page-title">
-        <span>Cập Nhật Thông Tin Sinh Viên</span>
-        <a href="index.php?page=list" class="btn btn-secondary btn-sm">Danh sách</a>
-    </div>
-    <div class="page-subtitle">Trang Edit.php: Hiển thị thông tin cũ và cập nhật thông tin mới vào file student.txt</div>
+<div class="b9-content-wrap">
+    <div class="b9-title">Trang Edit.php: cho phép hiển thị thông tin cũ và cập nhật thông tin mới</div>
 
     <?php if (!empty($message)): ?>
-        <div class="alert-success">✓ <?= htmlspecialchars($message) ?></div>
+        <div class="b9-alert-success"><?= htmlspecialchars($message) ?></div>
     <?php endif; ?>
     <?php if (!empty($error)): ?>
-        <div class="alert-error">⚠ <?= htmlspecialchars($error) ?></div>
+        <div class="b9-alert-error"><?= htmlspecialchars($error) ?></div>
     <?php endif; ?>
 
-    <form method="POST" enctype="multipart/form-data" class="student-form">
-        <div class="form-group">
-            <label for="fullname" class="form-label">Full name: <span class="required">*</span></label>
-            <div class="form-control-wrap">
-                <input type="text" id="fullname" name="fullname" class="form-control" value="<?= htmlspecialchars($student['name']) ?>" required>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="birthday" class="form-label">Birthday: <span class="required">*</span></label>
-            <div class="form-control-wrap">
-                <input type="date" id="birthday" name="birthday" class="form-control" value="<?= htmlspecialchars($student['birthday']) ?>" required>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="address" class="form-label">Address: <span class="required">*</span></label>
-            <div class="form-control-wrap">
-                <input type="text" id="address" name="address" class="form-control" value="<?= htmlspecialchars($student['address']) ?>" required>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="image" class="form-label">Image:</label>
-            <div class="form-control-wrap">
-                <input type="file" id="image" name="image" class="form-control form-control-file" accept="image/*">
-                <?php if (!empty($student['image']) && file_exists(__DIR__ . '/../uploads/' . $student['image'])): ?>
-                    <div class="current-image-preview">
-                        <img src="uploads/<?= htmlspecialchars($student['image']) ?>" alt="Current Avatar">
-                        <span>Ảnh hiện tại: <strong><?= htmlspecialchars($student['image']) ?></strong> (để trống nếu không đổi)</span>
-                    </div>
-                <?php endif; ?>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="class" class="form-label">Class: <span class="required">*</span></label>
-            <div class="form-control-wrap">
-                <select id="class" name="class" class="form-control">
-                    <option value="class1" <?= ($student['class'] === 'class1') ? 'selected' : '' ?>>class1</option>
-                    <option value="class2" <?= ($student['class'] === 'class2') ? 'selected' : '' ?>>class2</option>
-                    <option value="class3" <?= ($student['class'] === 'class3') ? 'selected' : '' ?>>class3</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="form-buttons">
-            <a href="index.php?page=list" class="btn btn-secondary">Hủy</a>
-            <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
-        </div>
-    </form>
+    <div class="b9-form-box">
+        <div style="font-weight: bold; margin-bottom: 12px; font-size: 14px;">Them sinh vien moi</div>
+        <form method="POST" enctype="multipart/form-data">
+            <table class="b9-form-table">
+                <tr>
+                    <td class="b9-form-label">Full name:</td>
+                    <td><input type="text" name="fullname" class="b9-input-text" value="<?= htmlspecialchars($student['name']) ?>" required></td>
+                </tr>
+                <tr>
+                    <td class="b9-form-label">Birthday:</td>
+                    <td><input type="text" name="birthday" class="b9-input-text" value="<?= htmlspecialchars($student['birthday']) ?>" required></td>
+                </tr>
+                <tr>
+                    <td class="b9-form-label">Address:</td>
+                    <td><input type="text" name="address" class="b9-input-text" value="<?= htmlspecialchars($student['address']) ?>" required></td>
+                </tr>
+                <tr>
+                    <td class="b9-form-label">Image:</td>
+                    <td>
+                        <input type="file" name="image" accept="image/*">
+                        <?php if (!empty($student['image'])): ?>
+                            <div style="font-size: 12px; color: #666; margin-top: 3px;">Ảnh hiện tại: <?= htmlspecialchars($student['image']) ?></div>
+                        <?php endif; ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="b9-form-label">Class:</td>
+                    <td>
+                        <select name="class" class="b9-select">
+                            <option value="class1" <?= ($student['class'] === 'class1') ? 'selected' : '' ?>>class1</option>
+                            <option value="class2" <?= ($student['class'] === 'class2') ? 'selected' : '' ?>>class2</option>
+                            <option value="class3" <?= ($student['class'] === 'class3') ? 'selected' : '' ?>>class3</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td style="padding-top: 10px;">
+                        <button type="reset" class="b9-btn">Nhap lai</button>
+                        <button type="submit" class="b9-btn b9-btn-submit">Luu</button>
+                        <a href="index.php?page=list" style="margin-left: 10px; font-size: 13px; color: #666;">Quay lại</a>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
 </div>

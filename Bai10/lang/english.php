@@ -27,6 +27,7 @@ define("LABEL_PHONE", "Phone:");
 define("LABEL_COMMENT", "Comment:");
 define("BTN_RESET", "Reset");
 define("BTN_SUBMIT", "Submit");
+define("MSG_CONTACT_SUCCESS", "Thank you for contacting us! Your message has been received.");
 
 // 5. Trang Giới thiệu (Introduction)
 define("INTRO_TITLE", "Introduction");

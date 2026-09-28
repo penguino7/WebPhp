@@ -27,6 +27,7 @@ define("LABEL_PHONE", "Điện thoại:");
 define("LABEL_COMMENT", "Ghi chú:");
 define("BTN_RESET", "Nhập lại");
 define("BTN_SUBMIT", "Liên hệ");
+define("MSG_CONTACT_SUCCESS", "Cảm ơn bạn đã liên hệ! Tin nhắn của bạn đã được gửi thành công.");
 
 // 5. Trang Giới thiệu (Introduction)
 define("INTRO_TITLE", "Giới thiệu");

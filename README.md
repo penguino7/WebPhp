@@ -46,21 +46,21 @@ c:\xampp\htdocs\
 
 ## 3. Lộ Trình Thực Hành (Practical Curriculum)
 
-|         Bài         | Tên Chủ Đề                                   | Nội Dung Kỹ Thuật Chính                                                                                                                                |
-| :-----------------: | :------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------- |
-|  **[Bai1](Bai1/)**  | **Modular Layout Template**                  | Xây dựng khung giao diện phân tách `Head.php`, `Menu.php`, `Footer.php` tái sử dụng linh hoạt.                                                         |
-|  **[Bai2](Bai2/)**  | **Áp Dụng Template & Form Cơ Bản**           | Kế thừa Layout vào trang Đăng ký thành viên (`Register.php`) và Tính toán lương nhân viên (`Calculate.php`).                                           |
-|  **[Bai3](Bai3/)**  | **Single Entry Point Router**                | Điều hướng `index.php?page=...`, vẽ bảng HTML động theo số dòng/cột, chuẩn hóa mảng số và upload ảnh.                                                  |
-|  **[Bai4](Bai4/)**  | **Nhận Dữ Liệu Form & Sticky Form**          | Xử lý Form với `GET`/`POST`, duy trì giá trị cũ khi submit lỗi, bảo vệ chống XSS bằng `htmlspecialchars()`.                                            |
-|  **[Bai5](Bai5/)**  | **Xác Thực & Phân Quyền Bằng Session**       | Đăng nhập/Đăng xuất bảo mật, chống Session Fixation bằng `session_regenerate_id(true)`, Auth Guard Middleware.                                         |
-|  **[Bai6](Bai6/)**  | **Quản Lý Trạng Thái Bằng Cookie**           | Tự động điền tài khoản ("Remember Login 30 ngày"), lưu vết thời gian truy cập gần nhất, CRUD danh sách yêu thích qua JSON Cookie.                      |
-|  **[Bai7](Bai7/)**  | **Thư Viện Hàm & Đại Số Ma Trận**            | Đóng gói `libs/xuLyMangSo.php`, `libs/xuLyMatran.php`, tính toán đường chéo chính/phụ, nhân 2 ma trận $3 \times 3$, sắp xếp mảng kết hợp.              |
-|  **[Bai8](Bai8/)**  | **Lưu Trữ Dữ Liệu Bằng File Text**           | Đọc gom nhóm 3 dòng/bản ghi bằng `file(..., FILE_IGNORE_NEW_LINES)`, ghi nối tiếp sinh viên mới bằng `file_put_contents(..., FILE_APPEND \| LOCK_EX)`. |
-|  **[Bai9](Bai9/)**  | **Thao Tác File & Data Flow (CRUD)**         | Quản lý sinh viên toàn diện: List, Add, Edit, Detail, Delete, Upload ảnh đại diện và lưu trữ 5 dòng/bản ghi trong `student.txt`.                       |
-| **[Bai10](Bai10/)** | **Website Đa Ngôn Ngữ (Multi-Lang)**         | Hệ thống đa ngôn ngữ qua Session và gói từ điển Hằng số (`lang/vietnamese.php`, `lang/english.php`).                                                   |
-| **[Bai11](Bai11/)** | **Kết Nối & Truy Vấn CSDL MySQL Cơ Bản**     | Quản lý quan hệ 2 bảng LOP & HOSO, CRUD dữ liệu, phân trang 10 bản ghi/trang bằng `LIMIT`, bảo mật SQL Injection.                                      |
-| **[Bai12](Bai12/)** | **Truy Vấn Dữ Liệu Quan Hệ (Master-Detail)** | Truy vấn quan hệ 2 bảng classes & students, so sánh 3 phương thức fetch (row, array, assoc), Drill-down xem chi tiết sinh viên kèm ảnh.                |
-|     **Bai13+**      | **Nâng Cao & Tích Hợp Đầy Đủ**               | Xây dựng website bán laptop (End User & Admin), Giỏ hàng Session/Cookie, Tích hợp Richtext Box.                                                        |
+|         Bài         | Tên Chủ Đề                               | Nội Dung Kỹ Thuật Chính                                                                                                                                 |
+| :-----------------: | :--------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------ |
+|  **[Bai1](Bai1/)**  | **Modular Layout Template**              | Xây dựng khung giao diện phân tách `Head.php`, `Menu.php`, `Footer.php` tái sử dụng linh hoạt.                                                          |
+|  **[Bai2](Bai2/)**  | **Áp Dụng Template & Form Cơ Bản**       | Kế thừa Layout vào trang Đăng ký thành viên (`Register.php`) và Tính toán lương nhân viên (`Calculate.php`).                                            |
+|  **[Bai3](Bai3/)**  | **Single Entry Point Router**            | Điều hướng `index.php?page=...`, vẽ bảng HTML động theo số dòng/cột, chuẩn hóa mảng số và upload ảnh.                                                   |
+|  **[Bai4](Bai4/)**  | **Nhận Dữ Liệu Form & Sticky Form**      | Xử lý Form với `GET`/`POST`, duy trì giá trị cũ khi submit lỗi, bảo vệ chống XSS bằng `htmlspecialchars()`.                                             |
+|  **[Bai5](Bai5/)**  | **Xác Thực & Phân Quyền Bằng Session**   | Đăng nhập/Đăng xuất bảo mật, chống Session Fixation bằng `session_regenerate_id(true)`, Auth Guard Middleware.                                          |
+|  **[Bai6](Bai6/)**  | **Quản Lý Trạng Thái Bằng Cookie**       | Tự động điền tài khoản ("Remember Login 30 ngày"), lưu vết thời gian truy cập gần nhất, CRUD danh sách yêu thích qua JSON Cookie.                       |
+|  **[Bai7](Bai7/)**  | **Thư Viện Hàm & Đại Số Ma Trận**        | Đóng gói `libs/xuLyMangSo.php`, `libs/xuLyMatran.php`, tính toán đường chéo chính/phụ, nhân 2 ma trận $3 \times 3$, sắp xếp mảng kết hợp.               |
+|  **[Bai8](Bai8/)**  | **Lưu Trữ Dữ Liệu Bằng File Text**       | Đọc gom nhóm 3 dòng/bản ghi bằng `file(..., FILE_IGNORE_NEW_LINES)`, ghi nối tiếp sinh viên mới bằng `file_put_contents(..., FILE_APPEND \| LOCK_EX)`.  |
+|  **[Bai9](Bai9/)**  | **Thao Tác File & Data Flow (CRUD)**     | Quản lý sinh viên toàn diện: List, Add, Edit, Detail, Delete, Upload ảnh đại diện và lưu trữ 5 dòng/bản ghi trong `student.txt`.                        |
+| **[Bai10](Bai10/)** | **Website Đa Ngôn Ngữ (Multi-Lang)**     | Hệ thống đa ngôn ngữ qua Session và gói từ điển Hằng số (`lang/vietnamese.php`, `lang/english.php`).                                                    |
+| **[Bai11](Bai11/)** | **Kết Nối & Truy Vấn CSDL MySQL Cơ Bản** | Quản lý quan hệ 2 bảng LOP & HOSO, CRUD dữ liệu, phân trang 10 bản ghi/trang bằng `LIMIT`, bảo mật SQL Injection.                                       |
+| **[Bai13](Bai13/)** | **Web Bán Laptop (Phân Hệ End User)**    | Thiết kế website thương mại điện tử độc lập full-width: Danh mục hãng, Trang chủ hiển thị 2 laptop/hãng, Chi tiết thông số kỹ thuật, Tìm kiếm sản phẩm. |
+|     **Bai14+**      | **Nâng Cao & Tích Hợp Đầy Đủ**           | Phân hệ Quản trị (Admin CRUD laptop), Giỏ hàng Session/Cookie, Tích hợp Richtext Box.                                                                   |
 
 ---
 

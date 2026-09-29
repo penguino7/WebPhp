@@ -79,17 +79,33 @@ $groupedData = getProductsGroupedByCategory($conn, 2);
                         </div>
 
                         <div>
-                            <div class="product-price-box">
-                                <span class="product-price"><?= formatPrice($prod['price']) ?></span>
-                                <?php if (!empty($prod['old_price']) && (float)$prod['old_price'] > (float)$prod['price']): ?>
-                                    <span class="product-old-price"><?= formatPrice($prod['old_price']) ?></span>
-                                <?php endif; ?>
+                            <div class="product-price-box flex-between" style="align-items: baseline;">
+                                <div>
+                                    <span class="product-price"><?= formatPrice($prod['price']) ?></span>
+                                    <?php if (!empty($prod['old_price']) && (float)$prod['old_price'] > (float)$prod['price']): ?>
+                                        <span class="product-old-price"><?= formatPrice($prod['old_price']) ?></span>
+                                    <?php endif; ?>
+                                </div>
+                                <div>
+                                    <?php $stock = isset($prod['quantity']) ? (int)$prod['quantity'] : 20; ?>
+                                    <?php if ($stock > 0): ?>
+                                        <span style="font-size: 0.75rem; color: var(--color-success); font-weight: 700;">📦 Còn: <?= $stock ?></span>
+                                    <?php else: ?>
+                                        <span style="font-size: 0.75rem; color: var(--color-danger); font-weight: 700;">🚫 Hết hàng</span>
+                                    <?php endif; ?>
+                                </div>
                             </div>
 
                             <div class="product-actions">
-                                <a href="index.php?page=cartAdd&id=<?= $prod['product_id'] ?>&redirect=home" class="pixel-btn pixel-btn-success btn-sm" style="flex: 1;">
-                                    🛒 THÊM GIỎ
-                                </a>
+                                <?php if ($stock > 0): ?>
+                                    <a href="index.php?page=cartAdd&id=<?= $prod['product_id'] ?>&redirect=home" class="pixel-btn pixel-btn-success btn-sm" style="flex: 1;">
+                                        🛒 THÊM GIỎ
+                                    </a>
+                                <?php else: ?>
+                                    <button type="button" class="pixel-btn btn-sm" style="flex: 1; opacity: 0.6; cursor: not-allowed; background: var(--bg-surface); color: var(--color-danger); border-color: var(--color-danger);" disabled>
+                                        🚫 HẾT HÀNG
+                                    </button>
+                                <?php endif; ?>
                                 <a href="index.php?page=productDetail&id=<?= $prod['product_id'] ?>" class="pixel-btn pixel-btn-secondary btn-sm">
                                     👁️ CHI TIẾT
                                 </a>

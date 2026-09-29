@@ -22,22 +22,30 @@ $targetUrl = 'index.php?page=cartView';
 if ($productId > 0) {
     $product = getProductById($conn, $productId);
     if ($product) {
-        addToCart($product, $quantity);
-        $msg = urlencode("Đã thêm thành công {$quantity} máy '{$product['product_name']}' vào giỏ hàng!");
+        $stock = isset($product['quantity']) ? (int)$product['quantity'] : 99;
+        if ($stock <= 0) {
+            $msg = urlencode("Sản phẩm '{$product['product_name']}' hiện đã tạm hết hàng trong kho!");
+            $msgType = "danger";
+        } else {
+            $qtyToAdd = min($stock, $quantity);
+            addToCart($product, $qtyToAdd);
+            $msg = urlencode("Đã thêm thành công {$qtyToAdd} máy '{$product['product_name']}' vào giỏ hàng!");
+            $msgType = "success";
+        }
 
         if ($redirect === 'home') {
-            $targetUrl = "index.php?page=home&msg={$msg}&msg_type=success";
+            $targetUrl = "index.php?page=home&msg={$msg}&msg_type={$msgType}";
         } elseif ($redirect === 'productList') {
             $catId = (int)($_REQUEST['cat_id'] ?? 0);
-            $targetUrl = "index.php?page=productList&cat_id={$catId}&msg={$msg}&msg_type=success";
+            $targetUrl = "index.php?page=productList&cat_id={$catId}&msg={$msg}&msg_type={$msgType}";
         } elseif ($redirect === 'productDetail') {
-            $targetUrl = "index.php?page=productDetail&id={$productId}&msg={$msg}&msg_type=success";
+            $targetUrl = "index.php?page=productDetail&id={$productId}&msg={$msg}&msg_type={$msgType}";
         } elseif ($redirect === 'productSearch') {
             $kw = urlencode($_REQUEST['keyword'] ?? '');
             $catId = (int)($_REQUEST['cat_id'] ?? 0);
-            $targetUrl = "index.php?page=productSearch&keyword={$kw}&cat_id={$catId}&msg={$msg}&msg_type=success";
+            $targetUrl = "index.php?page=productSearch&keyword={$kw}&cat_id={$catId}&msg={$msg}&msg_type={$msgType}";
         } else {
-            $targetUrl = "index.php?page=cartView&msg={$msg}&msg_type=success";
+            $targetUrl = "index.php?page=cartView&msg={$msg}&msg_type={$msgType}";
         }
     } else {
         $msg = urlencode("Không tìm thấy thông tin sản phẩm laptop!");

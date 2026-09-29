@@ -41,8 +41,9 @@ function togglePixelShopTheme() {
 function adjustQty(delta) {
   var input = document.getElementById("detailQuantity");
   if (input) {
+    var max = parseInt(input.getAttribute("max")) || 99;
     var current = parseInt(input.value) || 1;
-    var next = Math.max(1, Math.min(99, current + delta));
+    var next = Math.max(1, Math.min(max, current + delta));
     input.value = next;
   }
 }
@@ -55,12 +56,15 @@ function adjustQty(delta) {
 function changeRowQty(productId, delta) {
   var input = document.getElementById("qty_" + productId);
   if (input) {
+    var max = parseInt(input.getAttribute("max")) || 99;
     var current = parseInt(input.value) || 1;
-    var next = Math.max(1, Math.min(99, current + delta));
-    input.value = next;
-    var cartForm = document.getElementById("cartForm");
-    if (cartForm) {
-      cartForm.submit();
+    var next = Math.max(1, Math.min(max, current + delta));
+    if (next !== current) {
+      input.value = next;
+      var cartForm = document.getElementById("cartForm");
+      if (cartForm) {
+        cartForm.submit();
+      }
     }
   }
 }

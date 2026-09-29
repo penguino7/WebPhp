@@ -69,33 +69,49 @@ $imgSrc = 'images/' . (!empty($product['image']) ? $product['image'] : 'laptop_d
             </div>
 
             <!-- Tóm tắt cấu hình -->
-            <div style="background: var(--bg-card); padding: 12px 16px; border-left: 4px solid var(--color-primary); border-radius: 4px; margin-bottom: 20px;">
+            <div style="background: var(--bg-card); padding: 12px 16px; border-left: 4px solid var(--color-primary); border-radius: 4px; margin-bottom: 16px;">
                 <strong style="color: var(--color-primary);">📋 Cấu hình vắn tắt:</strong>
                 <p style="margin-top: 4px; color: var(--text-color);"><?= htmlspecialchars($product['summary_spec']) ?></p>
             </div>
 
+            <?php $stock = isset($product['quantity']) ? (int)$product['quantity'] : 20; ?>
+            <div style="margin-bottom: 18px; font-size: 0.95rem;">
+                <?php if ($stock > 0): ?>
+                    <span style="color: var(--color-success); font-weight: 700;">📦 Tình trạng kho: Còn <?= $stock ?> chiếc sẵn sàng giao ngay</span>
+                <?php else: ?>
+                    <span style="color: var(--color-danger); font-weight: 700;">🚫 Tình trạng: Tạm hết hàng trong kho</span>
+                <?php endif; ?>
+            </div>
+
             <!-- Form Chọn Số Lượng & Thêm Vào Giỏ -->
-            <form method="GET" action="index.php" style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
-                <input type="hidden" name="page" value="cartAdd">
-                <input type="hidden" name="id" value="<?= $product['product_id'] ?>">
-                <input type="hidden" name="redirect" value="cartView">
+            <?php if ($stock > 0): ?>
+                <form method="GET" action="index.php" style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
+                    <input type="hidden" name="page" value="cartAdd">
+                    <input type="hidden" name="id" value="<?= $product['product_id'] ?>">
+                    <input type="hidden" name="redirect" value="cartView">
 
-                <div style="display: flex; align-items: center; gap: 8px;">
-                    <label for="detailQuantity" style="font-weight: 700; font-size: 0.9rem;">SỐ LƯỢNG:</label>
-                    <div class="qty-control-group">
-                        <button type="button" class="qty-btn" onclick="adjustQty(-1)">-</button>
-                        <input type="number" id="detailQuantity" name="quantity" value="1" min="1" max="99" class="qty-input">
-                        <button type="button" class="qty-btn" onclick="adjustQty(1)">+</button>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <label for="detailQuantity" style="font-weight: 700; font-size: 0.9rem;">SỐ LƯỢNG:</label>
+                        <div class="qty-control-group">
+                            <button type="button" class="qty-btn" onclick="adjustQty(-1)">-</button>
+                            <input type="number" id="detailQuantity" name="quantity" value="1" min="1" max="<?= $stock ?>" class="qty-input">
+                            <button type="button" class="qty-btn" onclick="adjustQty(1)">+</button>
+                        </div>
                     </div>
-                </div>
 
-                <button type="submit" class="pixel-btn pixel-btn-success" style="padding: 10px 22px; font-size: 1rem;">
-                    🛒 THÊM VÀO GIỎ HÀNG
-                </button>
-                <a href="index.php?page=checkout" class="pixel-btn pixel-btn-primary" style="padding: 10px 18px;">
-                    ⚡ MUA NGAY
-                </a>
-            </form>
+                    <button type="submit" class="pixel-btn pixel-btn-success" style="padding: 10px 22px; font-size: 1rem;">
+                        🛒 THÊM VÀO GIỎ HÀNG
+                    </button>
+                    <a href="index.php?page=checkout" class="pixel-btn pixel-btn-primary" style="padding: 10px 18px;">
+                        ⚡ MUA NGAY
+                    </a>
+                </form>
+            <?php else: ?>
+                <div class="pixel-alert pixel-alert-danger" style="margin-bottom: 0;">
+                    <span class="alert-icon">🚫</span>
+                    <span class="alert-text">Sản phẩm này hiện tại đã hết hàng. Quý khách vui lòng tham khảo các dòng máy khác!</span>
+                </div>
+            <?php endif; ?>
         </div>
     </div>
 

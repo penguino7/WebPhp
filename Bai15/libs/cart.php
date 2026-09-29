@@ -40,10 +40,13 @@ function addToCart($product, $quantity = 1)
     $quantity = max(1, (int)$quantity);
 
     if (isset($_SESSION['cart'][$productId])) {
-        // Nếu đã có trong giỏ hàng -> cộng dồn số lượng
-        $_SESSION['cart'][$productId]['quantity'] += $quantity;
+        // Nếu đã có trong giỏ hàng -> cộng dồn số lượng không vượt quá tồn kho
+        $stock = (int)($_SESSION['cart'][$productId]['stock'] ?? (isset($product['quantity']) ? (int)$product['quantity'] : 99));
+        $_SESSION['cart'][$productId]['stock'] = $stock;
+        $_SESSION['cart'][$productId]['quantity'] = min($stock, $_SESSION['cart'][$productId]['quantity'] + $quantity);
     } else {
         // Thêm mới sản phẩm vào giỏ
+        $stock = isset($product['quantity']) ? (int)$product['quantity'] : 99;
         $_SESSION['cart'][$productId] = [
             'product_id'   => $productId,
             'product_name' => $product['product_name'] ?? 'Laptop',
@@ -52,7 +55,8 @@ function addToCart($product, $quantity = 1)
             'image'        => $product['image'] ?? 'laptop_default.png',
             'category_name' => $product['category_name'] ?? '',
             'summary_spec' => $product['summary_spec'] ?? '',
-            'quantity'     => $quantity
+            'stock'        => $stock,
+            'quantity'     => min($stock, $quantity)
         ];
     }
     return true;
@@ -73,7 +77,8 @@ function updateCartQuantity($productId, $quantity)
         if ($quantity <= 0) {
             unset($_SESSION['cart'][$productId]);
         } else {
-            $_SESSION['cart'][$productId]['quantity'] = min(99, $quantity);
+            $stock = (int)($_SESSION['cart'][$productId]['stock'] ?? 99);
+            $_SESSION['cart'][$productId]['quantity'] = min($stock, max(1, $quantity));
         }
     }
 }
@@ -145,7 +150,7 @@ function getCartTotalPrice()
 }
 
 /**
- * Lưu thông tin đơn hàng và chi tiết đơn hàng vào CSDL
+ * Lưu thông tin đơn hàng, chi tiết đơn hàng và TỰ ĐỘNG TRỪ TỒN KHO vào CSDL
  * @param mysqli $conn
  * @param array $orderData
  * @param array $cartItems
@@ -189,7 +194,7 @@ function saveOrderToDatabase($conn, $orderData, $cartItems)
 
     $orderId = mysqli_insert_id($conn);
 
-    // 2. Thêm vào bảng order_details
+    // 2. Thêm vào bảng order_details & TRỪ TỒN KHO trong bảng products
     foreach ($cartItems as $item) {
         $pId = (int)$item['product_id'];
         $pName = mysqli_real_escape_string($conn, $item['product_name']);
@@ -197,9 +202,16 @@ function saveOrderToDatabase($conn, $orderData, $cartItems)
         $pQty = (int)$item['quantity'];
         $pSubtotal = $pPrice * $pQty;
 
+        // Lưu chi tiết đơn hàng
         $sqlDetail = "INSERT INTO order_details (order_id, product_id, product_name, price, quantity, subtotal) 
                       VALUES ({$orderId}, {$pId}, '{$pName}', {$pPrice}, {$pQty}, {$pSubtotal})";
         mysqli_query($conn, $sqlDetail);
+
+        // Tự động trừ số lượng tồn kho của máy
+        $sqlReduceStock = "UPDATE products 
+                           SET quantity = GREATEST(0, quantity - {$pQty}) 
+                           WHERE product_id = {$pId}";
+        mysqli_query($conn, $sqlReduceStock);
     }
 
     // 3. Xóa sạch giỏ hàng sau khi đặt thành công

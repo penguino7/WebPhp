@@ -113,11 +113,16 @@ $cartTotal = getCartTotalPrice();
                                             id="qty_<?= $pId ?>"
                                             name="quantities[<?= $pId ?>]"
                                             value="<?= (int)$item['quantity'] ?>"
-                                            min="1" max="99"
+                                            min="1" max="<?= (int)($item['stock'] ?? 99) ?>"
                                             class="qty-input"
                                             onchange="document.getElementById('cartForm').submit();">
                                         <button type="button" class="qty-btn" onclick="changeRowQty(<?= $pId ?>, 1)">+</button>
                                     </div>
+                                    <?php if (isset($item['stock'])): ?>
+                                        <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 4px;">
+                                            Kho: <?= (int)$item['stock'] ?>
+                                        </div>
+                                    <?php endif; ?>
                                 </td>
                                 <td style="text-align: right; font-weight: 700; color: var(--color-primary);">
                                     <?= formatPrice($subtotal) ?>

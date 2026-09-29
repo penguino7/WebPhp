@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Bài 15: Footer Giao Diện Shop Khách Hàng
  */

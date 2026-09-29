@@ -1,7 +1,16 @@
 <?php
+
 /**
  * Bài 15: Sidebar Danh Mục Hãng & Tiện Ích Giỏ Hàng
  */
+
+require_once __DIR__ . '/../libs/connect.php';
+require_once __DIR__ . '/../libs/cart.php';
+require_once __DIR__ . '/../libs/helper.php';
+
+if (!isset($conn) || !$conn) {
+    $conn = getDBConnection();
+}
 
 $categories = getAllCategories($conn);
 $currentCatId = isset($_GET['cat_id']) ? (int)$_GET['cat_id'] : 0;

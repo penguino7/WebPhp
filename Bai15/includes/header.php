@@ -1,7 +1,12 @@
 <?php
+
 /**
  * Bài 15: Header Giao Diện Shop Khách Hàng (Tích Hợp Mini Cart Badge)
  */
+
+require_once __DIR__ . '/../libs/connect.php';
+require_once __DIR__ . '/../libs/cart.php';
+require_once __DIR__ . '/../libs/helper.php';
 
 $cartCount = getCartTotalCount();
 $cartTotal = getCartTotalPrice();
@@ -18,9 +23,9 @@ $cartTotal = getCartTotalPrice();
         <div class="header-search-bar">
             <form method="GET" action="index.php" class="header-search-form">
                 <input type="hidden" name="page" value="productSearch">
-                <input type="text" name="keyword" class="search-input" 
-                       placeholder="🔍 Tìm laptop gaming, văn phòng, đồ họa..." 
-                       value="<?= htmlspecialchars($_GET['keyword'] ?? '') ?>">
+                <input type="text" name="keyword" class="search-input"
+                    placeholder="🔍 Tìm laptop gaming, văn phòng, đồ họa..."
+                    value="<?= htmlspecialchars($_GET['keyword'] ?? '') ?>">
                 <button type="submit" class="pixel-btn pixel-btn-primary">TÌM</button>
             </form>
         </div>

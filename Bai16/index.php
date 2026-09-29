@@ -51,12 +51,8 @@ $pageTitle = $pageTitles[$page] ?? 'Bài 16 - Tích Hợp Rich Text Box';
     <link rel="stylesheet" href="style.css">
     <!-- CKEditor 4 WYSIWYG Script -->
     <script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
-    <script>
-        (function() {
-            var theme = localStorage.getItem('pixel_admin_theme') || 'dark';
-            document.documentElement.setAttribute('data-theme', theme);
-        })();
-    </script>
+    <!-- External JavaScript -->
+    <script src="script.js" defer></script>
 </head>
 
 <body>
@@ -85,35 +81,6 @@ $pageTitle = $pageTitles[$page] ?? 'Bài 16 - Tích Hợp Rich Text Box';
 
     <!-- Footer -->
     <?php require_once __DIR__ . '/includes/footer.php'; ?>
-
-    <!-- Theme Switcher Script -->
-    <script>
-        function updateThemeUI() {
-            var theme = document.documentElement.getAttribute('data-theme') || 'dark';
-            var btn = document.getElementById('themeToggleBtn');
-            if (btn) {
-                var icon = btn.querySelector('.theme-icon');
-                var text = btn.querySelector('.theme-text');
-                if (theme === 'light') {
-                    if (icon) icon.textContent = '☀️';
-                    if (text) text.textContent = 'SÁNG';
-                } else {
-                    if (icon) icon.textContent = '🌙';
-                    if (text) text.textContent = 'TỐI';
-                }
-            }
-        }
-
-        function togglePixelAdminTheme() {
-            var current = document.documentElement.getAttribute('data-theme') || 'dark';
-            var next = (current === 'dark') ? 'light' : 'dark';
-            document.documentElement.setAttribute('data-theme', next);
-            localStorage.setItem('pixel_admin_theme', next);
-            updateThemeUI();
-        }
-
-        document.addEventListener('DOMContentLoaded', updateThemeUI);
-    </script>
 
     <?php
     // 5. Đóng kết nối CSDL

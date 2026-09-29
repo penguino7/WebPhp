@@ -113,14 +113,3 @@ $imgSrc = 'images/' . (!empty($product['image']) ? $product['image'] : 'laptop_d
         </div>
     </div>
 </div>
-
-<script>
-    function adjustQty(delta) {
-        var input = document.getElementById('detailQuantity');
-        if (input) {
-            var current = parseInt(input.value) || 1;
-            var next = Math.max(1, Math.min(99, current + delta));
-            input.value = next;
-        }
-    }
-</script>

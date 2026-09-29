@@ -65,12 +65,8 @@ $pageTitle = $pageTitles[$page] ?? 'LaptopShop Arcade - Bài 15 Giỏ Hàng';
     <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
     <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css">
-    <script>
-        (function() {
-            var theme = localStorage.getItem('pixel_shop_theme') || 'dark';
-            document.documentElement.setAttribute('data-theme', theme);
-        })();
-    </script>
+    <!-- External JavaScript -->
+    <script src="script.js" defer></script>
 </head>
 
 <body>
@@ -99,32 +95,6 @@ $pageTitle = $pageTitles[$page] ?? 'LaptopShop Arcade - Bài 15 Giỏ Hàng';
 
     <!-- Footer -->
     <?php require_once __DIR__ . '/includes/footer.php'; ?>
-
-    <!-- Theme Toggle Script -->
-    <script>
-        function updateShopThemeUI() {
-            var theme = document.documentElement.getAttribute('data-theme') || 'dark';
-            var btn = document.getElementById('themeToggleBtn');
-            if (btn) {
-                var icon = btn.querySelector('.theme-icon');
-                if (theme === 'light') {
-                    if (icon) icon.textContent = '☀️';
-                } else {
-                    if (icon) icon.textContent = '🌙';
-                }
-            }
-        }
-
-        function togglePixelShopTheme() {
-            var current = document.documentElement.getAttribute('data-theme') || 'dark';
-            var next = (current === 'dark') ? 'light' : 'dark';
-            document.documentElement.setAttribute('data-theme', next);
-            localStorage.setItem('pixel_shop_theme', next);
-            updateShopThemeUI();
-        }
-
-        document.addEventListener('DOMContentLoaded', updateShopThemeUI);
-    </script>
 
     <?php closeDBConnection($conn); ?>
 </body>

@@ -182,15 +182,3 @@ $cartTotal = getCartTotalPrice();
         </div>
     <?php endif; ?>
 </div>
-
-<script>
-    function changeRowQty(productId, delta) {
-        var input = document.getElementById('qty_' + productId);
-        if (input) {
-            var current = parseInt(input.value) || 1;
-            var next = Math.max(1, Math.min(99, current + delta));
-            input.value = next;
-            document.getElementById('cartForm').submit();
-        }
-    }
-</script>

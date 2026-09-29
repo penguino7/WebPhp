@@ -48,11 +48,11 @@ $pageTitle = $pageTitles[$page] ?? 'Bài 16 - Tích Hợp Rich Text Box';
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
     <!-- Stylesheet -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="src/css/style.css">
     <!-- CKEditor 4 WYSIWYG Script -->
     <script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
     <!-- External JavaScript -->
-    <script src="script.js" defer></script>
+    <script src="src/js/script.js" defer></script>
 </head>
 
 <body>

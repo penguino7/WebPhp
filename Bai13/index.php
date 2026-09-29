@@ -45,14 +45,9 @@ $pageTitle = $pageTitles[$page] ?? 'LaptopShop.vn';
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
     <!-- Favicon & Stylesheet -->
-    <link rel="stylesheet" href="style.css">
-    <!-- Inline theme detector to prevent flash of wrong theme -->
-    <script>
-        (function() {
-            var currentTheme = localStorage.getItem('pixel_theme') || 'dark';
-            document.documentElement.setAttribute('data-theme', currentTheme);
-        })();
-    </script>
+    <link rel="stylesheet" href="src/css/style.css">
+    <!-- External JavaScript -->
+    <script src="src/js/script.js" defer></script>
 </head>
 
 <body>
@@ -81,35 +76,6 @@ $pageTitle = $pageTitles[$page] ?? 'LaptopShop.vn';
 
     <!-- Footer Giao diện -->
     <?php require_once __DIR__ . '/includes/footer.php'; ?>
-
-    <!-- Theme Switcher Script -->
-    <script>
-        function updateThemeUI() {
-            var theme = document.documentElement.getAttribute('data-theme') || 'dark';
-            var btn = document.getElementById('themeToggleBtn');
-            if (btn) {
-                var icon = btn.querySelector('.theme-icon');
-                var text = btn.querySelector('.theme-text');
-                if (theme === 'light') {
-                    if (icon) icon.textContent = '☀️';
-                    if (text) text.textContent = 'SÁNG';
-                } else {
-                    if (icon) icon.textContent = '🌙';
-                    if (text) text.textContent = 'TỐI';
-                }
-            }
-        }
-
-        function togglePixelTheme() {
-            var current = document.documentElement.getAttribute('data-theme') || 'dark';
-            var next = (current === 'dark') ? 'light' : 'dark';
-            document.documentElement.setAttribute('data-theme', next);
-            localStorage.setItem('pixel_theme', next);
-            updateThemeUI();
-        }
-
-        document.addEventListener('DOMContentLoaded', updateThemeUI);
-    </script>
 
     <?php
     // 4. Đóng kết nối CSDL

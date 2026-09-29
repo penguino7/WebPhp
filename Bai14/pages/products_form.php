@@ -37,6 +37,7 @@ function renderProductFormPage($conn)
     $catIdVal    = (int)($product['category_id'] ?? 0);
     $priceVal    = $product['price'] ?? '';
     $oldPriceVal = $product['old_price'] ?? '';
+    $qtyVal      = isset($product['quantity']) ? (int)$product['quantity'] : 20;
     $imageVal    = $product['image'] ?? 'laptop_default.png';
     $summaryVal  = $product['summary_spec'] ?? '';
     $fullSpecVal = $product['full_spec'] ?? '';
@@ -47,6 +48,7 @@ function renderProductFormPage($conn)
         $catIdVal    = (int)($_POST['category_id'] ?? 0);
         $priceVal    = trim($_POST['price'] ?? '');
         $oldPriceVal = trim($_POST['old_price'] ?? '');
+        $qtyVal      = isset($_POST['quantity']) ? max(0, (int)$_POST['quantity']) : 20;
         $summaryVal  = trim($_POST['summary_spec'] ?? '');
         $fullSpecVal = trim($_POST['full_spec'] ?? '');
 
@@ -67,6 +69,7 @@ function renderProductFormPage($conn)
                 'category_id'  => $catIdVal,
                 'price'        => $priceVal,
                 'old_price'    => !empty($oldPriceVal) ? $oldPriceVal : null,
+                'quantity'     => $qtyVal,
                 'summary_spec' => $summaryVal,
                 'full_spec'    => $fullSpecVal
             ];
@@ -119,7 +122,7 @@ function renderProductFormPage($conn)
                 <input type="text" id="product_name" name="product_name" value="<?= htmlspecialchars($nameVal) ?>" placeholder="vd: Dell XPS 13 Plus 9320 (i7 1360P/32GB/1TB/OLED)..." required>
             </div>
 
-            <!-- Hãng Sản Xuất & Giá Bán -->
+            <!-- Hãng Sản Xuất & Số Lượng Tồn Kho -->
             <div class="form-row">
                 <div class="form-group">
                     <label for="category_id">
@@ -136,37 +139,46 @@ function renderProductFormPage($conn)
                 </div>
 
                 <div class="form-group">
+                    <label for="quantity">
+                        <span class="label-icon">📦</span> SỐ LƯỢNG TỒN KHO: <span style="color:var(--px-pink)">*</span>
+                    </label>
+                    <input type="number" id="quantity" name="quantity" value="<?= htmlspecialchars($qtyVal) ?>" placeholder="vd: 20" min="0" required>
+                    <div class="form-hint">Số máy hiện có sẵn trong kho để bán.</div>
+                </div>
+            </div>
+
+            <!-- Giá Bán & Giá Niêm Yết -->
+            <div class="form-row">
+                <div class="form-group">
                     <label for="price">
                         <span class="label-icon">💰</span> GIÁ BÁN (VNĐ): <span style="color:var(--px-pink)">*</span>
                     </label>
                     <input type="number" id="price" name="price" value="<?= htmlspecialchars($priceVal) ?>" placeholder="vd: 14990000" min="0" step="10000" required>
                 </div>
-            </div>
 
-            <!-- Giá Niêm Yết & Upload Ảnh -->
-            <div class="form-row">
                 <div class="form-group">
                     <label for="old_price">
                         <span class="label-icon">🏷️</span> GIÁ NIÊM YẾT / GIÁ CŨ (VNĐ):
                     </label>
                     <input type="number" id="old_price" name="old_price" value="<?= htmlspecialchars($oldPriceVal) ?>" placeholder="vd: 16990000 (Để trống nếu không giảm giá)" min="0" step="10000">
                 </div>
+            </div>
 
-                <div class="form-group">
-                    <label for="image">
-                        <span class="label-icon">🖼️</span> ẢNH ĐẠI DIỆN SẢN PHẨM:
-                    </label>
-                    <input type="file" id="image" name="image" accept="image/*">
-                    <div class="form-hint">Hỗ trợ JPG, PNG, WEBP, SVG (Tối đa 5MB).</div>
+            <!-- Upload Ảnh -->
+            <div class="form-group">
+                <label for="image">
+                    <span class="label-icon">🖼️</span> ẢNH ĐẠI DIỆN SẢN PHẨM:
+                </label>
+                <input type="file" id="image" name="image" accept="image/*">
+                <div class="form-hint">Hỗ trợ JPG, PNG, WEBP, SVG (Tối đa 5MB).</div>
 
-                    <?php if ($isEdit && !empty($imageVal)): ?>
-                        <div style="margin-top:8px; display:flex; align-items:center; gap:10px;">
-                            <span style="font-size:12px; color:var(--px-text-muted);">Ảnh hiện tại:</span>
-                            <img src="../Bai13/images/<?= htmlspecialchars($imageVal) ?>" alt="Ảnh hiện tại" style="width:50px; height:40px; object-fit:contain; border:2px solid var(--px-border); background:var(--px-input-bg);" onerror="this.onerror=null; this.src='../Bai13/images/laptop_default.png';">
-                            <code style="font-size:12px; color:var(--px-green);"><?= htmlspecialchars($imageVal) ?></code>
-                        </div>
-                    <?php endif; ?>
-                </div>
+                <?php if ($isEdit && !empty($imageVal)): ?>
+                    <div style="margin-top:8px; display:flex; align-items:center; gap:10px;">
+                        <span style="font-size:12px; color:var(--px-text-muted);">Ảnh hiện tại:</span>
+                        <img src="../Bai13/images/<?= htmlspecialchars($imageVal) ?>" alt="Ảnh hiện tại" style="width:50px; height:40px; object-fit:contain; border:2px solid var(--px-border); background:var(--px-input-bg);" onerror="this.onerror=null; this.src='../Bai13/images/laptop_default.png';">
+                        <code style="font-size:12px; color:var(--px-green);"><?= htmlspecialchars($imageVal) ?></code>
+                    </div>
+                <?php endif; ?>
             </div>
 
             <!-- Cấu Hình Tóm Tắt (Summary Spec) -->

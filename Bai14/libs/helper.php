@@ -113,11 +113,12 @@ function getDashboardStats($conn)
 
     if (!$conn) return $stats;
 
-    // Đếm tổng sản phẩm và giá trị
-    $sqlProd = "SELECT COUNT(*) as total, MAX(price) as max_p, MIN(price) as min_p, AVG(price) as avg_p FROM products";
+    // Đếm tổng sản phẩm, tổng tồn kho và giá trị
+    $sqlProd = "SELECT COUNT(*) as total, SUM(quantity) as total_stock, MAX(price) as max_p, MIN(price) as min_p, AVG(price) as avg_p FROM products";
     $resProd = mysqli_query($conn, $sqlProd);
     if ($resProd && $row = mysqli_fetch_assoc($resProd)) {
         $stats['total_products'] = (int)$row['total'];
+        $stats['total_stock']    = (int)($row['total_stock'] ?? 0);
         $stats['max_price']      = (float)$row['max_p'];
         $stats['min_price']      = (float)$row['min_p'];
         $stats['avg_price']      = (float)$row['avg_p'];
@@ -424,6 +425,7 @@ function insertProduct($conn, $data)
     $catId = (int)($data['category_id'] ?? 0);
     $price = (float)($data['price'] ?? 0);
     $oldPrice = !empty($data['old_price']) ? (float)$data['old_price'] : "NULL";
+    $quantity = isset($data['quantity']) ? max(0, (int)$data['quantity']) : 20;
     $image = trim($data['image'] ?? 'laptop_default.png');
     $summary = trim($data['summary_spec'] ?? '');
     $fullSpec = trim($data['full_spec'] ?? '');
@@ -444,8 +446,8 @@ function insertProduct($conn, $data)
     $escapedFullSpec = mysqli_real_escape_string($conn, $fullSpec);
     $oldPriceSql = ($oldPrice === "NULL") ? "NULL" : "'{$oldPrice}'";
 
-    $sql = "INSERT INTO products (category_id, product_name, price, old_price, image, summary_spec, full_spec) 
-            VALUES ({$catId}, '{$escapedName}', {$price}, {$oldPriceSql}, '{$escapedImage}', '{$escapedSummary}', '{$escapedFullSpec}')";
+    $sql = "INSERT INTO products (category_id, product_name, price, old_price, quantity, image, summary_spec, full_spec) 
+            VALUES ({$catId}, '{$escapedName}', {$price}, {$oldPriceSql}, {$quantity}, '{$escapedImage}', '{$escapedSummary}', '{$escapedFullSpec}')";
 
     if (mysqli_query($conn, $sql)) {
         return ['success' => true, 'message' => 'Thêm mới sản phẩm laptop thành công!'];
@@ -468,6 +470,7 @@ function updateProduct($conn, $productId, $data)
     $catId = (int)($data['category_id'] ?? 0);
     $price = (float)($data['price'] ?? 0);
     $oldPrice = !empty($data['old_price']) ? (float)$data['old_price'] : "NULL";
+    $quantity = isset($data['quantity']) ? max(0, (int)$data['quantity']) : 20;
     $image = trim($data['image'] ?? '');
     $summary = trim($data['summary_spec'] ?? '');
     $fullSpec = trim($data['full_spec'] ?? '');
@@ -498,6 +501,7 @@ function updateProduct($conn, $productId, $data)
                 product_name = '{$escapedName}',
                 price = {$price},
                 old_price = {$oldPriceSql},
+                quantity = {$quantity},
                 summary_spec = '{$escapedSummary}',
                 full_spec = '{$escapedFullSpec}'
                 {$imageUpdateSql}

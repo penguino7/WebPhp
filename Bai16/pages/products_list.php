@@ -91,7 +91,8 @@ $baseUrl = 'index.php?' . http_build_query($queryArgs);
                     <th style="width: 50px;">ID</th>
                     <th style="width: 80px;">ẢNH</th>
                     <th>TÊN LAPTOP &amp; DANH MỤC</th>
-                    <th style="width: 140px;">GIÁ BÁN</th>
+                    <th style="width: 130px;">GIÁ BÁN</th>
+                    <th style="width: 90px; text-align: center;">TỒN KHO</th>
                     <th>THÔNG SỐ RICH TEXT (HTML)</th>
                     <th style="width: 230px; text-align: center;">THAO TÁC</th>
                 </tr>
@@ -99,12 +100,14 @@ $baseUrl = 'index.php?' . http_build_query($queryArgs);
             <tbody>
                 <?php if (empty($products)): ?>
                     <tr>
-                        <td colspan="6" style="text-align: center; padding: 30px; color: var(--text-muted);">
+                        <td colspan="7" style="text-align: center; padding: 30px; color: var(--text-muted);">
                             👾 Chưa có dữ liệu laptop nào phù hợp!
                         </td>
                     </tr>
                 <?php else: ?>
-                    <?php foreach ($products as $prod): ?>
+                    <?php foreach ($products as $prod):
+                        $stock = isset($prod['quantity']) ? (int)$prod['quantity'] : 20;
+                    ?>
                         <tr>
                             <td style="font-weight: 700; color: var(--color-accent);">#<?= $prod['product_id'] ?></td>
                             <td>
@@ -129,6 +132,17 @@ $baseUrl = 'index.php?' . http_build_query($queryArgs);
                                     <div style="font-size: 0.75rem; text-decoration: line-through; color: var(--text-muted);">
                                         <?= formatPrice($prod['old_price']) ?>
                                     </div>
+                                <?php endif; ?>
+                            </td>
+                            <td style="text-align: center;">
+                                <?php if ($stock > 0): ?>
+                                    <span class="badge" style="background: rgba(0, 255, 157, 0.15); color: var(--color-success); border: 1px solid var(--color-success); font-weight: 700;">
+                                        📦 <?= $stock ?>
+                                    </span>
+                                <?php else: ?>
+                                    <span class="badge" style="background: rgba(255, 0, 85, 0.15); color: var(--color-danger); border: 1px solid var(--color-danger); font-weight: 700;">
+                                        🚫 Hết
+                                    </span>
                                 <?php endif; ?>
                             </td>
                             <td>

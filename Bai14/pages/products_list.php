@@ -104,8 +104,9 @@ function renderProductsListPage($conn)
                             <th width="45">ID</th>
                             <th width="65">Ảnh</th>
                             <th>Tên Laptop</th>
-                            <th width="140">Hãng</th>
-                            <th width="130">Giá bán</th>
+                            <th width="130">Hãng</th>
+                            <th width="120">Giá bán</th>
+                            <th width="90" style="text-align:center;">Tồn kho</th>
                             <th>Thông số tóm tắt</th>
                             <th width="130" style="text-align:center;">Thao tác</th>
                         </tr>
@@ -114,6 +115,7 @@ function renderProductsListPage($conn)
                         <?php foreach ($products as $p):
                             $imgSrc = "../Bai13/images/" . htmlspecialchars($p['image']);
                             $pId = (int)$p['product_id'];
+                            $stock = isset($p['quantity']) ? (int)$p['quantity'] : 20;
                         ?>
                             <tr>
                                 <td><strong>#<?= $pId ?></strong></td>
@@ -132,6 +134,17 @@ function renderProductsListPage($conn)
                                         <div style="font-size:11px; color:var(--px-price-old); text-decoration:line-through;">
                                             <?= formatPrice($p['old_price']) ?>
                                         </div>
+                                    <?php endif; ?>
+                                </td>
+                                <td style="text-align:center;">
+                                    <?php if ($stock > 0): ?>
+                                        <span class="badge-cert" style="background:rgba(0,255,157,0.12); color:var(--px-green); border:1px solid var(--px-green); padding:3px 6px; font-weight:700;">
+                                            📦 <?= $stock ?>
+                                        </span>
+                                    <?php else: ?>
+                                        <span class="badge-cert" style="background:rgba(255,0,85,0.12); color:var(--px-pink); border:1px solid var(--px-pink); padding:3px 6px; font-weight:700;">
+                                            🚫 Hết
+                                        </span>
                                     <?php endif; ?>
                                 </td>
                                 <td>

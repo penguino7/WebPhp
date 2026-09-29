@@ -208,6 +208,7 @@ function insertProductRichText($conn, $data)
     $catId = (int)($data['category_id'] ?? 0);
     $price = (float)($data['price'] ?? 0);
     $oldPrice = !empty($data['old_price']) ? (float)$data['old_price'] : "NULL";
+    $quantity = isset($data['quantity']) ? max(0, (int)$data['quantity']) : 20;
     $image = trim($data['image'] ?? 'laptop_default.png');
     $summary = trim($data['summary_spec'] ?? '');
 
@@ -231,8 +232,8 @@ function insertProductRichText($conn, $data)
     $escapedFullSpec = mysqli_real_escape_string($conn, $fullSpecClean);
     $oldPriceSql = ($oldPrice === "NULL") ? "NULL" : "'{$oldPrice}'";
 
-    $sql = "INSERT INTO products (category_id, product_name, price, old_price, image, summary_spec, full_spec) 
-            VALUES ({$catId}, '{$escapedName}', {$price}, {$oldPriceSql}, '{$escapedImage}', '{$escapedSummary}', '{$escapedFullSpec}')";
+    $sql = "INSERT INTO products (category_id, product_name, price, old_price, quantity, image, summary_spec, full_spec) 
+            VALUES ({$catId}, '{$escapedName}', {$price}, {$oldPriceSql}, {$quantity}, '{$escapedImage}', '{$escapedSummary}', '{$escapedFullSpec}')";
 
     if (mysqli_query($conn, $sql)) {
         $newId = mysqli_insert_id($conn);
@@ -256,6 +257,7 @@ function updateProductRichText($conn, $productId, $data)
     $catId = (int)($data['category_id'] ?? 0);
     $price = (float)($data['price'] ?? 0);
     $oldPrice = !empty($data['old_price']) ? (float)$data['old_price'] : "NULL";
+    $quantity = isset($data['quantity']) ? max(0, (int)$data['quantity']) : 20;
     $image = trim($data['image'] ?? '');
     $summary = trim($data['summary_spec'] ?? '');
 
@@ -289,6 +291,7 @@ function updateProductRichText($conn, $productId, $data)
                 product_name = '{$escapedName}',
                 price = {$price},
                 old_price = {$oldPriceSql},
+                quantity = {$quantity},
                 summary_spec = '{$escapedSummary}',
                 full_spec = '{$escapedFullSpec}'
                 {$imageUpdateSql}

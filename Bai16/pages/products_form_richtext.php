@@ -36,6 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'category_id'  => (int)($_POST['category_id'] ?? 0),
         'price'        => (float)($_POST['price'] ?? 0),
         'old_price'    => !empty($_POST['old_price']) ? (float)$_POST['old_price'] : null,
+        'quantity'     => isset($_POST['quantity']) ? max(0, (int)$_POST['quantity']) : 20,
         'image'        => trim($_POST['image'] ?? 'laptop_default.png'),
         'summary_spec' => trim($_POST['summary_spec'] ?? ''),
         'full_spec'    => $_POST['full_spec'] ?? '' // Nội dung HTML từ Rich Text Box
@@ -65,6 +66,7 @@ $valName = $_POST['product_name'] ?? ($product['product_name'] ?? '');
 $valCat = isset($_POST['category_id']) ? (int)$_POST['category_id'] : ($product['category_id'] ?? 0);
 $valPrice = $_POST['price'] ?? ($product['price'] ?? '');
 $valOldPrice = $_POST['old_price'] ?? ($product['old_price'] ?? '');
+$valQty = isset($_POST['quantity']) ? (int)$_POST['quantity'] : (isset($product['quantity']) ? (int)$product['quantity'] : 20);
 $valImage = $_POST['image'] ?? ($product['image'] ?? 'laptop_default.png');
 $valSummary = $_POST['summary_spec'] ?? ($product['summary_spec'] ?? '');
 $valFullSpec = $_POST['full_spec'] ?? ($product['full_spec'] ?? '');
@@ -156,8 +158,8 @@ if (!$isEdit && empty($valFullSpec)) {
             </div>
         </div>
 
-        <!-- Hàng 2: Giá & Giá cũ & Ảnh -->
-        <div class="form-grid-3">
+        <!-- Hàng 2: Giá & Giá cũ & Số lượng tồn kho & Ảnh -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1.2fr; gap: 16px;">
             <div class="form-group">
                 <label for="price">GIÁ BÁN HIỆN TẠI (VNĐ) <span style="color: var(--color-danger);">*</span></label>
                 <input type="number" step="10000" id="price" name="price" class="pixel-input"
@@ -170,6 +172,13 @@ if (!$isEdit && empty($valFullSpec)) {
                 <input type="number" step="10000" id="old_price" name="old_price" class="pixel-input"
                     placeholder="VD: 28990000 (Để trống nếu không có)"
                     value="<?= htmlspecialchars($valOldPrice) ?>">
+            </div>
+
+            <div class="form-group">
+                <label for="quantity">SỐ LƯỢNG TỒN KHO <span style="color: var(--color-danger);">*</span></label>
+                <input type="number" min="0" id="quantity" name="quantity" class="pixel-input"
+                    placeholder="VD: 20"
+                    value="<?= htmlspecialchars($valQty) ?>" required>
             </div>
 
             <div class="form-group">

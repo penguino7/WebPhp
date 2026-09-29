@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Bài 15: Trang Chủ (Home) - Hiển thị Laptop mới nhất theo từng hãng kèm nút Thêm Giỏ Hàng
  */
@@ -37,7 +38,7 @@ $groupedData = getProductsGroupedByCategory($conn, 2);
         </p>
     <?php else: ?>
         <?php foreach ($groupedData as $group): ?>
-            <?php 
+            <?php
             $cat = $group['category'];
             $products = $group['products'];
             ?>
@@ -50,22 +51,22 @@ $groupedData = getProductsGroupedByCategory($conn, 2);
 
             <div class="product-grid">
                 <?php foreach ($products as $prod): ?>
-                    <?php 
+                    <?php
                     $imgSrc = 'images/' . (!empty($prod['image']) ? $prod['image'] : 'laptop_default.png');
                     ?>
                     <div class="product-card">
                         <div>
                             <div class="product-thumb-box">
                                 <a href="index.php?page=productDetail&id=<?= $prod['product_id'] ?>">
-                                    <img src="<?= htmlspecialchars($imgSrc) ?>" 
-                                         alt="<?= htmlspecialchars($prod['product_name']) ?>" 
-                                         class="product-thumb"
-                                         onerror="this.onerror=null; this.src='images/laptop_default.png';">
+                                    <img src="<?= htmlspecialchars($imgSrc) ?>"
+                                        alt="<?= htmlspecialchars($prod['product_name']) ?>"
+                                        class="product-thumb"
+                                        onerror="this.onerror=null; this.src='images/laptop_default.png';">
                                 </a>
                             </div>
 
                             <span class="product-brand-tag"><?= htmlspecialchars($prod['category_name']) ?></span>
-                            
+
                             <h3>
                                 <a href="index.php?page=productDetail&id=<?= $prod['product_id'] ?>" class="product-name" title="<?= htmlspecialchars($prod['product_name']) ?>">
                                     <?= htmlspecialchars($prod['product_name']) ?>

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Bài 15: Xây Dựng Chức Năng Giỏ Hàng Cho Website Bán Máy Laptop (Shopping Cart)
  * File điều hướng trung tâm (Router & Master Layout)
@@ -53,6 +54,7 @@ $pageTitle = $pageTitles[$page] ?? 'LaptopShop Arcade - Bài 15 Giỏ Hàng';
 ?>
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -70,6 +72,7 @@ $pageTitle = $pageTitles[$page] ?? 'LaptopShop Arcade - Bài 15 Giỏ Hàng';
         })();
     </script>
 </head>
+
 <body>
 
     <!-- Header -->
@@ -125,4 +128,5 @@ $pageTitle = $pageTitles[$page] ?? 'LaptopShop Arcade - Bài 15 Giỏ Hàng';
 
     <?php closeDBConnection($conn); ?>
 </body>
+
 </html>

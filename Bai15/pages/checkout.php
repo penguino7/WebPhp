@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Bài 15: Trang Đặt Hàng & Thanh Toán (Checkout Form & Order Processing)
  */
@@ -73,38 +74,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <div class="form-group">
                 <label for="customer_name">HỌ VÀ TÊN <span style="color: var(--color-danger);">*</span></label>
-                <input type="text" id="customer_name" name="customer_name" class="pixel-input" 
-                       placeholder="VD: Nguyễn Văn An" 
-                       value="<?= htmlspecialchars($_POST['customer_name'] ?? '') ?>" required>
+                <input type="text" id="customer_name" name="customer_name" class="pixel-input"
+                    placeholder="VD: Nguyễn Văn An"
+                    value="<?= htmlspecialchars($_POST['customer_name'] ?? '') ?>" required>
             </div>
 
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
                 <div class="form-group">
                     <label for="customer_phone">SỐ ĐIỆN THOẠI <span style="color: var(--color-danger);">*</span></label>
-                    <input type="tel" id="customer_phone" name="customer_phone" class="pixel-input" 
-                           placeholder="VD: 0987654321" 
-                           value="<?= htmlspecialchars($_POST['customer_phone'] ?? '') ?>" required>
+                    <input type="tel" id="customer_phone" name="customer_phone" class="pixel-input"
+                        placeholder="VD: 0987654321"
+                        value="<?= htmlspecialchars($_POST['customer_phone'] ?? '') ?>" required>
                 </div>
 
                 <div class="form-group">
                     <label for="customer_email">ĐỊA CHỈ EMAIL</label>
-                    <input type="email" id="customer_email" name="customer_email" class="pixel-input" 
-                           placeholder="VD: nguyenvanan@gmail.com" 
-                           value="<?= htmlspecialchars($_POST['customer_email'] ?? '') ?>">
+                    <input type="email" id="customer_email" name="customer_email" class="pixel-input"
+                        placeholder="VD: nguyenvanan@gmail.com"
+                        value="<?= htmlspecialchars($_POST['customer_email'] ?? '') ?>">
                 </div>
             </div>
 
             <div class="form-group">
                 <label for="customer_address">ĐỊA CHỈ NHẬN HÀNG <span style="color: var(--color-danger);">*</span></label>
-                <input type="text" id="customer_address" name="customer_address" class="pixel-input" 
-                       placeholder="VD: Số 123 Đường Cầu Giấy, Phường Dịch Vọng, Hà Nội" 
-                       value="<?= htmlspecialchars($_POST['customer_address'] ?? '') ?>" required>
+                <input type="text" id="customer_address" name="customer_address" class="pixel-input"
+                    placeholder="VD: Số 123 Đường Cầu Giấy, Phường Dịch Vọng, Hà Nội"
+                    value="<?= htmlspecialchars($_POST['customer_address'] ?? '') ?>" required>
             </div>
 
             <div class="form-group">
                 <label for="order_notes">GHI CHÚ GIAO HÀNG (TÙY CHỌN)</label>
-                <textarea id="order_notes" name="order_notes" class="pixel-input" rows="3" 
-                          placeholder="VD: Giao hàng vào giờ hành chính, gọi trước khi đến..."><?= htmlspecialchars($_POST['order_notes'] ?? '') ?></textarea>
+                <textarea id="order_notes" name="order_notes" class="pixel-input" rows="3"
+                    placeholder="VD: Giao hàng vào giờ hành chính, gọi trước khi đến..."><?= htmlspecialchars($_POST['order_notes'] ?? '') ?></textarea>
             </div>
 
             <h3 style="font-family: var(--font-heading); font-size: 0.85rem; color: var(--color-accent); margin: 20px 0 12px 0;">

@@ -62,7 +62,7 @@ c:\xampp\htdocs\
 | **[Bai12](Bai12/)** | **Truy Vấn Dữ Liệu Quan Hệ (Master-Detail)** | Truy vấn quan hệ 2 bảng classes & students, so sánh 3 phương thức fetch (row, array, assoc), Drill-down xem chi tiết sinh viên kèm ảnh.                 |
 | **[Bai13](Bai13/)** | **Web Bán Laptop (Phân Hệ End User)**        | Thiết kế website thương mại điện tử độc lập full-width: Danh mục hãng, Trang chủ hiển thị 2 laptop/hãng, Chi tiết thông số kỹ thuật, Tìm kiếm sản phẩm. |
 | **[Bai14](Bai14/)** | **Web Bán Laptop (Phân Hệ Admin Panel)**     | Hệ thống quản trị toàn diện: Đăng nhập/Đăng xuất bảo mật, Auth Guard Middleware, Thống kê Dashboard, CRUD Hãng laptop, CRUD Laptop kèm Upload ảnh.      |
-| **[Bai15](Bai15/)** | **Giỏ Hàng Web Bán Laptop (Shopping Cart)**  | Hệ thống giỏ hàng toàn diện: Thêm vào giỏ, cập nhật số lượng, tính tổng tiền, đặt hàng lưu CSDL (orders & order_details). |
+| **[Bai15](Bai15/)** | **Giỏ Hàng Web Bán Laptop (Shopping Cart)**  | Hệ thống giỏ hàng toàn diện: Thêm vào giỏ, cập nhật số lượng, tính tổng tiền, đặt hàng lưu CSDL (orders & order_details).                               |
 | **[Bai16](Bai16/)** | **Tích Hợp Richtext Box (WYSIWYG Editor)**   | Tích hợp CKEditor soạn thảo thông số kỹ thuật đa định dạng (bảng, ảnh, in đậm), xử lý XSS và xuất bản HTML trực tiếp.                                   |
 
 ---

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Bài 15: Trang Quản Lý Giỏ Hàng (Cart View & Quantity Updates)
  */
@@ -78,19 +79,19 @@ $cartTotal = getCartTotalPrice();
                         </tr>
                     </thead>
                     <tbody>
-                        <?php 
+                        <?php
                         $stt = 1;
-                        foreach ($cartItems as $pId => $item): 
+                        foreach ($cartItems as $pId => $item):
                             $imgSrc = 'images/' . (!empty($item['image']) ? $item['image'] : 'laptop_default.png');
                             $subtotal = (float)$item['price'] * (int)$item['quantity'];
                         ?>
                             <tr>
                                 <td style="font-weight: 700; color: var(--color-accent);"><?= $stt++ ?></td>
                                 <td>
-                                    <img src="<?= htmlspecialchars($imgSrc) ?>" 
-                                         alt="<?= htmlspecialchars($item['product_name']) ?>" 
-                                         style="width: 70px; height: 50px; object-fit: contain; background: var(--bg-input); padding: 4px; border-radius: 4px;"
-                                         onerror="this.onerror=null; this.src='images/laptop_default.png';">
+                                    <img src="<?= htmlspecialchars($imgSrc) ?>"
+                                        alt="<?= htmlspecialchars($item['product_name']) ?>"
+                                        style="width: 70px; height: 50px; object-fit: contain; background: var(--bg-input); padding: 4px; border-radius: 4px;"
+                                        onerror="this.onerror=null; this.src='images/laptop_default.png';">
                                 </td>
                                 <td>
                                     <a href="index.php?page=productDetail&id=<?= $pId ?>" style="color: var(--text-color); font-weight: 700; text-decoration: none;">
@@ -108,13 +109,13 @@ $cartTotal = getCartTotalPrice();
                                 <td style="text-align: center;">
                                     <div class="qty-control-group">
                                         <button type="button" class="qty-btn" onclick="changeRowQty(<?= $pId ?>, -1)">-</button>
-                                        <input type="number" 
-                                               id="qty_<?= $pId ?>" 
-                                               name="quantities[<?= $pId ?>]" 
-                                               value="<?= (int)$item['quantity'] ?>" 
-                                               min="1" max="99" 
-                                               class="qty-input"
-                                               onchange="document.getElementById('cartForm').submit();">
+                                        <input type="number"
+                                            id="qty_<?= $pId ?>"
+                                            name="quantities[<?= $pId ?>]"
+                                            value="<?= (int)$item['quantity'] ?>"
+                                            min="1" max="99"
+                                            class="qty-input"
+                                            onchange="document.getElementById('cartForm').submit();">
                                         <button type="button" class="qty-btn" onclick="changeRowQty(<?= $pId ?>, 1)">+</button>
                                     </div>
                                 </td>
@@ -122,10 +123,10 @@ $cartTotal = getCartTotalPrice();
                                     <?= formatPrice($subtotal) ?>
                                 </td>
                                 <td style="text-align: center;">
-                                    <a href="index.php?page=cartDelete&id=<?= $pId ?>" 
-                                       class="pixel-btn pixel-btn-danger btn-sm" 
-                                       onclick="return confirm('Bạn có chắc muốn xóa <?= addslashes($item['product_name']) ?> khỏi giỏ?');"
-                                       title="Xóa món này">
+                                    <a href="index.php?page=cartDelete&id=<?= $pId ?>"
+                                        class="pixel-btn pixel-btn-danger btn-sm"
+                                        onclick="return confirm('Bạn có chắc muốn xóa <?= addslashes($item['product_name']) ?> khỏi giỏ?');"
+                                        title="Xóa món này">
                                         🗑️
                                     </a>
                                 </td>
@@ -141,9 +142,9 @@ $cartTotal = getCartTotalPrice();
                     <button type="submit" class="pixel-btn pixel-btn-primary">
                         🔄 CẬP NHẬT GIỎ HÀNG
                     </button>
-                    <a href="index.php?page=cartDelete&action=clear" 
-                       class="pixel-btn pixel-btn-danger" 
-                       onclick="return confirm('Bạn có chắc chắn muốn xóa toàn bộ sản phẩm trong giỏ hàng?');">
+                    <a href="index.php?page=cartDelete&action=clear"
+                        class="pixel-btn pixel-btn-danger"
+                        onclick="return confirm('Bạn có chắc chắn muốn xóa toàn bộ sản phẩm trong giỏ hàng?');">
                         🧹 XÓA SẠCH GIỎ HÀNG
                     </a>
                 </div>
@@ -183,13 +184,13 @@ $cartTotal = getCartTotalPrice();
 </div>
 
 <script>
-function changeRowQty(productId, delta) {
-    var input = document.getElementById('qty_' + productId);
-    if (input) {
-        var current = parseInt(input.value) || 1;
-        var next = Math.max(1, Math.min(99, current + delta));
-        input.value = next;
-        document.getElementById('cartForm').submit();
+    function changeRowQty(productId, delta) {
+        var input = document.getElementById('qty_' + productId);
+        if (input) {
+            var current = parseInt(input.value) || 1;
+            var next = Math.max(1, Math.min(99, current + delta));
+            input.value = next;
+            document.getElementById('cartForm').submit();
+        }
     }
-}
 </script>

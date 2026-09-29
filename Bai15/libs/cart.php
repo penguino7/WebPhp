@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Bài 15: Thư viện Quản lý Giỏ Hàng (Shopping Cart Operations via PHP Session)
  */
@@ -49,7 +50,7 @@ function addToCart($product, $quantity = 1)
             'price'        => (float)($product['price'] ?? 0),
             'old_price'    => !empty($product['old_price']) ? (float)$product['old_price'] : null,
             'image'        => $product['image'] ?? 'laptop_default.png',
-            'category_name'=> $product['category_name'] ?? '',
+            'category_name' => $product['category_name'] ?? '',
             'summary_spec' => $product['summary_spec'] ?? '',
             'quantity'     => $quantity
         ];

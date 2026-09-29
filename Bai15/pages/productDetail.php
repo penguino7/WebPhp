@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Bài 15: Chi Tiết Laptop (Product Detail) & Thêm Vào Giỏ Hàng Với Số Lượng
  */
@@ -46,10 +47,10 @@ $imgSrc = 'images/' . (!empty($product['image']) ? $product['image'] : 'laptop_d
     <div style="display: grid; grid-template-columns: 320px 1fr; gap: 28px; margin-bottom: 24px;">
         <!-- Cột Trái: Ảnh Lớn -->
         <div style="text-align: center; background: var(--bg-input); padding: 20px; border-radius: 8px; border: 2px solid var(--border-color);">
-            <img src="<?= htmlspecialchars($imgSrc) ?>" 
-                 alt="<?= htmlspecialchars($product['product_name']) ?>" 
-                 style="width: 100%; height: 240px; object-fit: contain;"
-                 onerror="this.onerror=null; this.src='images/laptop_default.png';">
+            <img src="<?= htmlspecialchars($imgSrc) ?>"
+                alt="<?= htmlspecialchars($product['product_name']) ?>"
+                style="width: 100%; height: 240px; object-fit: contain;"
+                onerror="this.onerror=null; this.src='images/laptop_default.png';">
         </div>
 
         <!-- Cột Phải: Thông tin & Form Đặt Mua -->
@@ -114,12 +115,12 @@ $imgSrc = 'images/' . (!empty($product['image']) ? $product['image'] : 'laptop_d
 </div>
 
 <script>
-function adjustQty(delta) {
-    var input = document.getElementById('detailQuantity');
-    if (input) {
-        var current = parseInt(input.value) || 1;
-        var next = Math.max(1, Math.min(99, current + delta));
-        input.value = next;
+    function adjustQty(delta) {
+        var input = document.getElementById('detailQuantity');
+        if (input) {
+            var current = parseInt(input.value) || 1;
+            var next = Math.max(1, Math.min(99, current + delta));
+            input.value = next;
+        }
     }
-}
 </script>

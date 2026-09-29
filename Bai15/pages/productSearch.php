@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Bài 15: Tìm Kiếm Laptop (Product Search)
  */
@@ -46,9 +47,9 @@ if (!empty($keyword) || $catId > 0) {
     <!-- Form Tìm Kiếm Chi Tiết -->
     <form method="GET" action="index.php" style="display: grid; grid-template-columns: 2fr 1fr auto; gap: 10px; margin-bottom: 24px;">
         <input type="hidden" name="page" value="productSearch">
-        <input type="text" name="keyword" class="pixel-input" 
-               placeholder="Nhập tên laptop, chip CPU, RAM, card đồ họa..." 
-               value="<?= htmlspecialchars($keyword) ?>">
+        <input type="text" name="keyword" class="pixel-input"
+            placeholder="Nhập tên laptop, chip CPU, RAM, card đồ họa..."
+            value="<?= htmlspecialchars($keyword) ?>">
         <select name="cat_id" class="pixel-input">
             <option value="0">-- Tất cả hãng sản xuất --</option>
             <?php foreach ($categories as $cat): ?>
@@ -73,22 +74,22 @@ if (!empty($keyword) || $catId > 0) {
     <?php else: ?>
         <div class="product-grid">
             <?php foreach ($results as $prod): ?>
-                <?php 
+                <?php
                 $imgSrc = 'images/' . (!empty($prod['image']) ? $prod['image'] : 'laptop_default.png');
                 ?>
                 <div class="product-card">
                     <div>
                         <div class="product-thumb-box">
                             <a href="index.php?page=productDetail&id=<?= $prod['product_id'] ?>">
-                                <img src="<?= htmlspecialchars($imgSrc) ?>" 
-                                     alt="<?= htmlspecialchars($prod['product_name']) ?>" 
-                                     class="product-thumb"
-                                     onerror="this.onerror=null; this.src='images/laptop_default.png';">
+                                <img src="<?= htmlspecialchars($imgSrc) ?>"
+                                    alt="<?= htmlspecialchars($prod['product_name']) ?>"
+                                    class="product-thumb"
+                                    onerror="this.onerror=null; this.src='images/laptop_default.png';">
                             </a>
                         </div>
 
                         <span class="product-brand-tag"><?= htmlspecialchars($prod['category_name']) ?></span>
-                        
+
                         <h3>
                             <a href="index.php?page=productDetail&id=<?= $prod['product_id'] ?>" class="product-name" title="<?= htmlspecialchars($prod['product_name']) ?>">
                                 <?= htmlspecialchars($prod['product_name']) ?>

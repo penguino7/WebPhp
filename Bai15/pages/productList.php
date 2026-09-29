@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Bài 15: Danh Sách Laptop Theo Hãng (Product List)
  */
@@ -44,22 +45,22 @@ if ($catId > 0 && !empty($products)) {
     <?php else: ?>
         <div class="product-grid">
             <?php foreach ($products as $prod): ?>
-                <?php 
+                <?php
                 $imgSrc = 'images/' . (!empty($prod['image']) ? $prod['image'] : 'laptop_default.png');
                 ?>
                 <div class="product-card">
                     <div>
                         <div class="product-thumb-box">
                             <a href="index.php?page=productDetail&id=<?= $prod['product_id'] ?>">
-                                <img src="<?= htmlspecialchars($imgSrc) ?>" 
-                                     alt="<?= htmlspecialchars($prod['product_name']) ?>" 
-                                     class="product-thumb"
-                                     onerror="this.onerror=null; this.src='images/laptop_default.png';">
+                                <img src="<?= htmlspecialchars($imgSrc) ?>"
+                                    alt="<?= htmlspecialchars($prod['product_name']) ?>"
+                                    class="product-thumb"
+                                    onerror="this.onerror=null; this.src='images/laptop_default.png';">
                             </a>
                         </div>
 
                         <span class="product-brand-tag"><?= htmlspecialchars($prod['category_name']) ?></span>
-                        
+
                         <h3>
                             <a href="index.php?page=productDetail&id=<?= $prod['product_id'] ?>" class="product-name" title="<?= htmlspecialchars($prod['product_name']) ?>">
                                 <?= htmlspecialchars($prod['product_name']) ?>

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Bài 15: Thư viện kết nối CSDL MySQL (laptop_shop)
  */

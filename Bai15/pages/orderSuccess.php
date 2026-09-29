@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Bài 15: Trang Đặt Hàng Thành Công (Order Success Receipt)
  */

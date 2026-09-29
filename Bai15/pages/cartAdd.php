@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Bài 15: Xử lý Thêm Sản Phẩm Vào Giỏ Hàng (Cart Add Controller)
  */
@@ -23,7 +24,7 @@ if ($productId > 0) {
     if ($product) {
         addToCart($product, $quantity);
         $msg = urlencode("Đã thêm thành công {$quantity} máy '{$product['product_name']}' vào giỏ hàng!");
-        
+
         if ($redirect === 'home') {
             $targetUrl = "index.php?page=home&msg={$msg}&msg_type=success";
         } elseif ($redirect === 'productList') {

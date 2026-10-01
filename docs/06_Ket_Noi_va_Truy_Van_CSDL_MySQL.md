@@ -532,3 +532,257 @@ if (mysqli_query($conn, $sql)) {
     }
 }
 ```
+
+---
+
+## 8. Các Cú Pháp & Tính Năng SQL Hiện Đại (Modern MySQL 5.7+ / 8.0+)
+
+Trong các phiên bản MySQL hiện đại (MySQL 5.7, MySQL 8.0+ và MariaDB 10.2+ tích hợp sẵn trong XAMPP), SQL đã được bổ sung nhiều toán tử và cấu trúc truy vấn mạnh mẽ giúp đơn giản hóa logic xử lý và tối ưu hóa hiệu năng đáng kể.
+
+---
+
+### 8.1. Thao Tác Với Kiểu Dữ Liệu `JSON` & Toán Tử Trích Xuất `->`, `->>`
+
+MySQL hỗ trợ kiểu dữ liệu **`JSON` nguyên bản (Native JSON Data Type)** với khả năng tự động kiểm tra cú pháp hợp lệ và lưu trữ dưới dạng nhị phân tối ưu.
+
+#### A. Hai Toán Tử Trích Xuất Cốt Lõi: `->` và `->>`
+
+| Toán Tử | Tên Gọi Kỹ Thuật | Cú Pháp Rút Gọn | Tương Đương Hàm Gốc | Kết Quả Trả Về |
+| :---: | :--- | :--- | :--- | :--- |
+| **`->`** | **JSON Extract Operator** | `column->'$.path'` | `JSON_EXTRACT(column, '$.path')` | Trả về chuỗi JSON thô (**còn dấu ngoặc kép `"`** bao quanh chuỗi). |
+| **`->>`** | **JSON Unquoting Extract Operator** | `column->>'$.path'` | `JSON_UNQUOTE(JSON_EXTRACT(column, '$.path'))` | Trả về **chuỗi văn bản thuần (đã gỡ bỏ ngoặc kép `"`), số hoặc boolean** sẵn sàng hiển thị. |
+
+#### B. Ví Dụ Bảng Lưu Trữ Cấu Hình Laptop Dạng JSON:
+
+```sql
+-- 1. Tạo bảng có cột specs kiểu JSON
+CREATE TABLE products_json (
+    product_id INT AUTO_INCREMENT PRIMARY KEY,
+    product_name VARCHAR(150) NOT NULL,
+    price DECIMAL(12, 2) NOT NULL,
+    specs JSON NOT NULL -- Cột lưu trữ đối tượng JSON
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- 2. Chèn dữ liệu JSON vào bảng
+INSERT INTO products_json (product_name, price, specs)
+VALUES (
+    'Dell XPS 13 Plus', 
+    34990000, 
+    '{
+        "cpu": "Intel Core i7-1360P",
+        "ram": { "size_gb": 32, "bus_mhz": 6000 },
+        "storage": { "type": "SSD", "capacity_gb": 1024 },
+        "display": { "size_inch": 13.4, "resolution": "3.5K OLED" },
+        "ports": ["Type-C", "Thunderbolt 4"]
+    }'
+);
+```
+
+#### C. Truy Vấn Với Toán Tử `->` và `->>`:
+
+```sql
+-- So sánh kết quả của -> và ->>
+SELECT 
+    product_name,
+    specs->'$.cpu'            AS cpu_raw,      -- Kết quả: "Intel Core i7-1360P" (còn ngoặc kép)
+    specs->>'$.cpu'           AS cpu_clean,    -- Kết quả: Intel Core i7-1360P (chuỗi sạch)
+    specs->>'$.ram.size_gb'   AS ram_gb,       -- Kết quả: 32 (truy cập lồng nhau)
+    specs->>'$.ports[0]'      AS first_port    -- Kết quả: Type-C (truy cập phần tử mảng)
+FROM products_json;
+
+-- Lọc dữ liệu trong mệnh đề WHERE bằng ->>
+SELECT product_name, price, specs->>'$.cpu' AS cpu
+FROM products_json
+WHERE CAST(specs->>'$.ram.size_gb' AS UNSIGNED) >= 16
+  AND specs->>'$.display.resolution' LIKE '%OLED%';
+```
+
+#### D. Các Hàm JSON Tiện Ích Hay Dùng Nhất:
+
+```sql
+-- 1. JSON_OBJECT & JSON_ARRAY: Gom nhóm dữ liệu thành JSON
+SELECT JSON_OBJECT('id', product_id, 'name', product_name, 'price', price) AS json_data 
+FROM products_json;
+
+-- 2. JSON_SET: Cập nhật hoặc chèn thêm thuộc tính vào JSON
+UPDATE products_json 
+SET specs = JSON_SET(specs, '$.ram.size_gb', 64, '$.warranty_months', 24)
+WHERE product_id = 1;
+
+-- 3. JSON_CONTAINS: Kiểm tra xem JSON có chứa giá trị nhất định hay không
+SELECT * FROM products_json 
+WHERE JSON_CONTAINS(specs->'$.ports', '"Thunderbolt 4"');
+
+-- 4. JSON_PRETTY: Định dạng JSON thụt dòng đẹp mắt để hiển thị
+SELECT JSON_PRETTY(specs) FROM products_json WHERE product_id = 1;
+
+-- 5. JSON_ARRAYAGG: Gom nhiều dòng thành một mảng JSON
+SELECT category_name, JSON_ARRAYAGG(product_name) AS laptop_list
+FROM products p
+JOIN categories c ON p.category_id = c.category_id
+GROUP BY c.category_id, c.category_name;
+```
+
+---
+
+### 8.2. Cột Tự Sinh / Cột Ảo (Generated / Virtual Columns)
+
+MySQL cho phép định nghĩa các cột có giá trị được **tính toán tự động** từ các cột khác trong cùng một dòng:
+
+- **`VIRTUAL` (Mặc định):** Không lưu vào ổ đĩa cứng, được tính toán lại mỗi khi câu lệnh `SELECT` đọc đến (tiết kiệm dung lượng đĩa).
+- **`STORED`:** Tính toán và ghi cố định xuống ổ cứng mỗi khi bản ghi được `INSERT` hoặc `UPDATE` (chiếm thêm dung lượng nhưng đọc cực nhanh và có thể đánh `INDEX` tăng tốc tìm kiếm).
+
+```sql
+-- Ví dụ 1: Tự động tính Điểm trung bình (Được lưu thực tế để truy vấn nhanh)
+CREATE TABLE HOSO_MODERN (
+    MAHS CHAR(8) PRIMARY KEY,
+    HOTEN VARCHAR(50) NOT NULL,
+    DIEMTOAN FLOAT DEFAULT 0,
+    DIEMLY FLOAT DEFAULT 0,
+    DIEMHOA FLOAT DEFAULT 0,
+    -- Cột tự động tính Điểm TB, không cần hàm tính thủ công ở PHP
+    DTB FLOAT GENERATED ALWAYS AS (ROUND((DIEMTOAN + DIEMLY + DIEMHOA) / 3, 2)) STORED
+);
+
+-- Ví dụ 2: Đánh chỉ mục (INDEX) trên trường JSON thông qua Virtual Column
+ALTER TABLE products_json 
+ADD COLUMN cpu_name VARCHAR(100) GENERATED ALWAYS AS (specs->>'$.cpu') STORED,
+ADD INDEX idx_cpu_name (cpu_name);
+```
+
+---
+
+### 8.3. Bảng Tạm Biểu Thức Bảng Chung (CTE - Common Table Expressions `WITH`)
+
+Mệnh đề **`WITH` (CTE)** giúp tạo ra các tập kết quả tạm thời ngay trong phạm vi của một truy vấn đơn lẻ, thay thế cho các câu lệnh con lồng nhau (`Subqueries`) phức tạp, giúp mã SQL trở nên trong sáng, dễ bảo trì:
+
+```sql
+-- Ví dụ: Lấy danh sách học sinh có điểm trung bình cao hơn điểm trung bình của toàn trường
+WITH ThongKeToanTruong AS (
+    SELECT AVG(DTB) AS dtb_toan_truong FROM HOSO_MODERN
+),
+XepLoaiHocSinh AS (
+    SELECT MAHS, HOTEN, DTB,
+           CASE 
+               WHEN DTB >= 8.0 THEN 'Giỏi'
+               WHEN DTB >= 6.5 THEN 'Khá'
+               ELSE 'Trung Bình'
+           END AS danh_hieu
+    FROM HOSO_MODERN
+)
+SELECT hs.MAHS, hs.HOTEN, hs.DTB, hs.danh_hieu, tk.dtb_toan_truong
+FROM XepLoaiHocSinh hs
+CROSS JOIN ThongKeToanTruong tk
+WHERE hs.DTB > tk.dtb_toan_truong
+ORDER BY hs.DTB DESC;
+```
+
+#### CTE Đệ Quy (`WITH RECURSIVE`) Duyệt Cây Danh Mục / Tổ Chức:
+
+```sql
+-- Duyệt cây danh mục đa cấp (Ví dụ: Laptop Gaming -> ASUS -> TUF Series)
+WITH RECURSIVE CategoryTree AS (
+    -- Điểm bắt đầu (Gốc - Danh mục cha)
+    SELECT category_id, category_name, parent_id, 0 AS level
+    FROM categories
+    WHERE parent_id IS NULL
+    
+    UNION ALL
+    
+    -- Đệ quy lấy các danh mục con
+    SELECT c.category_id, c.category_name, c.parent_id, ct.level + 1
+    FROM categories c
+    INNER JOIN CategoryTree ct ON c.parent_id = ct.category_id
+)
+SELECT * FROM CategoryTree ORDER BY level, category_id;
+```
+
+---
+
+### 8.4. Hàm Cửa Sổ (Window Functions - Mệnh Đề `OVER (PARTITION BY ... ORDER BY ...)`)
+
+Window Functions cho phép thực hiện tính toán trên một tập hợp các dòng dữ liệu liên quan mà **không làm gộp dòng lại như `GROUP BY`**.
+
+```sql
+-- 1. ROW_NUMBER(), DENSE_RANK(): Xếp hạng học sinh theo từng lớp học
+SELECT 
+    MAHS, 
+    HOTEN, 
+    LOP, 
+    DTB,
+    -- Đánh số thứ tự trong từng lớp
+    ROW_NUMBER() OVER (PARTITION BY LOP ORDER BY DTB DESC) AS stt_trong_lop,
+    -- Xếp hạng theo điểm (đồng điểm cùng hạng)
+    DENSE_RANK() OVER (PARTITION BY LOP ORDER BY DTB DESC) AS hang_trong_lop
+FROM HOSO_MODERN;
+
+-- 2. Lấy Top 2 sản phẩm Laptop có giá cao nhất của TỪNG HÃNG
+WITH RankedProducts AS (
+    SELECT 
+        product_id, 
+        product_name, 
+        category_id, 
+        price,
+        ROW_NUMBER() OVER (PARTITION BY category_id ORDER BY price DESC) as top_rank
+    FROM products
+)
+SELECT * FROM RankedProducts WHERE top_rank <= 2;
+
+-- 3. LAG() và LEAD(): So sánh giá sản phẩm hiện tại với sản phẩm trước/sau nó
+SELECT 
+    product_name, 
+    price,
+    LAG(price, 1) OVER (ORDER BY price ASC) AS gia_may_re_hon_lien_ke,
+    LEAD(price, 1) OVER (ORDER BY price ASC) AS gia_may_dat_hon_lien_ke
+FROM products;
+```
+
+---
+
+### 8.5. Các Hàm Tính Toán & Thao Tác Dữ Liệu Tiện Ích Hiện Đại
+
+#### A. Hàm `GREATEST()` & `LEAST()` (So Sánh Giá Trị Lớn Nhất / Nhỏ Nhất)
+
+- **`GREATEST(v1, v2, ...)`:** Trả về giá trị lớn nhất trong danh sách đối số.
+  - *Ứng dụng kinh điển (Bài 15 - Quản lý kho):* Trừ số lượng tồn kho khi mua hàng nhưng **đảm bảo không bao giờ bị âm dưới `0`**:
+    ```sql
+    UPDATE products 
+    SET quantity = GREATEST(0, quantity - 2) 
+    WHERE product_id = 10;
+    ```
+- **`LEAST(v1, v2, ...)`:** Trả về giá trị nhỏ nhất trong danh sách (Dùng để giới hạn số lượng tối đa được phép mua: `LEAST(max_limit, user_input)`).
+
+#### B. Hàm Xử Lý Giá Trị Rỗng `COALESCE()` & `IFNULL()`
+
+```sql
+-- COALESCE: Lấy giá trị đầu tiên khác NULL trong danh sách đối số
+-- Nếu old_price NULL -> lấy price -> nếu price NULL -> lấy 0
+SELECT product_name, COALESCE(old_price, price, 0) AS display_price FROM products;
+
+-- IFNULL: Viết tắt cho 2 đối số
+SELECT product_name, IFNULL(summary_spec, 'Chưa có thông số') AS spec FROM products;
+```
+
+#### C. Thao Tác "Thêm Mới Hoặc Cập Nhật" (UPSERT Hiện Đại)
+
+```sql
+-- Cú pháp hiện đại (MySQL 8.0.19+): Dùng bí danh hàng mới 'AS new_row'
+INSERT INTO product_views (product_id, view_count, last_viewed)
+VALUES (101, 1, NOW())
+AS new_data
+ON DUPLICATE KEY UPDATE 
+    view_count = product_views.view_count + 1,
+    last_viewed = new_data.last_viewed;
+```
+
+#### D. Biểu Thức Điều Kiện Phân Nhánh `CASE WHEN`
+
+```sql
+SELECT product_name, price, quantity,
+       CASE 
+           WHEN quantity = 0 THEN '🚫 Hết hàng'
+           WHEN quantity <= 5 THEN '⚠️ Sắp hết hàng'
+           ELSE '✅ Còn hàng'
+       END AS stock_status
+FROM products;
+```

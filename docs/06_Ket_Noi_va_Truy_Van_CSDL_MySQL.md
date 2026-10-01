@@ -169,7 +169,9 @@ sequenceDiagram
     end
 ```
 
-### Mã Nguồn File Kết Nối Chuẩn (`connect.php`):
+### 4.1. Mã Nguồn Kết Nối: Hướng Thủ Tục (Procedural) vs Hướng Đối Tượng (OOP)
+
+Trong PHP, thư viện `mysqli` hỗ trợ cả 2 phong cách lập trình: **Hướng thủ tục** (hàm riêng lẻ `mysqli_*`) và **Hướng đối tượng** (sử dụng đối tượng `$conn->...`).
 
 ```php
 <?php
@@ -179,211 +181,322 @@ $username   = "root";
 $password   = "";
 $dbname     = "quanlyhocsinh";
 
-// 1. Khởi tạo kết nối mạng tới MySQL Server
-$conn = mysqli_connect($servername, $username, $password, $dbname);
+// -------------------------------------------------------------
+// CÁCH 1: HƯỚNG ĐỐI TƯỢNG (OOP - Khuyên dùng trong dự án hiện đại)
+// -------------------------------------------------------------
+$conn = new mysqli($servername, $username, $password, $dbname);
 
-// 2. Kiểm tra trạng thái kết nối
+// Kiểm tra lỗi kết nối qua thuộc tính $conn->connect_error
+if ($conn->connect_error) {
+    die("Lỗi kết nối cơ sở dữ liệu: " . $conn->connect_error);
+}
+
+// Thiết lập bảng mã tiếng Việt UTF-8
+$conn->set_charset("utf8mb4");
+
+// -------------------------------------------------------------
+// CÁCH 2: HƯỚNG THỦ TỤC (Procedural - Phổ biến trong giáo trình cũ)
+// -------------------------------------------------------------
+/*
+$conn = mysqli_connect($servername, $username, $password, $dbname);
 if (!$conn) {
     die("Lỗi kết nối cơ sở dữ liệu: " . mysqli_connect_error());
 }
-
-// 3. Thiết lập bảng mã tiếng Việt UTF-8 chuẩn xác
 mysqli_set_charset($conn, "utf8mb4");
+*/
 ?>
 ```
 
 ---
 
-## 5. Cẩm Nang Toàn Bộ Các Hàm `mysqli`
+## 5. Cẩm Nang Cú Pháp Thao Tác CSDL: OOP (`$conn->...`) & Thủ Tục (`mysqli_*`)
 
-### 5.1. Bảng Tổng Hợp Tra Cứu Nhanh Các Hàm `mysqli`
+### 5.1. Bảng Đối Chiếu Song Song Cú Pháp Thủ Tục vs Hướng Đối Tượng
 
-|  STT   | Tên Hàm                     | Cú Pháp                                   | Công Dụng Chính                                                   | Kiểu Giá Trị Trả Về                                                 |
-| :----: | :-------------------------- | :---------------------------------------- | :---------------------------------------------------------------- | :------------------------------------------------------------------ |
-| **1**  | `mysqli_query`              | `mysqli_query($conn, $sql)`               | Gửi và thực thi câu lệnh SQL trên MySQL Server                    | `mysqli_result` (với SELECT) hoặc `bool` (với INSERT/UPDATE/DELETE) |
-| **2**  | `mysqli_num_rows`           | `mysqli_num_rows($result)`                | Đếm số dòng dữ liệu trả về từ câu lệnh `SELECT`                   | `int` (Số lượng bản ghi)                                            |
-| **3**  | `mysqli_fetch_assoc`        | `mysqli_fetch_assoc($result)`             | Lấy 1 bản ghi kế tiếp dưới dạng **Mảng kết hợp** (Key = Tên cột)  | `array` (1 dòng dữ liệu) hoặc `null` (khi hết dữ liệu)              |
-| **4**  | `mysqli_fetch_all`          | `mysqli_fetch_all($result, MYSQLI_ASSOC)` | Nạp toàn bộ dữ liệu vào **Mảng 2 chiều** chỉ với 1 dòng lệnh      | `array` (Mảng 2 chiều)                                              |
-| **5**  | `mysqli_affected_rows`      | `mysqli_affected_rows($conn)`             | Đếm số dòng thực sự bị tác động bởi `INSERT`, `UPDATE`, `DELETE`  | `int` (Số dòng thay đổi, `0` nếu không đổi, `-1` nếu lỗi)           |
-| **6**  | `mysqli_insert_id`          | `mysqli_insert_id($conn)`                 | Lấy giá trị ID tự động tăng (`AUTO_INCREMENT`) vừa chèn           | `int` \| `string` (Mã ID vừa sinh)                                  |
-| **7**  | `mysqli_error`              | `mysqli_error($conn)`                     | Lấy thông báo lỗi chi tiết dạng chuỗi từ MySQL Server             | `string` (Mô tả chi tiết lỗi)                                       |
-| **8**  | `mysqli_real_escape_string` | `mysqli_real_escape_string($conn, $str)`  | Làm sạch chuỗi, thêm `\` trước ký tự đặc biệt chống SQL Injection | `string` (Chuỗi đã làm sạch an toàn)                                |
-| **9**  | `mysqli_free_result`        | `mysqli_free_result($result)`             | Giải phóng bộ nhớ đệm kết quả khỏi RAM của Web Server             | `void`                                                              |
-| **10** | `mysqli_close`              | `mysqli_close($conn)`                     | Đóng phiên kết nối mạng TCP/IP tới máy chủ CSDL MySQL             | `bool` (`true` khi đóng thành công)                                 |
+| STT | Thao Tác Kỹ Thuật | Cú Pháp Hướng Thủ Tục (Procedural) | Cú Pháp Hướng Đối Tượng (OOP `$conn->...`) | Kiểu Dữ Liệu Trả Về |
+| :---: | :--- | :--- | :--- | :--- |
+| **1** | **Khởi tạo kết nối** | `mysqli_connect($host, $user, $pass, $db)` | `$conn = new mysqli($host, $user, $pass, $db)` | `mysqli` object |
+| **2** | **Kiểm tra lỗi kết nối** | `mysqli_connect_error()` | `$conn->connect_error` | `string` \| `null` |
+| **3** | **Cài bảng mã UTF-8** | `mysqli_set_charset($conn, 'utf8mb4')` | `$conn->set_charset('utf8mb4')` | `bool` |
+| **4** | **Thực thi câu lệnh SQL** | `mysqli_query($conn, $sql)` | `$result = $conn->query($sql)` | `mysqli_result` \| `bool` |
+| **5** | **Đếm số dòng SELECT** | `mysqli_num_rows($result)` | `$result->num_rows` | `int` |
+| **6** | **Rút 1 dòng mảng kết hợp** | `mysqli_fetch_assoc($result)` | `$row = $result->fetch_assoc()` | `array` \| `null` |
+| **7** | **Nạp toàn bộ vào mảng 2D** | `mysqli_fetch_all($result, MYSQLI_ASSOC)` | `$rows = $result->fetch_all(MYSQLI_ASSOC)` | `array` |
+| **8** | **Đếm dòng bị tác động** | `mysqli_affected_rows($conn)` | `$conn->affected_rows` | `int` |
+| **9** | **Lấy ID tự tăng vừa chèn** | `mysqli_insert_id($conn)` | `$conn->insert_id` | `int` \| `string` |
+| **10** | **Lấy thông báo lỗi SQL** | `mysqli_error($conn)` | `$conn->error` | `string` |
+| **11** | **Lấy mã số lỗi SQL** | `mysqli_errno($conn)` | `$conn->errno` | `int` |
+| **12** | **Làm sạch chuỗi an toàn** | `mysqli_real_escape_string($conn, $str)` | `$conn->real_escape_string($str)` | `string` |
+| **13** | **Giải phóng bộ nhớ RAM** | `mysqli_free_result($result)` | `$result->free()` hoặc `$result->close()` | `void` |
+| **14** | **Đóng kết nối CSDL** | `mysqli_close($conn)` | `$conn->close()` | `bool` |
 
 ---
 
-### 5.2. Phân Tích Chuyên Sâu Từng Hàm Kèm Ví Dụ Thực Tế
+### 5.2. Phân Tích Chi Tiết Cú Pháp Hướng Đối Tượng (`$conn->...`) Kèm Ví Dụ Thực Tế
 
-#### 5.2.1. Hàm `mysqli_query()`: Cửa Ngõ Thực Thi Mọi Câu Lệnh SQL
-
-- **Cú pháp:** `mysqli_query(mysqli $mysql, string $query): mysqli_result|bool`
-- **Bản chất:** Gửi chuỗi SQL thô từ PHP sang MySQL Server biên dịch và thực thi.
-- **Giá trị trả về:**
-  - Đối với `SELECT`: Trả về con trỏ bộ nhớ đệm **`mysqli_result`** nếu thành công, hoặc `false` nếu cú pháp SQL bị sai.
-  - Đối với `INSERT`, `UPDATE`, `DELETE`: Trả về **`true`** nếu thành công, hoặc **`false`** nếu thất bại.
+#### 5.2.1. Phương Thức `$conn->query()`: Thực Thi Câu Lệnh SQL
 
 ```php
-// Ví dụ 1: Thực thi câu lệnh SELECT
-$sql = "SELECT * FROM LOP";
-$result = mysqli_query($conn, $sql);
+// 1. Thực thi câu lệnh SELECT
+$sql = "SELECT MAHS, HOTEN, DIEMTOAN FROM HOSO WHERE LOP = 'CNTT1'";
+$result = $conn->query($sql);
 
 if ($result === false) {
-    echo "Lỗi cú pháp SQL: " . mysqli_error($conn);
+    die("Lỗi cú pháp SQL: " . $conn->error);
 }
 
-// Ví dụ 2: Thực thi câu lệnh INSERT
+// 2. Thực thi câu lệnh INSERT
 $sqlInsert = "INSERT INTO LOP (MALOP, TENLOP, KHOAHOC) VALUES ('KT1', 'Kế toán 1', 15)";
-if (mysqli_query($conn, $sqlInsert)) {
+if ($conn->query($sqlInsert) === true) {
     echo "Thêm mới lớp thành công!";
 } else {
-    echo "Lỗi thêm mới: " . mysqli_error($conn);
+    echo "Lỗi thêm lớp: " . $conn->error;
 }
 ```
 
 ---
 
-#### 5.2.2. Hàm `mysqli_num_rows()`: Đếm Số Bản Ghi Trả Về
-
-- **Cú pháp:** `mysqli_num_rows(mysqli_result $result): int`
-- **Mục đích:** Đếm số lượng dòng dữ liệu có trong đối tượng `$result` của câu lệnh `SELECT` trước khi tiến hành vẽ bảng.
-
-```php
-$sql = "SELECT * FROM HOSO WHERE LOP = 'CNTT1'";
-$result = mysqli_query($conn, $sql);
-
-$total = mysqli_num_rows($result);
-if ($total > 0) {
-    echo "Tìm thấy " . $total . " học sinh trong lớp CNTT1.";
-} else {
-    echo "Lớp học này hiện chưa có học sinh nào!";
-}
-```
-
----
-
-#### 5.2.3. Hàm `mysqli_fetch_assoc()`: Rút Bản Ghi Dưới Dạng Mảng Kết Hợp
-
-- **Cú pháp:** `mysqli_fetch_assoc(mysqli_result $result): ?array`
-- **Cơ chế hoạt động:** Hoạt động theo cơ chế **Con trỏ (Cursor)**. Mỗi lần gọi, hàm rút ra **1 dòng bản ghi tiếp theo** dưới dạng Mảng kết hợp (Key = Tên cột trong CSDL: `$row['HOTEN']`, `$row['DIEMTOAN']`). Khi đã duyệt hết dòng cuối cùng, hàm trả về **`null`**, giúp vòng lặp `while` tự động kết thúc.
+#### 5.2.2. Thuộc Tính `$result->num_rows` & Phương Thức `$result->fetch_assoc()`
 
 ```php
 $sql = "SELECT MAHS, HOTEN, NGAYSINH, DIEMTOAN FROM HOSO";
-$result = mysqli_query($conn, $sql);
+$result = $conn->query($sql);
 
-// Vòng lặp while tiếp tục chạy cho đến khi mysqli_fetch_assoc trả về null
-while ($row = mysqli_fetch_assoc($result)) {
-    echo "Mã: " . $row['MAHS'] . " | Họ tên: " . $row['HOTEN'] . " | Điểm: " . $row['DIEMTOAN'] . "<br>";
+// Kiểm tra số dòng trả về
+if ($result->num_rows > 0) {
+    echo "Tìm thấy " . $result->num_rows . " học sinh.<br>";
+    
+    // Duyệt từng dòng bằng $result->fetch_assoc()
+    while ($row = $result->fetch_assoc()) {
+        echo "Mã: " . $row['MAHS'] . " | Tên: " . $row['HOTEN'] . " | Điểm: " . $row['DIEMTOAN'] . "<br>";
+    }
+} else {
+    echo "Không có dữ liệu học sinh nào!";
 }
+
+// Giải phóng bộ nhớ đệm
+$result->free();
 ```
-
-#### So Sánh Với Các Hàm Fetch Khác:
-
-- **`mysqli_fetch_row($result)`:** Trả về mảng chỉ số số nguyên `[0 => 'HS01', 1 => 'Nguyen Van A']` $\rightarrow$ Khó nhớ thứ tự cột.
-- **`mysqli_fetch_array($result)`:** Trả về mảng nhân đôi (vừa có Key chữ vừa có Key số) $\rightarrow$ Tốn gấp đôi bộ nhớ RAM.
-- 👉 **Chuẩn mực tối ưu luôn là `mysqli_fetch_assoc()`**.
 
 ---
 
-#### 5.2.4. Hàm `mysqli_fetch_all()`: Nạp Toàn Bộ Dữ Liệu Vào Mảng 2 Chiều
-
-- **Cú pháp:** `mysqli_fetch_all(mysqli_result $result, int $mode = MYSQLI_NUM): array`
-- **Mục đích:** Thay vì viết vòng lặp `while` thủ công, hàm này nạp toàn bộ kết quả vào một mảng 2 chiều duy nhất chỉ với 1 dòng lệnh.
+#### 5.2.3. Phương Thức `$result->fetch_all(MYSQLI_ASSOC)`: Nạp Mảng 2 Chiều Nhanh
 
 ```php
 $sql = "SELECT * FROM LOP";
-$result = mysqli_query($conn, $sql);
+$result = $conn->query($sql);
 
-// Bắt buộc truyền cờ MYSQLI_ASSOC để lấy key là tên cột
-$allClasses = mysqli_fetch_all($result, MYSQLI_ASSOC);
+// Nạp toàn bộ dữ liệu vào mảng 2 chiều chỉ với 1 dòng lệnh
+$allClasses = $result->fetch_all(MYSQLI_ASSOC);
 
-echo "Tổng số lớp: " . count($allClasses);
-echo "Tên lớp đầu tiên: " . $allClasses[0]['TENLOP'];
+foreach ($allClasses as $class) {
+    echo "Lớp: " . $class['TENLOP'] . " (Khóa: " . $class['KHOAHOC'] . ")<br>";
+}
 ```
 
 ---
 
-#### 5.2.5. Hàm `mysqli_affected_rows()`: Kiểm Tra Số Dòng Bị Tác Động
-
-- **Cú pháp:** `mysqli_affected_rows(mysqli $mysql): int`
-- **Ý nghĩa:** Trả về số lượng dòng thực tế bị thay đổi bởi câu lệnh `INSERT`, `UPDATE` hoặc `DELETE` gần nhất:
-  - `> 0`: Đã cập nhật/xóa thành công $N$ bản ghi.
-  - `0`: Câu lệnh đúng cú pháp nhưng không có dòng nào khớp với điều kiện `WHERE` (hoặc lệnh `UPDATE` giữ nguyên dữ liệu cũ).
-  - `-1`: Câu truy vấn thất bại.
+#### 5.2.4. Thuộc Tính `$conn->affected_rows` & `$conn->insert_id`
 
 ```php
-$maHs = 'HS0099';
-$sql = "DELETE FROM HOSO WHERE MAHS = '{$maHs}'";
-mysqli_query($conn, $sql);
+// 1. Lấy ID tự tăng khi INSERT
+$sqlUser = "INSERT INTO users (username, email) VALUES ('ngocnhat', 'nhat@gmail.com')";
+if ($conn->query($sqlUser)) {
+    $newUserId = $conn->insert_id;
+    echo "Tạo tài khoản mới thành công với ID: #" . $newUserId;
+}
 
-$deletedCount = mysqli_affected_rows($conn);
-if ($deletedCount > 0) {
-    echo "Đã xóa thành công học sinh " . $maHs;
+// 2. Kiểm tra số bản ghi thực sự bị thay đổi khi UPDATE hoặc DELETE
+$sqlDelete = "DELETE FROM HOSO WHERE MAHS = 'HS0099'";
+$conn->query($sqlDelete);
+
+if ($conn->affected_rows > 0) {
+    echo "Đã xóa thành công " . $conn->affected_rows . " học sinh.";
 } else {
-    echo "Học sinh " . $maHs . " không tồn tại!";
+    echo "Không tìm thấy học sinh cần xóa hoặc xóa không thành công.";
 }
 ```
 
 ---
 
-#### 5.2.6. Hàm `mysqli_insert_id()`: Lấy ID Tự Động Tăng Vừa Sinh
+### 5.3. Prepared Statements Hướng Đối Tượng (`$conn->prepare()`, `$stmt->...`)
 
-- **Cú pháp:** `mysqli_insert_id(mysqli $mysql): int|string`
-- **Ý nghĩa:** Trả về giá trị của cột `AUTO_INCREMENT` vừa được sinh ra trong câu lệnh `INSERT` thành công gần nhất.
+**Prepared Statements** là chuẩn mực bảo mật cao nhất hiện nay, giúp ngăn chặn 100% nguy cơ tấn công **SQL Injection** bằng cách biên dịch cấu trúc SQL trước, sau đó mới truyền dữ liệu vào.
+
+#### Quy Trình 5 Bước Thực Thi Prepared Statements:
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor Script as PHP Code
+    participant Conn as $conn Object
+    participant Stmt as $stmt (mysqli_stmt)
+    participant DB as MySQL Server
+
+    Script->>Conn: 1. $conn->prepare("SELECT * FROM users WHERE email = ? AND role = ?")
+    Conn->>DB: Gửi khung SQL với dấu chấm hỏi (?)
+    DB-->>Stmt: Biên dịch trước cây truy vấn & trả về đối tượng $stmt
+    Script->>Stmt: 2. $stmt->bind_param("ss", $email, $role) -> Gán tham số an toàn
+    Script->>Stmt: 3. $stmt->execute() -> Kích hoạt thực thi với dữ liệu thực
+    Stmt->>DB: Thực thi truy vấn
+    DB-->>Stmt: 4. $result = $stmt->get_result() -> Trả tập kết quả
+    Script->>Stmt: 5. $stmt->close() -> Đóng câu lệnh giải phóng bộ nhớ
+```
+
+#### Bảng Ký Tự Định Kiểu Dữ Liệu Trong `bind_param()`:
+
+| Ký Tự | Kiểu Dữ Liệu Tương Ứng | Ví Dụ |
+| :---: | :--- | :--- |
+| **`s`** | **String** (Chuỗi ký tự, ngày tháng, văn bản) | `'Nguyen Van A'`, `'2004-05-12'`, `'user@gmail.com'` |
+| **`i`** | **Integer** (Số nguyên) | `15`, `100`, `2024` |
+| **`d`** | **Double / Float** (Số thực dấu chấm động, tiền tệ) | `8.5`, `14990000.50` |
+| **`b`** | **Blob** (Dữ liệu nhị phân: file ảnh, PDF dạng byte) | Dữ liệu nhị phân gửi theo gói |
+
+#### Mã Nguồn Chi Tiết Thực Thi:
 
 ```php
-$sql = "INSERT INTO TAIKHOAN (username, email) VALUES ('ngocnhat', 'nhat@gmail.com')";
-if (mysqli_query($conn, $sql)) {
-    $newId = mysqli_insert_id($conn);
-    echo "Tạo tài khoản thành công với ID mới là: " . $newId;
+// Ví dụ 1: SELECT an toàn chống SQL Injection
+$emailInput = $_POST['email'];
+$statusInput = 'active';
+
+// 1. Chuẩn bị câu lệnh với dấu hỏi chấm (?)
+$stmt = $conn->prepare("SELECT user_id, username, email FROM users WHERE email = ? AND status = ? LIMIT 1");
+
+// 2. Gắn tham số: "ss" nghĩa là 2 chuỗi (string, string)
+$stmt->bind_param("ss", $emailInput, $statusInput);
+
+// 3. Thực thi
+$stmt->execute();
+
+// 4. Lấy kết quả trả về
+$result = $stmt->get_result();
+if ($user = $result->fetch_assoc()) {
+    echo "Xin chào, " . htmlspecialchars($user['username']);
+} else {
+    echo "Tài khoản không tồn tại hoặc chưa kích hoạt!";
+}
+
+// 5. Đóng statement
+$stmt->close();
+
+
+// Ví dụ 2: INSERT có tham số kiểu số và chuỗi
+$stmt = $conn->prepare("INSERT INTO HOSO (MAHS, HOTEN, LOP, DIEMTOAN) VALUES (?, ?, ?, ?)");
+$maHs = "HS0015";
+$hoTen = "Trần Thị Lan";
+$lop = "CNTT1";
+$diemToan = 9.25;
+
+// "sssd" -> 3 chuỗi, 1 số thực (double)
+$stmt->bind_param("sssd", $maHs, $hoTen, $lop, $diemToan);
+
+if ($stmt->execute()) {
+    echo "Thêm học sinh thành công!";
+} else {
+    echo "Lỗi thêm học sinh: " . $stmt->error;
+}
+$stmt->close();
+```
+
+---
+
+### 5.4. Quản Lý Giao Dịch An Toàn (Database Transactions OOP)
+
+Khi thực hiện chuỗi nhiều thao tác liên hoàn (Ví dụ: **Trừ tiền tài khoản người gửi $\rightarrow$ Cộng tiền người nhận**, hoặc **Tạo đơn hàng $\rightarrow$ Lưu chi tiết đơn hàng $\rightarrow$ Trừ tồn kho sản phẩm**), nếu 1 bước gặp lỗi thì **toàn bộ các bước trước đó phải được hoàn tác (Rollback)** để tránh sai lệch dữ liệu:
+
+```php
+// Bắt đầu giao dịch (Tắt chế độ tự động lưu autocommit)
+$conn->begin_transaction();
+
+try {
+    // 1. Tạo đơn hàng mới
+    $sqlOrder = "INSERT INTO orders (customer_name, total_amount) VALUES ('Nguyen Van A', 25000000)";
+    if (!$conn->query($sqlOrder)) {
+        throw new Exception("Lỗi tạo đơn hàng: " . $conn->error);
+    }
+    $orderId = $conn->insert_id;
+
+    // 2. Lưu chi tiết sản phẩm
+    $sqlDetail = "INSERT INTO order_details (order_id, product_id, quantity, price) VALUES ({$orderId}, 5, 1, 25000000)";
+    if (!$conn->query($sqlDetail)) {
+        throw new Exception("Lỗi lưu chi tiết đơn hàng: " . $conn->error);
+    }
+
+    // 3. Trừ số lượng tồn kho của máy trong kho
+    $sqlStock = "UPDATE products SET quantity = GREATEST(0, quantity - 1) WHERE product_id = 5";
+    if (!$conn->query($sqlStock)) {
+        throw new Exception("Lỗi trừ tồn kho: " . $conn->error);
+    }
+
+    // 👉 NẾU TẤT CẢ ĐỀU THÀNH CÔNG -> XÁC NHẬN LƯU VĨNH VIỄN VÀO CSDL
+    $conn->commit();
+    echo "Đặt hàng và thanh toán thành công! Mã đơn: #" . $orderId;
+
+} catch (Exception $e) {
+    // 👉 NẾU CÓ BẤT KỲ LỖI NÀO XẢY RA -> HOÀN TÁC TOÀN BỘ (KHÔNG CÓ DỮ LIỆU RÁC)
+    $conn->rollback();
+    echo "Giao dịch thất bại, đã khôi phục trạng thái ban đầu. Chi tiết lỗi: " . $e->getMessage();
 }
 ```
 
 ---
 
-#### 5.2.7. Hàm `mysqli_error()`: Bắt Thông Báo Chi Tiết Khi SQL Lỗi
+### 5.5. Cẩm Nang Thao Tác CSDL Bằng Thư Viện PDO (`$pdo->...`)
 
-- **Cú pháp:** `mysqli_error(mysqli $mysql): string`
-- **Ý nghĩa:** Trả về chuỗi mô tả lỗi chi tiết từ MySQL Server khi `mysqli_query()` trả về `false`.
+**PDO (PHP Data Objects)** là thư viện chuẩn công nghiệp cao cấp nhất của PHP, hỗ trợ kết nối tới **12 hệ quản trị CSDL khác nhau** (MySQL, PostgreSQL, SQLite, MS SQL Server, Oracle...) với cùng một bộ cú pháp thống nhất.
+
+#### Khởi Tạo & Thao Tác Chuẩn PDO:
 
 ```php
-$sql = "SELECT * FROM BANG_KHONG_TON_TAI";
-$result = mysqli_query($conn, $sql);
+<?php
+// 1. Chuỗi DSN kết nối (Data Source Name)
+$dsn = "mysql:host=localhost;dbname=quanlyhocsinh;charset=utf8mb4";
+$dbUser = "root";
+$dbPass = "";
 
-if (!$result) {
-    // In ra: "Table 'quanlyhocsinh.BANG_KHONG_TON_TAI' doesn't exist"
-    echo "Lỗi truy vấn: " . mysqli_error($conn);
+$options = [
+    PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION, // Tự động ném ngoại lệ khi có lỗi SQL
+    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,       // Mặc định trả về mảng kết hợp (Key = Tên cột)
+    PDO::ATTR_EMULATE_PREPARES   => false                  // Tắt chế độ giả lập, sử dụng prepared thật của MySQL
+];
+
+try {
+    // 2. Khởi tạo đối tượng PDO
+    $pdo = new PDO($dsn, $dbUser, $dbPass, $options);
+} catch (PDOException $e) {
+    die("Lỗi kết nối PDO: " . $e->getMessage());
 }
+
+// -------------------------------------------------------------
+// VÍ DỤ 1: Truy vấn SELECT với Prepared Statements (Tham số đặt tên :name)
+// -------------------------------------------------------------
+$stmt = $pdo->prepare("SELECT * FROM HOSO WHERE LOP = :lop AND DIEMTOAN >= :min_diem");
+$stmt->execute([
+    'lop'      => 'CNTT1',
+    'min_diem' => 8.0
+]);
+
+// Lấy toàn bộ danh sách
+$students = $stmt->fetchAll();
+foreach ($students as $hs) {
+    echo $hs['HOTEN'] . " - Điểm: " . $hs['DIEMTOAN'] . "<br>";
+}
+
+// -------------------------------------------------------------
+// VÍ DỤ 2: INSERT & Lấy ID tự tăng trong PDO
+// -------------------------------------------------------------
+$stmt = $pdo->prepare("INSERT INTO LOP (MALOP, TENLOP, KHOAHOC) VALUES (:malop, :tenlop, :khoa)");
+$stmt->execute([
+    'malop'  => 'QTKD1',
+    'tenlop' => 'Quản trị kinh doanh 1',
+    'khoa'   => 15
+]);
+
+echo "Số dòng đã thêm: " . $stmt->rowCount();
+// Lấy ID tự tăng vừa sinh (nếu có cột AUTO_INCREMENT)
+// $newId = $pdo->lastInsertId();
+?>
 ```
-
----
-
-#### 5.2.8. Hàm `mysqli_real_escape_string()`: Làm Sạch Chuỗi Chống SQL Injection
-
-- **Cú pháp:** `mysqli_real_escape_string(mysqli $mysql, string $string): string`
-- **Bản chất:** Thêm ký tự thoát (`\`) vào trước các ký tự điều khiển nguy hiểm như `'`, `"`, `\`, `\0`, `\n` để ngăn kẻ xấu phá vỡ cấu trúc câu lệnh SQL.
-
-```php
-$rawInput = "O'Connor";
-$safeInput = mysqli_real_escape_string($conn, $rawInput); // Trở thành: O\'Connor
-
-$sql = "SELECT * FROM HOSO WHERE HOTEN = '{$safeInput}'";
-$result = mysqli_query($conn, $sql);
-```
-
----
-
-#### 5.2.9. Hàm `mysqli_free_result()` & `mysqli_close()`: Dọn Dẹp Tài Nguyên
-
-```php
-// 1. Giải phóng vùng RAM đệm kết quả của PHP
-mysqli_free_result($result);
-
-// 2. Đóng Socket kết nối mạng TCP/IP tới MySQL Server
-mysqli_close($conn);
-```
-
----
 
 ## 6. Thuật Toán Phân Trang Dữ Liệu Bằng Mệnh Đề `LIMIT` (Pagination)
 
@@ -531,258 +644,4 @@ if (mysqli_query($conn, $sql)) {
         echo "<script>alert('Lỗi: " . mysqli_error($conn) . "'); window.location.href='lop_list.php';</script>";
     }
 }
-```
-
----
-
-## 8. Các Cú Pháp & Tính Năng SQL Hiện Đại (Modern MySQL 5.7+ / 8.0+)
-
-Trong các phiên bản MySQL hiện đại (MySQL 5.7, MySQL 8.0+ và MariaDB 10.2+ tích hợp sẵn trong XAMPP), SQL đã được bổ sung nhiều toán tử và cấu trúc truy vấn mạnh mẽ giúp đơn giản hóa logic xử lý và tối ưu hóa hiệu năng đáng kể.
-
----
-
-### 8.1. Thao Tác Với Kiểu Dữ Liệu `JSON` & Toán Tử Trích Xuất `->`, `->>`
-
-MySQL hỗ trợ kiểu dữ liệu **`JSON` nguyên bản (Native JSON Data Type)** với khả năng tự động kiểm tra cú pháp hợp lệ và lưu trữ dưới dạng nhị phân tối ưu.
-
-#### A. Hai Toán Tử Trích Xuất Cốt Lõi: `->` và `->>`
-
-| Toán Tử | Tên Gọi Kỹ Thuật | Cú Pháp Rút Gọn | Tương Đương Hàm Gốc | Kết Quả Trả Về |
-| :---: | :--- | :--- | :--- | :--- |
-| **`->`** | **JSON Extract Operator** | `column->'$.path'` | `JSON_EXTRACT(column, '$.path')` | Trả về chuỗi JSON thô (**còn dấu ngoặc kép `"`** bao quanh chuỗi). |
-| **`->>`** | **JSON Unquoting Extract Operator** | `column->>'$.path'` | `JSON_UNQUOTE(JSON_EXTRACT(column, '$.path'))` | Trả về **chuỗi văn bản thuần (đã gỡ bỏ ngoặc kép `"`), số hoặc boolean** sẵn sàng hiển thị. |
-
-#### B. Ví Dụ Bảng Lưu Trữ Cấu Hình Laptop Dạng JSON:
-
-```sql
--- 1. Tạo bảng có cột specs kiểu JSON
-CREATE TABLE products_json (
-    product_id INT AUTO_INCREMENT PRIMARY KEY,
-    product_name VARCHAR(150) NOT NULL,
-    price DECIMAL(12, 2) NOT NULL,
-    specs JSON NOT NULL -- Cột lưu trữ đối tượng JSON
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- 2. Chèn dữ liệu JSON vào bảng
-INSERT INTO products_json (product_name, price, specs)
-VALUES (
-    'Dell XPS 13 Plus', 
-    34990000, 
-    '{
-        "cpu": "Intel Core i7-1360P",
-        "ram": { "size_gb": 32, "bus_mhz": 6000 },
-        "storage": { "type": "SSD", "capacity_gb": 1024 },
-        "display": { "size_inch": 13.4, "resolution": "3.5K OLED" },
-        "ports": ["Type-C", "Thunderbolt 4"]
-    }'
-);
-```
-
-#### C. Truy Vấn Với Toán Tử `->` và `->>`:
-
-```sql
--- So sánh kết quả của -> và ->>
-SELECT 
-    product_name,
-    specs->'$.cpu'            AS cpu_raw,      -- Kết quả: "Intel Core i7-1360P" (còn ngoặc kép)
-    specs->>'$.cpu'           AS cpu_clean,    -- Kết quả: Intel Core i7-1360P (chuỗi sạch)
-    specs->>'$.ram.size_gb'   AS ram_gb,       -- Kết quả: 32 (truy cập lồng nhau)
-    specs->>'$.ports[0]'      AS first_port    -- Kết quả: Type-C (truy cập phần tử mảng)
-FROM products_json;
-
--- Lọc dữ liệu trong mệnh đề WHERE bằng ->>
-SELECT product_name, price, specs->>'$.cpu' AS cpu
-FROM products_json
-WHERE CAST(specs->>'$.ram.size_gb' AS UNSIGNED) >= 16
-  AND specs->>'$.display.resolution' LIKE '%OLED%';
-```
-
-#### D. Các Hàm JSON Tiện Ích Hay Dùng Nhất:
-
-```sql
--- 1. JSON_OBJECT & JSON_ARRAY: Gom nhóm dữ liệu thành JSON
-SELECT JSON_OBJECT('id', product_id, 'name', product_name, 'price', price) AS json_data 
-FROM products_json;
-
--- 2. JSON_SET: Cập nhật hoặc chèn thêm thuộc tính vào JSON
-UPDATE products_json 
-SET specs = JSON_SET(specs, '$.ram.size_gb', 64, '$.warranty_months', 24)
-WHERE product_id = 1;
-
--- 3. JSON_CONTAINS: Kiểm tra xem JSON có chứa giá trị nhất định hay không
-SELECT * FROM products_json 
-WHERE JSON_CONTAINS(specs->'$.ports', '"Thunderbolt 4"');
-
--- 4. JSON_PRETTY: Định dạng JSON thụt dòng đẹp mắt để hiển thị
-SELECT JSON_PRETTY(specs) FROM products_json WHERE product_id = 1;
-
--- 5. JSON_ARRAYAGG: Gom nhiều dòng thành một mảng JSON
-SELECT category_name, JSON_ARRAYAGG(product_name) AS laptop_list
-FROM products p
-JOIN categories c ON p.category_id = c.category_id
-GROUP BY c.category_id, c.category_name;
-```
-
----
-
-### 8.2. Cột Tự Sinh / Cột Ảo (Generated / Virtual Columns)
-
-MySQL cho phép định nghĩa các cột có giá trị được **tính toán tự động** từ các cột khác trong cùng một dòng:
-
-- **`VIRTUAL` (Mặc định):** Không lưu vào ổ đĩa cứng, được tính toán lại mỗi khi câu lệnh `SELECT` đọc đến (tiết kiệm dung lượng đĩa).
-- **`STORED`:** Tính toán và ghi cố định xuống ổ cứng mỗi khi bản ghi được `INSERT` hoặc `UPDATE` (chiếm thêm dung lượng nhưng đọc cực nhanh và có thể đánh `INDEX` tăng tốc tìm kiếm).
-
-```sql
--- Ví dụ 1: Tự động tính Điểm trung bình (Được lưu thực tế để truy vấn nhanh)
-CREATE TABLE HOSO_MODERN (
-    MAHS CHAR(8) PRIMARY KEY,
-    HOTEN VARCHAR(50) NOT NULL,
-    DIEMTOAN FLOAT DEFAULT 0,
-    DIEMLY FLOAT DEFAULT 0,
-    DIEMHOA FLOAT DEFAULT 0,
-    -- Cột tự động tính Điểm TB, không cần hàm tính thủ công ở PHP
-    DTB FLOAT GENERATED ALWAYS AS (ROUND((DIEMTOAN + DIEMLY + DIEMHOA) / 3, 2)) STORED
-);
-
--- Ví dụ 2: Đánh chỉ mục (INDEX) trên trường JSON thông qua Virtual Column
-ALTER TABLE products_json 
-ADD COLUMN cpu_name VARCHAR(100) GENERATED ALWAYS AS (specs->>'$.cpu') STORED,
-ADD INDEX idx_cpu_name (cpu_name);
-```
-
----
-
-### 8.3. Bảng Tạm Biểu Thức Bảng Chung (CTE - Common Table Expressions `WITH`)
-
-Mệnh đề **`WITH` (CTE)** giúp tạo ra các tập kết quả tạm thời ngay trong phạm vi của một truy vấn đơn lẻ, thay thế cho các câu lệnh con lồng nhau (`Subqueries`) phức tạp, giúp mã SQL trở nên trong sáng, dễ bảo trì:
-
-```sql
--- Ví dụ: Lấy danh sách học sinh có điểm trung bình cao hơn điểm trung bình của toàn trường
-WITH ThongKeToanTruong AS (
-    SELECT AVG(DTB) AS dtb_toan_truong FROM HOSO_MODERN
-),
-XepLoaiHocSinh AS (
-    SELECT MAHS, HOTEN, DTB,
-           CASE 
-               WHEN DTB >= 8.0 THEN 'Giỏi'
-               WHEN DTB >= 6.5 THEN 'Khá'
-               ELSE 'Trung Bình'
-           END AS danh_hieu
-    FROM HOSO_MODERN
-)
-SELECT hs.MAHS, hs.HOTEN, hs.DTB, hs.danh_hieu, tk.dtb_toan_truong
-FROM XepLoaiHocSinh hs
-CROSS JOIN ThongKeToanTruong tk
-WHERE hs.DTB > tk.dtb_toan_truong
-ORDER BY hs.DTB DESC;
-```
-
-#### CTE Đệ Quy (`WITH RECURSIVE`) Duyệt Cây Danh Mục / Tổ Chức:
-
-```sql
--- Duyệt cây danh mục đa cấp (Ví dụ: Laptop Gaming -> ASUS -> TUF Series)
-WITH RECURSIVE CategoryTree AS (
-    -- Điểm bắt đầu (Gốc - Danh mục cha)
-    SELECT category_id, category_name, parent_id, 0 AS level
-    FROM categories
-    WHERE parent_id IS NULL
-    
-    UNION ALL
-    
-    -- Đệ quy lấy các danh mục con
-    SELECT c.category_id, c.category_name, c.parent_id, ct.level + 1
-    FROM categories c
-    INNER JOIN CategoryTree ct ON c.parent_id = ct.category_id
-)
-SELECT * FROM CategoryTree ORDER BY level, category_id;
-```
-
----
-
-### 8.4. Hàm Cửa Sổ (Window Functions - Mệnh Đề `OVER (PARTITION BY ... ORDER BY ...)`)
-
-Window Functions cho phép thực hiện tính toán trên một tập hợp các dòng dữ liệu liên quan mà **không làm gộp dòng lại như `GROUP BY`**.
-
-```sql
--- 1. ROW_NUMBER(), DENSE_RANK(): Xếp hạng học sinh theo từng lớp học
-SELECT 
-    MAHS, 
-    HOTEN, 
-    LOP, 
-    DTB,
-    -- Đánh số thứ tự trong từng lớp
-    ROW_NUMBER() OVER (PARTITION BY LOP ORDER BY DTB DESC) AS stt_trong_lop,
-    -- Xếp hạng theo điểm (đồng điểm cùng hạng)
-    DENSE_RANK() OVER (PARTITION BY LOP ORDER BY DTB DESC) AS hang_trong_lop
-FROM HOSO_MODERN;
-
--- 2. Lấy Top 2 sản phẩm Laptop có giá cao nhất của TỪNG HÃNG
-WITH RankedProducts AS (
-    SELECT 
-        product_id, 
-        product_name, 
-        category_id, 
-        price,
-        ROW_NUMBER() OVER (PARTITION BY category_id ORDER BY price DESC) as top_rank
-    FROM products
-)
-SELECT * FROM RankedProducts WHERE top_rank <= 2;
-
--- 3. LAG() và LEAD(): So sánh giá sản phẩm hiện tại với sản phẩm trước/sau nó
-SELECT 
-    product_name, 
-    price,
-    LAG(price, 1) OVER (ORDER BY price ASC) AS gia_may_re_hon_lien_ke,
-    LEAD(price, 1) OVER (ORDER BY price ASC) AS gia_may_dat_hon_lien_ke
-FROM products;
-```
-
----
-
-### 8.5. Các Hàm Tính Toán & Thao Tác Dữ Liệu Tiện Ích Hiện Đại
-
-#### A. Hàm `GREATEST()` & `LEAST()` (So Sánh Giá Trị Lớn Nhất / Nhỏ Nhất)
-
-- **`GREATEST(v1, v2, ...)`:** Trả về giá trị lớn nhất trong danh sách đối số.
-  - *Ứng dụng kinh điển (Bài 15 - Quản lý kho):* Trừ số lượng tồn kho khi mua hàng nhưng **đảm bảo không bao giờ bị âm dưới `0`**:
-    ```sql
-    UPDATE products 
-    SET quantity = GREATEST(0, quantity - 2) 
-    WHERE product_id = 10;
-    ```
-- **`LEAST(v1, v2, ...)`:** Trả về giá trị nhỏ nhất trong danh sách (Dùng để giới hạn số lượng tối đa được phép mua: `LEAST(max_limit, user_input)`).
-
-#### B. Hàm Xử Lý Giá Trị Rỗng `COALESCE()` & `IFNULL()`
-
-```sql
--- COALESCE: Lấy giá trị đầu tiên khác NULL trong danh sách đối số
--- Nếu old_price NULL -> lấy price -> nếu price NULL -> lấy 0
-SELECT product_name, COALESCE(old_price, price, 0) AS display_price FROM products;
-
--- IFNULL: Viết tắt cho 2 đối số
-SELECT product_name, IFNULL(summary_spec, 'Chưa có thông số') AS spec FROM products;
-```
-
-#### C. Thao Tác "Thêm Mới Hoặc Cập Nhật" (UPSERT Hiện Đại)
-
-```sql
--- Cú pháp hiện đại (MySQL 8.0.19+): Dùng bí danh hàng mới 'AS new_row'
-INSERT INTO product_views (product_id, view_count, last_viewed)
-VALUES (101, 1, NOW())
-AS new_data
-ON DUPLICATE KEY UPDATE 
-    view_count = product_views.view_count + 1,
-    last_viewed = new_data.last_viewed;
-```
-
-#### D. Biểu Thức Điều Kiện Phân Nhánh `CASE WHEN`
-
-```sql
-SELECT product_name, price, quantity,
-       CASE 
-           WHEN quantity = 0 THEN '🚫 Hết hàng'
-           WHEN quantity <= 5 THEN '⚠️ Sắp hết hàng'
-           ELSE '✅ Còn hàng'
-       END AS stock_status
-FROM products;
 ```

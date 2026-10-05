@@ -1,3 +1,15 @@
+<?php
+if (!isset($relBase)) {
+    $relBase = '../';
+    $currentScriptFile = str_replace('\\', '/', dirname($_SERVER['SCRIPT_FILENAME'] ?? ''));
+    $rootProjectDir = str_replace('\\', '/', dirname(__DIR__));
+    if (!empty($currentScriptFile) && strpos($currentScriptFile, $rootProjectDir) === 0) {
+        $subPath = trim(substr($currentScriptFile, strlen($rootProjectDir)), '/');
+        $depth = $subPath ? count(explode('/', $subPath)) : 0;
+        $relBase = str_repeat('../', $depth);
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="vi">
 
@@ -5,7 +17,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- 1. CSS khung giao diện chung toàn website -->
-    <link rel="stylesheet" href="/src/css/common.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="<?= $relBase ?>src/css/common.css?v=<?php echo time(); ?>">
     <!-- 2. CSS riêng của Bài 2 -->
     <link rel="stylesheet" href="style.css?v=<?php echo time(); ?>">
 </head>
@@ -18,7 +30,7 @@
                 <p>Bùi Ngọc Nhất</p>
             </div>
             <div class="banner">
-                <img src="/src/image/pngtree-simply-pastel-minimal-and-relax-horizontal-line-between-peaceful-sea-and-image_15829105.jpg" alt="Banner">
+                <img src="<?= $relBase ?>src/image/pngtree-simply-pastel-minimal-and-relax-horizontal-line-between-peaceful-sea-and-image_15829105.jpg" alt="Banner">
             </div>
         </header>
 
@@ -26,14 +38,14 @@
         <div class="container">
             <!-- Cột trái: Nhúng menu bài tập từ Bài 1 -->
             <?php
-            if (file_exists('../Bai1/Menu.php')) {
-                include '../Bai1/Menu.php';
+            if (file_exists(__DIR__ . '/../Bai1/Menu.php')) {
+                include __DIR__ . '/../Bai1/Menu.php';
             } else {
             ?>
                 <aside class="sidebar">
                     <ul>
-                        <li><a href="/Bai1/index.php">1. Tạo template</a></li>
-                        <li><a href="/Bai2/Register.php">2. Sử dụng template</a></li>
+                        <li><a href="<?= $relBase ?>Bai1/index.php">1. Tạo template</a></li>
+                        <li><a href="<?= $relBase ?>Bai2/Register.php">2. Sử dụng template</a></li>
                     </ul>
                 </aside>
             <?php } ?>

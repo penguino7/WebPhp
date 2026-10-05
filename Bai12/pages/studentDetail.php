@@ -35,7 +35,7 @@ function renderStudentDetailCard($conn, $studentID)
         <div class='student-detail-card'>
             <!-- Khung ảnh đại diện sinh viên -->
             <div class='student-avatar-box'>
-                <img src='{$imagePath}' alt='Ảnh {$svName}' onerror=\"this.src='/src/image/default-avatar.png';\">
+                <img src='{$imagePath}' alt='Ảnh {$svName}' onerror=\"this.src='images/1.jpg';\">
             </div>
 
             <!-- Khung thông tin cá nhân -->
